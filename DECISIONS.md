@@ -104,3 +104,5 @@
 - Doc: `docs/architecture/target-session.md`
 - Status: **locked** (OpenIddict-first per Mina 2026-09-21)
 
+**AUTH-1b (2026-09-21):** App login is a shared `ILoginOrchestrator` (person → BG → `ITenantConnectionFactory` → CheckURules-shaped policy → claims cookie). IdP callbacks must resume through the same orchestrator. Fail-closed on policy errors (unlike CURRENT `CheckURules`). No `user-server-db` cookie name (D-013a).
+

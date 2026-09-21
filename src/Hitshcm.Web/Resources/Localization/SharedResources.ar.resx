@@ -56,4 +56,14 @@
   <data name="CultureArabic" xml:space="preserve"><value>العربية</value></data>
   <data name="ErrorTitle" xml:space="preserve"><value>حدث خطأ</value></data>
   <data name="ErrorLead" xml:space="preserve"><value>حدث خطأ أثناء معالجة طلبك.</value></data>
+  <data name="ChangePassword" xml:space="preserve"><value>تغيير كلمة المرور</value></data>
+  <data name="ChangePasswordForced" xml:space="preserve"><value>يجب تغيير كلمة المرور قبل المتابعة.</value></data>
+  <data name="ChangePasswordOptional" xml:space="preserve"><value>اختر كلمة مرور جديدة لهذا الحساب.</value></data>
+  <data name="CurrentPassword" xml:space="preserve"><value>كلمة المرور الحالية</value></data>
+  <data name="NewPassword" xml:space="preserve"><value>كلمة المرور الجديدة</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>تأكيد كلمة المرور الجديدة</value></data>
+  <data name="SubmitChangePassword" xml:space="preserve"><value>تحديث كلمة المرور</value></data>
+  <data name="FirstLogon" xml:space="preserve"><value>أول تسجيل دخول</value></data>
+  <data name="FirstLogonBody" xml:space="preserve"><value>يرجى الإقرار بإشعار أول تسجيل دخول للمتابعة. هذه صفحة مؤقتة مقابل FirstLogonAck الحالي.</value></data>
+  <data name="FirstLogonAck" xml:space="preserve"><value>إقرار</value></data>
 </root>

@@ -2,7 +2,8 @@
 
 **SoT:** `D:\Workspaces\HITSNasDnaFS\HITSNasDna\NasDna\logon.aspx` (+ `logon_ar.aspx`, `logon_Misr*.aspx` variants)  
 **Studied:** 2026-09-21  
-**Purpose:** Inform TARGET AUTH-1 login chrome (D-012 UX-0) — borrow product cues, do **not** port Web Forms markup.
+**Purpose:** Inform TARGET AUTH-1 login chrome (D-012 UX-0) — borrow product cues, do **not** port Web Forms markup.  
+**Behavior companion:** [current-login-flow.md](current-login-flow.md) (AUTH-1b orchestrator).
 
 ## Layout pattern
 

@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using Hitshcm.Web.Identity;
+using Hitshcm.Web.Login;
 using Hitshcm.Web.Tenancy;
 using Microsoft.AspNetCore.Mvc.Testing;
 
@@ -188,6 +189,113 @@ public sealed class AuthFlowTests : IClassFixture<HitshcmWebFactory>
         Assert.DoesNotContain("ConnectionString", homeHtml, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Data Source=", homeHtml, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Server=", homeHtml, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task Login_InactiveUser_Shows002_AndDoesNotIssueCookie()
+    {
+        var client = CreateClient();
+        var token = await GetLoginTokenAsync(client);
+
+        var post = await client.PostAsync("/Account/Login", new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["Input.UserNameOrEmail"] = IdentityDataSeeder.InactiveEmail,
+            ["Input.Password"] = IdentityDataSeeder.DefaultAdminPassword,
+            ["Input.BusinessGroupId"] = IdentityDataSeeder.DefaultBusinessGroupId,
+            ["__RequestVerificationToken"] = token
+        }));
+
+        Assert.Equal(HttpStatusCode.OK, post.StatusCode);
+        var body = await post.Content.ReadAsStringAsync();
+        Assert.Contains(LoginPolicyMessages.Inactive, body, StringComparison.Ordinal);
+        Assert.DoesNotContain(post.Headers, h =>
+            h.Key.Equals("Set-Cookie", StringComparison.OrdinalIgnoreCase)
+            && h.Value.Any(v => v.Contains("Hitshcm.Auth=", StringComparison.Ordinal)));
+    }
+
+    [Fact]
+    public async Task Login_HrInactiveUser_Shows004_AndDoesNotIssueCookie()
+    {
+        var client = CreateClient();
+        var token = await GetLoginTokenAsync(client);
+
+        var post = await client.PostAsync("/Account/Login", new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["Input.UserNameOrEmail"] = IdentityDataSeeder.HrInactiveEmail,
+            ["Input.Password"] = IdentityDataSeeder.DefaultAdminPassword,
+            ["Input.BusinessGroupId"] = IdentityDataSeeder.DefaultBusinessGroupId,
+            ["__RequestVerificationToken"] = token
+        }));
+
+        Assert.Equal(HttpStatusCode.OK, post.StatusCode);
+        var body = await post.Content.ReadAsStringAsync();
+        Assert.Contains(LoginPolicyMessages.HrInactiveForbidden, body, StringComparison.Ordinal);
+        Assert.DoesNotContain(post.Headers, h =>
+            h.Key.Equals("Set-Cookie", StringComparison.OrdinalIgnoreCase)
+            && h.Value.Any(v => v.Contains("Hitshcm.Auth=", StringComparison.Ordinal)));
+    }
+
+    [Fact]
+    public async Task Login_MustChangeUser_RedirectsToChangePassword()
+    {
+        var client = CreateClient();
+        var token = await GetLoginTokenAsync(client);
+
+        var post = await client.PostAsync("/Account/Login", new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["Input.UserNameOrEmail"] = IdentityDataSeeder.MustChangeEmail,
+            ["Input.Password"] = IdentityDataSeeder.DefaultAdminPassword,
+            ["Input.BusinessGroupId"] = IdentityDataSeeder.DefaultBusinessGroupId,
+            ["ReturnUrl"] = "/",
+            ["__RequestVerificationToken"] = token
+        }));
+
+        Assert.Equal(HttpStatusCode.Redirect, post.StatusCode);
+        Assert.Equal("/Account/ChangePassword", GetLocationPath(post));
+        Assert.Contains(post.Headers, h =>
+            h.Key.Equals("Set-Cookie", StringComparison.OrdinalIgnoreCase)
+            && h.Value.Any(v => v.Contains("Hitshcm.Auth=", StringComparison.Ordinal)
+                && v.Contains("httponly", StringComparison.OrdinalIgnoreCase)));
+
+        var home = await client.GetAsync("/");
+        Assert.Equal(HttpStatusCode.Redirect, home.StatusCode);
+        Assert.Equal("/Account/ChangePassword", GetLocationPath(home));
+
+        var change = await client.GetAsync("/Account/ChangePassword");
+        var changeHtml = await change.Content.ReadAsStringAsync();
+        Assert.Equal(HttpStatusCode.OK, change.StatusCode);
+        Assert.Contains("Change password", changeHtml, StringComparison.Ordinal);
+        Assert.Contains("must be changed", changeHtml, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task Login_FirstLogonUser_RedirectsToAckPlaceholder()
+    {
+        var client = CreateClient();
+        var token = await GetLoginTokenAsync(client);
+
+        var post = await client.PostAsync("/Account/Login", new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["Input.UserNameOrEmail"] = IdentityDataSeeder.FirstLogonEmail,
+            ["Input.Password"] = IdentityDataSeeder.DefaultAdminPassword,
+            ["Input.BusinessGroupId"] = IdentityDataSeeder.DefaultBusinessGroupId,
+            ["__RequestVerificationToken"] = token
+        }));
+
+        Assert.Equal(HttpStatusCode.Redirect, post.StatusCode);
+        Assert.Equal("/Account/FirstLogon", GetLocationPath(post));
+
+        var page = await client.GetAsync("/Account/FirstLogon");
+        var html = await page.Content.ReadAsStringAsync();
+        Assert.Equal(HttpStatusCode.OK, page.StatusCode);
+        Assert.Contains("First sign-in", html, StringComparison.Ordinal);
+    }
+
+    private static async Task<string> GetLoginTokenAsync(HttpClient client)
+    {
+        var loginGet = await client.GetAsync("/Account/Login");
+        var html = await loginGet.Content.ReadAsStringAsync();
+        return GetAntiforgeryToken(html);
     }
 
     private HttpClient CreateClient()

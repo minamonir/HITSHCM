@@ -40,7 +40,8 @@
 - [x] **AUTH-0** Confirm D-013 / D-013a / D-013b (OpenIddict-first)
 - [x] **AUTH-1** Spike OpenIddict + cookie BFF on HITSHCM host (`src/Hitshcm.Web`, see `docs/AUTH.md`)
 - [x] **UX-0 login CURRENT cues** Razor login restyle: teal/cyan tokens, split hero, frosted fields, BG picker claims, Office 365/OKTA stubs — see `docs/architecture/current-login-ux.md`
-- [ ] **AUTH-2** ITenantContext + connection factory (Key Vault later) — `ITenantContext` claims stub exists; factory/SQL not started
+- [x] **AUTH-1b** Shared login orchestrator (`ILoginOrchestrator`): Identity password → BG resolve → CheckURules-shaped policy (002/003/004 fail-closed) → `org_id`/`bg_id` claims; must-change + first-logon stubs; `ITenantConnectionFactory` named-options descriptor (no secrets in cookie). CURRENT map: `docs/architecture/current-login-flow.md`
+- [ ] **AUTH-2** ITenantContext + connection factory (Key Vault / DNA SQL) — claim stub + **dev** named-options factory exist; live DNACloudDB not started
 - [ ] **AUTH-3** Mode A session-exchange spike with legacy logon
 - [ ] **AUTH-4** Rights service wrapper (replace Session UserGroupRights reads)
 

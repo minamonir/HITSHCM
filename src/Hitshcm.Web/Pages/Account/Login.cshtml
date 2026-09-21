@@ -46,6 +46,9 @@
                 <button type="submit" class="btn btn-primary">@L["SubmitSignIn"]</button>
             </form>
 
+            @* AUTH-1b: Office 365 / OKTA remain stubs. After a real IdP callback, call
+               ILoginOrchestrator.ResumeExternalAsync — same BG resolve + CheckURules policy
+               as password login. Do not bind org/BG in the IdP handler itself. *@
             <div class="idp-row" role="group" aria-labelledby="idp-row-label">
                 <p id="idp-row-label" class="idp-row-label">@L["IdpRowLabel"]</p>
                 <div class="idp-row-actions">

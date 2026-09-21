@@ -56,4 +56,14 @@
   <data name="CultureArabic" xml:space="preserve"><value>العربية</value></data>
   <data name="ErrorTitle" xml:space="preserve"><value>Something went wrong</value></data>
   <data name="ErrorLead" xml:space="preserve"><value>An error occurred while processing your request.</value></data>
+  <data name="ChangePassword" xml:space="preserve"><value>Change password</value></data>
+  <data name="ChangePasswordForced" xml:space="preserve"><value>Your password must be changed before you can continue.</value></data>
+  <data name="ChangePasswordOptional" xml:space="preserve"><value>Choose a new password for this account.</value></data>
+  <data name="CurrentPassword" xml:space="preserve"><value>Current password</value></data>
+  <data name="NewPassword" xml:space="preserve"><value>New password</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>Confirm new password</value></data>
+  <data name="SubmitChangePassword" xml:space="preserve"><value>Update password</value></data>
+  <data name="FirstLogon" xml:space="preserve"><value>First sign-in</value></data>
+  <data name="FirstLogonBody" xml:space="preserve"><value>Please acknowledge the first-sign-in notice to continue. This is a TARGET stand-in for CURRENT FirstLogonAck.</value></data>
+  <data name="FirstLogonAck" xml:space="preserve"><value>Acknowledge</value></data>
 </root>

@@ -31,6 +31,16 @@ public sealed class ApplicationUserClaimsPrincipalFactory
             identity.AddClaim(new Claim(TenantClaimTypes.BusinessGroupId, user.BusinessGroupId));
         }
 
+        if (!string.IsNullOrWhiteSpace(user.ProfileId))
+        {
+            identity.AddClaim(new Claim(TenantClaimTypes.ProfileId, user.ProfileId));
+        }
+
+        if (!string.IsNullOrWhiteSpace(user.EmpId))
+        {
+            identity.AddClaim(new Claim(TenantClaimTypes.EmpId, user.EmpId));
+        }
+
         // Defaults for OpenIddict / non-picker sign-in. Razor login replaces these
         // with the selected catalog group (D-013a) — never a connection string.
         return identity;

@@ -9,6 +9,7 @@ Updated: 2026-09-21
 - [x] UX-0: login chrome (skip link, culture switch, labeled auth card)
 - [x] UX-0: landing identity strip + what’s-next cards; Arabic `dir="rtl"`
 - [x] Login CURRENT cues: BG field, Office 365/OKTA stubs, teal/cyan tokens, split hero; selected BG sets claims; cookie still HttpOnly
+- [x] AUTH-1b: policy 002/003/004, BG claims on success, must-change redirect, login page uses orchestrator
 - [ ] Empty / loading / error states (beyond login validation) — UX-1
 
 ## Automated (when stack exists)
@@ -29,6 +30,7 @@ Updated: 2026-09-21
 6. Log out via user menu → back to login; `/` redirects again
 7. Language: العربية → `dir="rtl"`, culture control shows العربية active, nav/chips mirror; login split still usable
 8. Office 365 / OKTA buttons are visible stubs (coming soon; password login still works)
+9. AUTH-1b: `mustchange@hitshcm.local` / `ChangeMe!123` → `/Account/ChangePassword` (landing gated). `inactive@` and `hrinactive@` stay on login with no cookie.
 
 ## Responsive smoke
 

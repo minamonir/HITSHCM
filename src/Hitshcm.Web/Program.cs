@@ -1,6 +1,7 @@
 using Hitshcm.Web.Data;
 using Hitshcm.Web.Identity;
 using Hitshcm.Web.Infrastructure;
+using Hitshcm.Web.Login;
 using Hitshcm.Web.Tenancy;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
@@ -24,7 +25,12 @@ if (identityConnection.Contains("App_Data", StringComparison.OrdinalIgnoreCase))
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ITenantContext, HttpTenantContext>();
-builder.Services.AddSingleton<IBusinessGroupCatalog, SeedBusinessGroupCatalog>();
+builder.Services.AddSingleton<SeedBusinessGroupCatalog>();
+builder.Services.AddSingleton<IBusinessGroupCatalog>(sp => sp.GetRequiredService<SeedBusinessGroupCatalog>());
+builder.Services.AddSingleton<ITenantCatalog>(sp => sp.GetRequiredService<SeedBusinessGroupCatalog>());
+builder.Services.AddSingleton<ITenantConnectionFactory, DevelopmentTenantConnectionFactory>();
+builder.Services.AddSingleton<ILoginPolicyEvaluator, LoginPolicyEvaluator>();
+builder.Services.AddScoped<ILoginOrchestrator, LoginOrchestrator>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -163,6 +169,7 @@ app.UseRouting();
 // D-013b: no app.UseSession() — business state must not live in InProc Session.
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<LoginContinuationMiddleware>();
 
 app.MapStaticAssets();
 app.MapControllers();
@@ -176,5 +183,6 @@ public partial class Program
     // WebApplicationFactory entry point.
 }
 
-// Entra: add later as an OpenIddict client / external IdP on this same gateway (D-013). Do not add Entra in AUTH-1.
+// Entra/Okta: add later as OpenIddict external IdPs on this same gateway (D-013).
+// After an IdP callback, call ILoginOrchestrator.ResumeExternalAsync (AUTH-1b) — do not bind tenant in the challenge handler.
 // Mode A: session-exchange / bridge cookie with legacy NasDna Forms auth is out of scope this slice (D-013b).

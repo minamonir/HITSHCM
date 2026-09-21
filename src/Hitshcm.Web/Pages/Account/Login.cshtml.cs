@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
-using Hitshcm.Web.Data;
 using Hitshcm.Web.Identity;
+using Hitshcm.Web.Login;
 using Hitshcm.Web.Tenancy;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -15,18 +14,13 @@ namespace Hitshcm.Web.Pages.Account;
 [AllowAnonymous]
 public sealed class LoginModel : PageModel
 {
-    private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IBusinessGroupCatalog _businessGroups;
+    private readonly ILoginOrchestrator _orchestrator;
+    private readonly ITenantCatalog _tenants;
 
-    public LoginModel(
-        SignInManager<ApplicationUser> signInManager,
-        UserManager<ApplicationUser> userManager,
-        IBusinessGroupCatalog businessGroups)
+    public LoginModel(ILoginOrchestrator orchestrator, ITenantCatalog tenants)
     {
-        _signInManager = signInManager;
-        _userManager = userManager;
-        _businessGroups = businessGroups;
+        _orchestrator = orchestrator;
+        _tenants = tenants;
     }
 
     [BindProperty]
@@ -57,87 +51,73 @@ public sealed class LoginModel : PageModel
 
         BindBusinessGroups();
 
-        var selectedGroup = _businessGroups.Find(Input.BusinessGroupId);
-        if (selectedGroup is null)
-        {
-            ModelState.AddModelError("Input.BusinessGroupId", "Select a valid business group.");
-        }
-
-        if (!ModelState.IsValid || selectedGroup is null)
+        if (!ModelState.IsValid)
         {
             return Page();
         }
 
-        var user = await FindUserAsync(Input.UserNameOrEmail);
-        if (user is null)
+        var outcome = await _orchestrator.AuthenticateAsync(new LoginRequest
         {
-            ModelState.AddModelError(string.Empty, "Invalid username/email or password.");
-            return Page();
+            UserNameOrEmail = Input.UserNameOrEmail,
+            Password = Input.Password,
+            BusinessGroupId = Input.BusinessGroupId,
+            RememberMe = Input.RememberMe,
+            Method = LoginAuthMethod.Password
+        });
+
+        if (outcome.Status == LoginStatus.NeedsBusinessGroup && outcome.Memberships.Count > 0)
+        {
+            BindBusinessGroups(outcome.Memberships);
         }
 
-        var result = await _signInManager.CheckPasswordSignInAsync(
-            user,
-            Input.Password,
-            lockoutOnFailure: true);
-
-        if (result.Succeeded)
+        if (outcome.ShouldSignIn && outcome.Principal is not null)
         {
-            await SignInWithBusinessGroupAsync(user, selectedGroup);
+            await HttpContext.SignInAsync(
+                IdentityConstants.ApplicationScheme,
+                outcome.Principal,
+                outcome.AuthProperties ?? new AuthenticationProperties { AllowRefresh = true });
+
+            if (!string.IsNullOrEmpty(outcome.RedirectPath) && Url.IsLocalUrl(outcome.RedirectPath))
+            {
+                return LocalRedirect(outcome.RedirectPath);
+            }
+
             return LocalRedirect(GetSafeReturnUrl());
         }
 
-        if (result.IsLockedOut)
+        var error = string.IsNullOrWhiteSpace(outcome.ErrorMessage)
+            ? LoginPolicyMessages.FailClosed
+            : outcome.ErrorMessage;
+
+        if (outcome.Status == LoginStatus.NeedsBusinessGroup)
         {
-            ModelState.AddModelError(string.Empty, "This account is locked. Try again later.");
-            return Page();
+            ModelState.AddModelError("Input.BusinessGroupId", error);
+        }
+        else
+        {
+            ModelState.AddModelError(string.Empty, error);
         }
 
-        ModelState.AddModelError(string.Empty, "Invalid username/email or password.");
         return Page();
     }
 
-    private async Task SignInWithBusinessGroupAsync(ApplicationUser user, BusinessGroupInfo group)
-    {
-        var principal = await _signInManager.CreateUserPrincipalAsync(user);
-        if (principal.Identity is not ClaimsIdentity identity)
-        {
-            throw new InvalidOperationException("Expected a claims identity after password sign-in.");
-        }
-
-        TenantClaimAssigner.Replace(identity, group);
-
-        await HttpContext.SignInAsync(
-            IdentityConstants.ApplicationScheme,
-            principal,
-            new AuthenticationProperties
-            {
-                IsPersistent = Input.RememberMe,
-                AllowRefresh = true
-            });
-    }
-
-    private void BindBusinessGroups()
+    private void BindBusinessGroups(IReadOnlyList<BusinessGroupInfo>? memberships = null)
     {
         var arabic = string.Equals(
             System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
             "ar",
             StringComparison.OrdinalIgnoreCase);
 
+        var groups = memberships is { Count: > 0 } ? memberships : _tenants.List();
+
         if (string.IsNullOrWhiteSpace(Input.BusinessGroupId))
         {
             Input.BusinessGroupId = IdentityDataSeeder.DefaultBusinessGroupId;
         }
 
-        BusinessGroups = _businessGroups.List()
+        BusinessGroups = groups
             .Select(g => new SelectListItem(arabic ? g.NameAr : g.Name, g.Id))
             .ToList();
-    }
-
-    private async Task<ApplicationUser?> FindUserAsync(string userNameOrEmail)
-    {
-        return userNameOrEmail.Contains('@', StringComparison.Ordinal)
-            ? await _userManager.FindByEmailAsync(userNameOrEmail) ?? await _userManager.FindByNameAsync(userNameOrEmail)
-            : await _userManager.FindByNameAsync(userNameOrEmail) ?? await _userManager.FindByEmailAsync(userNameOrEmail);
     }
 
     private string GetSafeReturnUrl()
@@ -161,7 +141,6 @@ public sealed class LoginModel : PageModel
         [Display(Name = "Password")]
         public string Password { get; set; } = string.Empty;
 
-        [Required]
         [Display(Name = "Business group")]
         public string BusinessGroupId { get; set; } = IdentityDataSeeder.DefaultBusinessGroupId;
 

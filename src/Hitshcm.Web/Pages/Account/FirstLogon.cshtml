@@ -1,0 +1,22 @@
+@page
+@model Hitshcm.Web.Pages.Account.FirstLogonModel
+@using Hitshcm.Web.Localization
+@inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResources> L
+@{
+    ViewData["Title"] = L["FirstLogon"];
+    ViewData["Shell"] = "auth";
+}
+
+<section class="auth-split">
+    <partial name="_AuthHero" />
+    <div class="auth-panel">
+        <div class="auth-card">
+            <p class="kicker">@L["AppName"]</p>
+            <h1 class="page-title">@L["FirstLogon"]</h1>
+            <p class="lede">@L["FirstLogonBody"]</p>
+            <form method="post">
+                <button type="submit" class="btn btn-primary">@L["FirstLogonAck"]</button>
+            </form>
+        </div>
+    </div>
+</section>

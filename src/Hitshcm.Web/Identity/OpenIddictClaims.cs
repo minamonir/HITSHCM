@@ -71,6 +71,8 @@ internal static class OpenIddictClaims
 
             case TenantClaimTypes.OrgId:
             case TenantClaimTypes.BusinessGroupId:
+            case TenantClaimTypes.ProfileId:
+            case TenantClaimTypes.EmpId:
                 yield return Destinations.AccessToken;
                 yield break;
 
