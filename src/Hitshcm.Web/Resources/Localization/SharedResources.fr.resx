@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SignIn" xml:space="preserve"><value>Connexion</value></data>
+  <data name="LoginUserName" xml:space="preserve"><value>Nom d'utilisateur :</value></data>
+  <data name="LoginPassword" xml:space="preserve"><value>Mot de passe :</value></data>
+  <data name="LoginSubmit" xml:space="preserve"><value>Connexion</value></data>
+  <data name="ForgotPassword" xml:space="preserve"><value>Mot de passe oublié ?</value></data>
+  <data name="ForgotPasswordBody" xml:space="preserve"><value>La récupération du mot de passe arrive bientôt sur cet hôte. Utilisez votre mot de passe HITSHCM pour vous connecter.</value></data>
+  <data name="RegisterReactivate" xml:space="preserve"><value>S'inscrire / Réactiver l'utilisateur</value></data>
+  <data name="RegisterBody" xml:space="preserve"><value>L'auto-inscription arrive bientôt. Demandez à un administrateur d'activer votre compte.</value></data>
+  <data name="LoginCopyright" xml:space="preserve"><value>© 2026 HITS Solutions. All Rights Reserved.</value></data>
+  <data name="LoginCultureFrench" xml:space="preserve"><value>Français</value></data>
+  <data name="LoginCultureEnglish" xml:space="preserve"><value>English</value></data>
+  <data name="CultureFrench" xml:space="preserve"><value>FR</value></data>
+  <data name="SelectBusinessGroup" xml:space="preserve"><value>Sélectionnez un groupe d'affaires</value></data>
+  <data name="BusinessGroup" xml:space="preserve"><value>Groupe d'affaires</value></data>
+  <data name="IdpOffice365" xml:space="preserve"><value>Office 365</value></data>
+</root>

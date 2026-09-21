@@ -280,6 +280,26 @@ a {
   background: var(--brand-deep);
 }
 
+.shell-login {
+  background: var(--brand-deep);
+  min-height: 100vh;
+}
+
+.shell-login .app-main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 100vh;
+}
+
+.shell-login .skip-link {
+  background: var(--brand-accent);
+  color: var(--brand-accent-text);
+}
+
 /* ----- Surfaces & type ----- */
 
 .kicker {
@@ -531,6 +551,194 @@ h3 {
   color: rgba(248, 252, 253, 0.62);
 }
 
+/* ----- Live Agentic logon (hitshcmcloud.org) ----- */
+
+.login-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, var(--login-panel-width));
+  width: 100%;
+  min-height: 100vh;
+  flex: 1 1 auto;
+}
+
+.login-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 0.6rem 0 0.75rem;
+  background: var(--brand-deep);
+  color: #fff;
+}
+
+.login-logo {
+  width: 217px;
+  height: auto;
+  margin-block-start: 10px;
+  margin-inline-start: 50px;
+  flex: 0 0 auto;
+  user-select: none;
+}
+
+.login-hero-stage {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0.5rem 1.5rem;
+}
+
+.login-hero-art {
+  width: min(62%, 462px);
+  max-height: min(70vh, 650px);
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+}
+
+.login-copy {
+  margin-block: 0 0.35rem;
+  margin-inline-start: 50px;
+  color: #fff;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.login-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 2.5rem 1.85rem;
+  color: #fff;
+  background:
+    url("/img/login/panel-pattern.png") center / cover no-repeat,
+    #0a4660;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 22.5rem;
+}
+
+.login-form .field {
+  margin-bottom: 0.85rem;
+}
+
+.login-form .field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #fff;
+  font-weight: var(--font-weight-regular);
+}
+
+.login-form .form-control {
+  min-height: 2.25rem;
+  background: var(--brand-field-fill);
+  border: 0;
+  border-radius: var(--brand-field-radius);
+  color: #fff;
+  box-shadow: none;
+}
+
+.login-form .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.login-form .form-control:focus {
+  border: 0;
+  background: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-accent) 45%, transparent);
+  color: #fff;
+}
+
+.login-form select.form-control option {
+  background: var(--brand-select-option-bg);
+  color: #fff;
+}
+
+.login-form .field-error,
+.login-form .field-validation-error,
+.login-form .form-alert ul {
+  color: #ffb4a8;
+}
+
+.login-form .form-alert,
+.login-form .alert-danger {
+  background: rgba(180, 35, 24, 0.22);
+  border-color: rgba(255, 180, 168, 0.4);
+  color: #ffd7d0;
+}
+
+.login-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 1.15rem 0 0;
+}
+
+.login-links-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.login-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.login-text-link,
+.login-text-link:visited {
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+  background: transparent;
+  border: 0;
+}
+
+.login-text-link:hover,
+.login-text-link:focus-visible {
+  color: #fff;
+}
+
+.login-actions {
+  display: flex;
+  gap: 0.65rem;
+  margin-top: 3.1rem;
+}
+
+.btn-login {
+  flex: 1 1 0;
+  min-height: 2.1rem;
+  height: 2.1rem;
+  padding: 0 0.75rem;
+  border: 0;
+  border-radius: var(--brand-field-radius);
+  background: var(--brand-accent);
+  color: var(--brand-accent-text);
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.btn-login:hover,
+.btn-login:focus-visible {
+  background: var(--brand-accent-hover);
+  color: var(--brand-accent-text);
+}
+
+.login-idp-notice {
+  margin: 0.85rem 0 0;
+  color: #ffb4a8;
+  font-size: var(--font-size-sm);
+}
+
 .field {
   margin-bottom: var(--space-4);
 }
@@ -642,6 +850,11 @@ input.input-validation-error {
 .btn-ghost:focus-visible {
   background: var(--color-surface-muted);
   color: var(--color-text);
+}
+
+.login-actions .btn-login {
+  min-height: 2.1rem;
+  height: 2.1rem;
 }
 
 
@@ -799,11 +1012,56 @@ input.input-validation-error {
   .idp-row-actions {
     grid-template-columns: 1fr;
   }
+
+  .login-split {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .login-hero {
+    min-height: 16rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .login-logo {
+    width: 160px;
+    margin-block-start: 12px;
+    margin-inline-start: 1.25rem;
+  }
+
+  .login-hero-art {
+    width: min(70%, 280px);
+    max-height: 11rem;
+  }
+
+  .login-copy {
+    margin-block: 0 0.5rem;
+    margin-inline-start: 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .login-panel {
+    min-height: auto;
+    padding: 2rem 1.25rem 2.5rem;
+  }
+
+  .login-actions {
+    margin-top: 1.75rem;
+  }
 }
 
 @media (max-height: 768px) {
   .auth-hero-art {
     max-height: 12rem;
+  }
+
+  .login-logo {
+    width: 160px;
+    height: auto;
+  }
+
+  .login-hero-art {
+    max-height: 400px;
   }
 }
 

@@ -1,0 +1,22 @@
+@page
+@model Hitshcm.Web.Pages.Account.RegisterModel
+@using Hitshcm.Web.Localization
+@inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResources> L
+@{
+    ViewData["Title"] = L["RegisterReactivate"];
+    ViewData["Shell"] = "auth";
+}
+
+<section class="auth-split">
+    <partial name="_AuthHero" />
+    <div class="auth-panel">
+        <div class="auth-card">
+            <p class="kicker">@L["AppName"]</p>
+            <h1 class="page-title">@L["RegisterReactivate"]</h1>
+            <p class="lede">@L["RegisterBody"]</p>
+            <p>
+                <a class="btn btn-primary" asp-page="/Account/Login">@L["SignIn"]</a>
+            </p>
+        </div>
+    </div>
+</section>

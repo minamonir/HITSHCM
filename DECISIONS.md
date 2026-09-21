@@ -97,6 +97,8 @@
 
 **CURRENT login cues on TARGET (2026-09-21):** Mina selected all five NasDna `logon.aspx` product cues for Razor login (teal/cyan tokens, split hero, frosted dark fields, BG picker → org/BG claims, IdP stubs). Study + applied note: `docs/architecture/current-login-ux.md`. Not a Web Forms port (no tables, no `logon_ar`, no HitsCC, no conn strings in the cookie).
 
+**Login chrome SoT = live Agentic logon (2026-09-21):** Visual source of truth for `/Account/Login` is production [https://www.hitshcmcloud.org/logon.aspx](https://www.hitshcmcloud.org/logon.aspx), not the PR #3 five-cue frosted card. Full-height split, Username+Password first paint, Log In + Office 365, BG picker as AUTH-1b second step when memberships > 1. Docs: `docs/architecture/current-login-ux.md`.
+
 ## D-013 — TARGET session & auth (locked 2026-09-21)
 - **D-013:** **OpenIddict (local OIDC IdP) first** + BFF cookie for Razor; no fat server Session for business state. Entra/external IdP added later on the same gateway.
 - **D-013a:** Tenant server-resolved from org/BG id; never connection string in identity or client profile.

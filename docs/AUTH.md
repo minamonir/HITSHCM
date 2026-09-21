@@ -13,10 +13,10 @@ Password login (and future SSO resume) share **one** orchestrator. Identity pass
 Browser
   GET /  (anonymous)
        → 302 /Account/Login
-  POST /Account/Login  (username/email + password + business group)
+  POST /Account/Login  (username/email + password; BG only if already chosen or second step)
        → ILoginOrchestrator.AuthenticateAsync
             1. Authenticate person (Identity password today; ExternalSso hook for IdP resume)
-            2. Resolve Business Group from picker or single membership (ITenantCatalog)
+            2. Resolve Business Group: empty + one membership → auto-select; empty + many → NeedsBusinessGroup (picker step); explicit id → that group
             3. ITenantConnectionFactory.Resolve(org, bg) — named options, server-side only
             4. ILoginPolicyEvaluator (CheckURules codes 001/002/003/004; fail-closed)
             5. Record ConsecutiveAttempts on the user store
@@ -40,7 +40,7 @@ POST /Account/Login (password)
         \
          +--> ILoginOrchestrator.AuthenticateAsync
         /         |
-Office 365 / OKTA stubs (later: IdP challenge
+Office 365 stub (later: IdP challenge
 then ILoginOrchestrator.ResumeExternalAsync)
                   |
                   v
@@ -60,7 +60,7 @@ then ILoginOrchestrator.ResumeExternalAsync)
       +--> landing /  (gated until password changed)
 ```
 
-IdP buttons on `/Account/Login` stay **stubs**. When Entra/Okta are wired, the callback must **not** pick BG or write tenant claims; it calls the same orchestrator (CURRENT SAML ACS is similarly thin — tenant bind happens on logon resume).
+IdP: **Office 365** on `/Account/Login` is a stub (same first-paint as live cloud). **OKTA** is not shown on first paint. When Entra/Okta are wired, the callback must **not** pick BG or write tenant claims; it calls the same orchestrator (CURRENT SAML ACS is similarly thin — tenant bind happens on logon resume).
 
 ## CURRENT VB → TARGET types
 
@@ -87,7 +87,7 @@ IdP buttons on `/Account/Login` stay **stubs**. When Entra/Okta are wired, the c
 | Decision | This host |
 |----------|-----------|
 | **D-013** OpenIddict local IdP first + BFF cookie | OpenIddict server + validation in-process; Razor signs in with `Hitshcm.Auth` (HttpOnly, SameSite=Lax) |
-| **D-013a** Tenant server-resolved | Login **Business group** dropdown (`ITenantCatalog`) replaces `org_id` / `bg_id` on the cookie principal. `ITenantConnectionFactory` resolves a **named** SQLite/dev handle. **Never** a connection string in the identity name or client profile |
+| **D-013a** Tenant server-resolved | Login first paint is Username + Password. Multi-BG users get a **second-step** picker (`ITenantCatalog` memberships) which sets `org_id` / `bg_id` on the cookie principal. `ITenantConnectionFactory` resolves a **named** SQLite/dev handle. **Never** a connection string in the identity name or client profile |
 | **D-013b** No fat InProc Session | `UseSession` is not registered. Continuation uses claims (`must_change_password`, `first_logon_ack`), not Session bags. Mode A bridge is **not** implemented |
 
 The same host also publishes a **local OpenID Connect provider** (OpenIddict):
@@ -133,13 +133,15 @@ This host must **not**:
 - Email / username: `admin@hitshcm.local`
 - Password: `ChangeMe!123`
 - Org: `demo-org` (also `demo-org-east` via East Region picker)
-- Business groups (login dropdown): `demo-bg` (Demo HITS), `demo-bg-hr` (Demo HR), `demo-bg-east` (East Region)
-- Admin is a member of **all three** BGs (multi-BG picker). Policy fixture users (`inactive@`, `mustchange@`, `hrinactive@`, `firstlogon@`) are seeded for tests only.
+- Business groups: `demo-bg` (Demo HITS), `demo-bg-hr` (Demo HR), `demo-bg-east` (East Region)
+- Admin is a member of **all three** BGs — after password, the login page shows a BG picker (not on first paint). Policy fixture users (`inactive@`, `mustchange@`, `hrinactive@`, `firstlogon@`) are single-BG and auto-select. `multibg@hitshcm.local` is the extra two-group fixture.
 - OpenIddict client id: `hitshcm-web` (confidential; local secret in `appsettings.Development.json`)
 
 | Page | Who |
 |------|-----|
-| `/Account/Login` | Password login through the orchestrator |
+| `/Account/Login` | Password login through the orchestrator (Agentic split chrome; BG second step if needed) |
+| `/Account/ForgotPassword` | Coming-soon stub (does not reset passwords) |
+| `/Account/Register` | Coming-soon stub |
 | `/Account/ChangePassword` | Forced after policy `003` |
 | `/Account/FirstLogon` | First-logon ack placeholder |
 | `/Account/Logout` | Clears the HttpOnly cookie |

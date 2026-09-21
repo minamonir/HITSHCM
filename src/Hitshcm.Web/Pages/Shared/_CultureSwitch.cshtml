@@ -5,6 +5,7 @@
 @{
     var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
     var isEn = string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase);
+    var isFr = string.Equals(lang, "fr", StringComparison.OrdinalIgnoreCase);
     var isAr = string.Equals(lang, "ar", StringComparison.OrdinalIgnoreCase);
 }
 <div class="culture-switch" role="group" aria-label="@L["Language"]">
@@ -15,6 +16,13 @@
        hreflang="en"
        lang="en"
        aria-current="@(isEn ? "true" : null)">@L["CultureEnglish"]</a>
+    <a asp-page="/Culture/Set"
+       asp-route-culture="fr"
+       asp-route-returnUrl="@Model"
+       class="culture-switch__opt@(isFr ? " is-active" : string.Empty)"
+       hreflang="fr"
+       lang="fr"
+       aria-current="@(isFr ? "true" : null)">@L["CultureFrench"]</a>
     <a asp-page="/Culture/Set"
        asp-route-culture="ar"
        asp-route-returnUrl="@Model"

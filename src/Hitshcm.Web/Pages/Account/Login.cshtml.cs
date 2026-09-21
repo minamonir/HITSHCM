@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Hitshcm.Web.Identity;
 using Hitshcm.Web.Login;
 using Hitshcm.Web.Tenancy;
 using Microsoft.AspNetCore.Authentication;
@@ -15,12 +14,10 @@ namespace Hitshcm.Web.Pages.Account;
 public sealed class LoginModel : PageModel
 {
     private readonly ILoginOrchestrator _orchestrator;
-    private readonly ITenantCatalog _tenants;
 
-    public LoginModel(ILoginOrchestrator orchestrator, ITenantCatalog tenants)
+    public LoginModel(ILoginOrchestrator orchestrator)
     {
         _orchestrator = orchestrator;
-        _tenants = tenants;
     }
 
     [BindProperty]
@@ -31,6 +28,14 @@ public sealed class LoginModel : PageModel
 
     public IReadOnlyList<SelectListItem> BusinessGroups { get; private set; } = [];
 
+    /// <summary>
+    /// Live cloud logon shows Username + Password on first paint. The BG picker is a
+    /// second step after password succeeds when the person has multiple memberships.
+    /// </summary>
+    public bool ShowBusinessGroupPicker { get; private set; }
+
+    public string? IdpNotice { get; private set; }
+
     public IActionResult OnGet()
     {
         if (User.Identity?.IsAuthenticated == true)
@@ -38,7 +43,6 @@ public sealed class LoginModel : PageModel
             return LocalRedirect(GetSafeReturnUrl());
         }
 
-        BindBusinessGroups();
         return Page();
     }
 
@@ -48,8 +52,6 @@ public sealed class LoginModel : PageModel
         {
             return LocalRedirect(GetSafeReturnUrl());
         }
-
-        BindBusinessGroups();
 
         if (!ModelState.IsValid)
         {
@@ -65,8 +67,26 @@ public sealed class LoginModel : PageModel
             Method = LoginAuthMethod.Password
         });
 
+        return await HandleOutcomeAsync(outcome);
+    }
+
+    public IActionResult OnPostOffice365()
+    {
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            return LocalRedirect(GetSafeReturnUrl());
+        }
+
+        ModelState.Clear();
+        IdpNotice = LoginPolicyMessages.ExternalSsoNotReady;
+        return Page();
+    }
+
+    private async Task<IActionResult> HandleOutcomeAsync(LoginOutcome outcome)
+    {
         if (outcome.Status == LoginStatus.NeedsBusinessGroup && outcome.Memberships.Count > 0)
         {
+            ShowBusinessGroupPicker = true;
             BindBusinessGroups(outcome.Memberships);
         }
 
@@ -101,22 +121,15 @@ public sealed class LoginModel : PageModel
         return Page();
     }
 
-    private void BindBusinessGroups(IReadOnlyList<BusinessGroupInfo>? memberships = null)
+    private void BindBusinessGroups(IReadOnlyList<BusinessGroupInfo> memberships)
     {
         var arabic = string.Equals(
             System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName,
             "ar",
             StringComparison.OrdinalIgnoreCase);
 
-        var groups = memberships is { Count: > 0 } ? memberships : _tenants.List();
-
-        if (string.IsNullOrWhiteSpace(Input.BusinessGroupId))
-        {
-            Input.BusinessGroupId = IdentityDataSeeder.DefaultBusinessGroupId;
-        }
-
-        BusinessGroups = groups
-            .Select(g => new SelectListItem(arabic ? g.NameAr : g.Name, g.Id))
+        BusinessGroups = memberships
+            .Select(g => new SelectListItem(arabic ? g.NameAr : g.Name, g.Id, selected: false))
             .ToList();
     }
 
@@ -133,7 +146,7 @@ public sealed class LoginModel : PageModel
     public sealed class InputModel
     {
         [Required]
-        [Display(Name = "Username or email")]
+        [Display(Name = "Username")]
         public string UserNameOrEmail { get; set; } = string.Empty;
 
         [Required]
@@ -142,7 +155,7 @@ public sealed class LoginModel : PageModel
         public string Password { get; set; } = string.Empty;
 
         [Display(Name = "Business group")]
-        public string BusinessGroupId { get; set; } = IdentityDataSeeder.DefaultBusinessGroupId;
+        public string BusinessGroupId { get; set; } = string.Empty;
 
         [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }

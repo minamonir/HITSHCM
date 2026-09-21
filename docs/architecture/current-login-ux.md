@@ -1,20 +1,22 @@
 # CURRENT login UX study (NasDna `logon.aspx`)
 
-**SoT:** `D:\Workspaces\HITSNasDnaFS\HITSNasDna\NasDna\logon.aspx` (+ `logon_ar.aspx`, `logon_Misr*.aspx` variants)  
-**Studied:** 2026-09-21  
-**Purpose:** Inform TARGET AUTH-1 login chrome (D-012 UX-0) — borrow product cues, do **not** port Web Forms markup.  
+**Visual SoT (TARGET chrome):** live publish [https://www.hitshcmcloud.org/logon.aspx](https://www.hitshcmcloud.org/logon.aspx) (HITS Agentic), captured 2026-09-21. Screenshot: [`assets/login-live-hitshcmcloud.png`](assets/login-live-hitshcmcloud.png).  
+**Code SoT (behavior):** `D:\Workspaces\HITSNasDnaFS\HITSNasDna\NasDna\logon.aspx` (+ `logon_ar.aspx`, `logon_Misr*.aspx` variants).  
+**Purpose:** Inform TARGET AUTH-1 / AUTH-1b login chrome (D-012 UX-0) — borrow product cues, do **not** port Web Forms markup.  
 **Behavior companion:** [current-login-flow.md](current-login-flow.md) (AUTH-1b orchestrator).
 
-## Layout pattern
+The older TARGET “five CURRENT cues” frosted centered form (PR #3) is **superseded for chrome**. Razor `/Account/Login` matches the live Agentic split, not a card on a teal wash.
+
+## Layout pattern (live)
 
 Full-viewport **split composition** (table-based, 100% height):
 
 | Zone | Content |
 |------|---------|
-| **Left ~60–70%** | Brand: `Images/logo.svg` top-left; large illustration `Images/Login-page-art.gif` mid; copyright footer |
-| **Right ~400px+** | Login panel on art background `Images/logonart2.png` (cover) |
+| **Left ~60–70%** | Solid teal `#105D7E`. Top-left `Images/logo.svg` (HITS + HUMANIZING TECHNOLOGY). Centered square hero `Images/Login-page-art.gif` (glowing digital profiles + **AGENTIC** wordmark). Copyright bottom-left. |
+| **Right ~400px+** | Dark blue geometric line-art `Images/logonart2.png` (cover). Username + Password only on first paint. Cyan primary buttons. |
 
-No master page — standalone page with heavy **inline CSS**.
+No master page — standalone page with heavy **inline CSS**. No app header / culture pill / Identity scaffold card.
 
 ## Visual language
 
@@ -23,60 +25,71 @@ No master page — standalone page with heavy **inline CSS**.
 | Page / left wash | `#105D7E` (deep teal) |
 | Primary CTA | `#2BAAE3` → text `#F8FCFD`, 8px radius, ~30–36px tall |
 | Field chrome | Translucent white fill `rgba(255,255,255,0.2)`, no border, 8px radius |
-| Field / label text | White on dark / photo panel |
+| Field / label text | White on photo panel |
 | Select options | `rgb(52, 67, 79)` background |
-| Link-style actions | Transparent + underline (Forgot / Register) |
+| Link-style actions | Transparent + underline (Forgot / Register / Français / العربية) |
 | Title | `HITS Agentic` |
+| Footer | `© {year} HITS Solutions. All Rights Reserved.` |
 
 Responsive tweak: `@media (max-height: 768px)` shrinks logo + art height.
 
 ## Fields & actions (product, not chrome)
 
-1. Username (`HitsTextBox`)
+**First paint (live cloud):**
+
+1. Username
 2. Password
-3. **Business Group** dropdown (from `[businessgroup]` via BG setup connection)
-4. **Authentication** mode: Windows / Windows different user / Application
-5. Forgot password | Lang control (EN/AR/FR links)
-6. Register / Re-Activate User
-7. Primary row of buttons: **Log In** | **Office 365** | **OKTA**
-8. Failure literal (red)
+3. Forgot your password? | Français | العربية
+4. Register / Re-Activate User
+5. **Log In** | **Office 365**
+6. Failure literal (red)
+
+Business Group and OKTA are **not** on the default live first paint. Cloud `dologon_cloud` resolves BG after the person authenticates; multi-BG users get a picker as a **second step**.
+
+CURRENT on-prem `logon.aspx` still has a BG dropdown and Windows-auth mode on the same form — do not treat that as the cloud visual SoT.
 
 Culture: separate `logon_ar.aspx` fork (CURRENT anti-pattern for TARGET — use one page + `dir`).
 
-## What to carry into TARGET (recommended)
+## What to carry into TARGET (applied)
 
 | Carry | Why |
 |-------|-----|
-| Split hero + form (or form-over-brand wash) | Instantly reads as HITS product, not generic Identity scaffold |
-| Teal brand wash `#105D7E` + cyan CTA `#2BAAE3` | Existing customer recognition |
-| Frosted / translucent fields on dark panel | Distinctive CURRENT look |
-| Business Group as first-class login step | Real multi-tenant product behavior (map to org/BG claims per D-013a) |
-| Secondary IdP buttons (Entra/Okta) as siblings of password CTA | Matches CURRENT + future D-013 Entra path |
-| Forgot / register as quiet text actions | Don’t bury recovery |
+| Full-height split (teal hero + patterned form column) | Instantly reads as live HITS Agentic, not generic Identity |
+| Logo + AGENTIC art + copyright on the left | Product recognition |
+| Teal `#105D7E` + cyan CTA `#2BAAE3` | Existing customer recognition |
+| Frosted / translucent fields on the right panel | Distinctive CURRENT look |
+| Username + Password first paint | Matches live cloud |
+| BG picker only after password when memberships &gt; 1 | Mirrors `dologon_cloud`; claims `org_id` / `bg_id` only |
+| Log In + Office 365 | Matches live; OKTA omitted from first paint |
+| Forgot / Register / language text links | Don’t bury recovery or culture |
 
 ## What NOT to port
 
-- Table layout / inline CSS / GIF art as hard dependency
+- Table layout / inline CSS / GIF as a hard long-term dependency (copied under `wwwroot/img/login/` for chrome parity; SVG/CSS recreation is OK later)
 - Separate `_ar` page
-- Windows Auth dropdown as default for cloud TARGET (keep as optional enterprise mode later)
+- Windows Auth dropdown as default for cloud TARGET
+- Always-visible Business Group dropdown or OKTA on first paint
+- Frosted **centered card** + app header chrome on `/Account/Login` (PR #3)
 - `HitsCC` / `HitsCL` control trees
 - Embedding connection/tenant in identity string
 
 ## TARGET mapping (AUTH-1+)
 
-- Tokens: map `#105D7E` → `--brand-deep`, `#2BAAE3` → `--brand-accent` in `tokens.css`
-- Login: left brand panel (SVG/illustration) + right form card **or** single card on teal wash for MVP density
-- BG picker: after password success or on same form → sets `org_id` / `bg_id` claims (server), never conn string
-- OIDC buttons: stubs OK until Entra wired
+- Tokens: `#105D7E` → `--brand-deep`, `#2BAAE3` → `--brand-accent` in `tokens.css`
+- Login: left brand/art panel + right patterned form column (not a card)
+- Assets (copied from live, not hotlinked): `wwwroot/img/login/hits-logo.svg`, `agentic-hero.gif`, `panel-pattern.png`
+- BG picker: **second step** after password when `ITenantCatalog.GetMemberships` returns more than one group → `org_id` / `bg_id` claims (server), never conn string. Single membership auto-selects.
+- Office 365: stub until Entra wired (`ILoginOrchestrator.ResumeExternalAsync`)
 
-## Applied to TARGET (2026-09-21)
+## Applied to TARGET (2026-09-21, updated)
 
-Mina chose **all five** CURRENT cues. They are on the AUTH-1 Razor login (`/Account/Login`), not a Web Forms port:
+Razor `/Account/Login` (`ViewData["Shell"] = "login"`) matches live Agentic chrome:
 
-1. **HITS teal / cyan tokens** — `--brand-deep` `#105D7E` and `--brand-accent` `#2BAAE3` in `src/Hitshcm.Web/wwwroot/css/tokens.css` (auth chrome + product primary).
-2. **Split hero layout** — CSS grid brand/art panel + form panel; stacks below 768px. SVG illustration in `_AuthHero.cshtml` (no table, no GIF).
-3. **Frosted fields on dark** — dark teal form panel; inputs `rgba(255,255,255,0.2)`, light labels, 8px radius.
-4. **Business Group field** — required dropdown from `SeedBusinessGroupCatalog`; success replaces `org_id` / `bg_id` claims (D-013a). Never a connection string in identity or cookie.
-5. **IdP button row** — Office 365 + OKTA stubs (`type="button"`, coming soon). No Entra/Okta federation yet.
+1. Full-height split — no app header/footer on the login shell.
+2. Left teal panel — live logo + AGENTIC hero GIF + `© 2026 HITS Solutions. All Rights Reserved.`
+3. Right patterned panel — translucent Username / Password; cyan **Log In** + **Office 365**.
+4. First paint fields — Username + Password only. No BG dropdown, no OKTA, no Remember me.
+5. Links — Forgot / Français / العربية / Register (culture via `/Culture/Set`; Forgot + Register are coming-soon stubs).
+6. Multi-BG — after a valid password, show the BG picker (AUTH-1b `NeedsBusinessGroup`); single-BG auto-select unchanged.
 
-Kept: EN/العربية culture switch, validation, focus rings, quiet footer. Not ported: `logon_ar.aspx`, Windows Auth as default, HitsCC, table layout.
+Kept: EN/FR/AR via one page + `dir`, validation, focus rings, OpenIddict BFF cookie. Not ported: `logon_ar.aspx`, Windows Auth as default, HitsCC, table layout, secrets in the cookie.

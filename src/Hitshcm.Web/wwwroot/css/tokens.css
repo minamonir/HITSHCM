@@ -86,6 +86,7 @@
   --topbar-height: 3.75rem;
   --content-max: 72rem;
   --auth-form-max: 26.5rem;
+  --login-panel-width: 26.5rem;
   --motion: 160ms;
 
   /* Bootstrap 5 themed from the same tokens */

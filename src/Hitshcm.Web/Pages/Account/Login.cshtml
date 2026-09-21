@@ -1,65 +1,111 @@
 @page
 @model Hitshcm.Web.Pages.Account.LoginModel
+@using System.Globalization
 @using Hitshcm.Web.Localization
 @inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResources> L
 @{
-    ViewData["Title"] = L["SignIn"];
-    ViewData["Shell"] = "auth";
+    ViewData["Title"] = L["AuthHeroTitle"];
+    ViewData["Shell"] = "login";
+    var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var isEn = string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase);
+    var isAr = string.Equals(lang, "ar", StringComparison.OrdinalIgnoreCase);
+    var isFr = string.Equals(lang, "fr", StringComparison.OrdinalIgnoreCase);
+    var returnUrl = string.IsNullOrEmpty(Model.ReturnUrl)
+        ? "/Account/Login"
+        : "/Account/Login?ReturnUrl=" + Uri.EscapeDataString(Model.ReturnUrl);
 }
 
-<section class="auth-split">
-    <partial name="_AuthHero" />
-    <div class="auth-panel">
-        <div class="auth-card">
-            <p class="kicker">@L["AppName"]</p>
-            <h1 class="page-title">@L["SignIn"]</h1>
-            <p class="lede">@L["SignInSubtitle"]</p>
+<section class="login-split">
+    <div class="login-hero">
+        <img class="login-logo" src="~/img/login/hits-logo.svg" asp-append-version="true" alt="HITS HUMANIZING TECHNOLOGY" />
+        <div class="login-hero-stage">
+            <img class="login-hero-art" src="~/img/login/agentic-hero.gif" asp-append-version="true" alt="" />
+        </div>
+        <p class="login-copy">@L["LoginCopyright"]</p>
+    </div>
+    <div class="login-panel">
+        <form method="post" class="login-form" novalidate>
+            <h1 class="visually-hidden">@L["SignIn"]</h1>
+            <div asp-validation-summary="ModelOnly" class="form-alert" role="alert"></div>
+            <input type="hidden" asp-for="ReturnUrl" />
 
-            <form method="post" novalidate>
-                <div asp-validation-summary="ModelOnly" class="form-alert" role="alert"></div>
-                <input type="hidden" asp-for="ReturnUrl" />
-
+            @if (Model.ShowBusinessGroupPicker)
+            {
+                <input type="hidden" asp-for="Input.UserNameOrEmail" />
+                <input type="hidden" asp-for="Input.Password" />
                 <div class="field">
-                    <label asp-for="Input.UserNameOrEmail">@L["UserNameOrEmail"]</label>
+                    <label asp-for="Input.BusinessGroupId">@L["BusinessGroup"]</label>
+                    <select asp-for="Input.BusinessGroupId" asp-items="Model.BusinessGroups" class="form-control">
+                        <option value="">@L["SelectBusinessGroup"]</option>
+                    </select>
+                    <span asp-validation-for="Input.BusinessGroupId" class="field-error"></span>
+                </div>
+            }
+            else
+            {
+                <div class="field">
+                    <label asp-for="Input.UserNameOrEmail">@L["LoginUserName"]</label>
                     <input asp-for="Input.UserNameOrEmail" autocomplete="username" class="form-control" autofocus />
                     <span asp-validation-for="Input.UserNameOrEmail" class="field-error"></span>
                 </div>
 
                 <div class="field">
-                    <label asp-for="Input.Password">@L["Password"]</label>
+                    <label asp-for="Input.Password">@L["LoginPassword"]</label>
                     <input asp-for="Input.Password" autocomplete="current-password" class="form-control" />
                     <span asp-validation-for="Input.Password" class="field-error"></span>
                 </div>
+            }
 
-                <div class="field">
-                    <label asp-for="Input.BusinessGroupId">@L["BusinessGroup"]</label>
-                    <select asp-for="Input.BusinessGroupId" asp-items="Model.BusinessGroups" class="form-control">
-                    </select>
-                    <span asp-validation-for="Input.BusinessGroupId" class="field-error"></span>
-                </div>
-
-                <div class="field-check">
-                    <input asp-for="Input.RememberMe" class="form-check-input" />
-                    <label asp-for="Input.RememberMe">@L["RememberMe"]</label>
-                </div>
-
-                <button type="submit" class="btn btn-primary">@L["SubmitSignIn"]</button>
-            </form>
-
-            @* AUTH-1b: Office 365 / OKTA remain stubs. After a real IdP callback, call
+            @* AUTH-1b: Office 365 remains a stub. After a real IdP callback, call
                ILoginOrchestrator.ResumeExternalAsync — same BG resolve + CheckURules policy
-               as password login. Do not bind org/BG in the IdP handler itself. *@
-            <div class="idp-row" role="group" aria-labelledby="idp-row-label">
-                <p id="idp-row-label" class="idp-row-label">@L["IdpRowLabel"]</p>
-                <div class="idp-row-actions">
-                    <button type="button" class="btn btn-idp" aria-describedby="idp-soon">@L["IdpOffice365"]</button>
-                    <button type="button" class="btn btn-idp" aria-describedby="idp-soon">@L["IdpOkta"]</button>
+               as password login. Do not bind org/BG in the IdP handler itself. OKTA is not
+               on first paint (matches live hitshcmcloud.org Agentic logon). *@
+            <div class="login-links">
+                <div class="login-links-row">
+                    <a class="login-text-link" asp-page="/Account/ForgotPassword">@L["ForgotPassword"]</a>
+                    <div class="login-lang" role="group" aria-label="@L["Language"]">
+                        @if (!isFr)
+                        {
+                            <a asp-page="/Culture/Set"
+                               asp-route-culture="fr"
+                               asp-route-returnUrl="@returnUrl"
+                               class="login-text-link"
+                               hreflang="fr"
+                               lang="fr">@L["LoginCultureFrench"]</a>
+                        }
+                        @if (!isAr)
+                        {
+                            <a asp-page="/Culture/Set"
+                               asp-route-culture="ar"
+                               asp-route-returnUrl="@returnUrl"
+                               class="login-text-link"
+                               hreflang="ar"
+                               lang="ar">@L["CultureArabic"]</a>
+                        }
+                        @if (!isEn)
+                        {
+                            <a asp-page="/Culture/Set"
+                               asp-route-culture="en"
+                               asp-route-returnUrl="@returnUrl"
+                               class="login-text-link"
+                               hreflang="en"
+                               lang="en">@L["LoginCultureEnglish"]</a>
+                        }
+                    </div>
                 </div>
-                <p id="idp-soon" class="idp-soon">@L["IdpComingSoon"]</p>
+                <a class="login-text-link" asp-page="/Account/Register">@L["RegisterReactivate"]</a>
             </div>
 
-            <p class="footnote auth-footnote">@L["LoginFootnote"]</p>
-        </div>
+            <div class="login-actions">
+                <button type="submit" class="btn btn-login">@L["LoginSubmit"]</button>
+                <button type="submit" asp-page-handler="Office365" formnovalidate class="btn btn-login">@L["IdpOffice365"]</button>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.IdpNotice))
+            {
+                <p class="login-idp-notice" role="status">@Model.IdpNotice</p>
+            }
+        </form>
     </div>
 </section>
 

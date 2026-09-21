@@ -35,9 +35,9 @@ Bootstrap 5 is themed from the same tokens (`--bs-primary`, body font/color, rad
 | Elevation | `--elevation-0` … `--elevation-3` | Header menus and cards |
 | Density | `--density-control-height`, `--density-tap-min` | 44px-class tap targets |
 
-`app.css` maps 375 / 768 / 1280: login **split hero** stacks on small screens; home cards 1 / 2 / 3 columns. Logical properties (`inset-inline`, `margin-inline`) keep RTL mirrored.
+`app.css` maps 375 / 768 / 1280: login **Agentic split** stacks below 768px; home cards 1 / 2 / 3 columns. Logical properties (`inset-inline`, `margin-inline`) keep RTL mirrored.
 
-**CURRENT login cues applied to TARGET:** see [`docs/architecture/current-login-ux.md`](architecture/current-login-ux.md). Razor `/Account/Login` uses the split hero, teal/cyan tokens, frosted dark fields, business-group picker (claims only), and Office 365 / OKTA stubs.
+**CURRENT login chrome applied to TARGET:** see [`docs/architecture/current-login-ux.md`](architecture/current-login-ux.md). Visual SoT is **live** [hitshcmcloud.org/logon.aspx](https://www.hitshcmcloud.org/logon.aspx) (HITS Agentic split — teal hero + patterned form, Username/Password first paint, Log In + Office 365). The older five-cue frosted card (PR #3) is superseded for chrome. Business group is a **second step** after password when the user has multiple memberships.
 
 ## Chrome pieces
 
@@ -47,7 +47,7 @@ Bootstrap 5 is themed from the same tokens (`--bs-primary`, body font/color, rad
 | Brand mark + name + tagline | `_Brand` |
 | Culture segmented control | `_CultureSwitch` |
 | User menu (avatar, tenant chips, logout) | `_Layout` `<details>` |
-| Login / logout | `Pages/Account/*` with `ViewData["Shell"] = "auth"` — split hero + frosted form (CURRENT cues) |
+| Login / logout | `Pages/Account/Login` uses `ViewData["Shell"] = "login"` — full-height Agentic split (no header). ChangePassword / FirstLogon keep `Shell=auth` (split hero + form). |
 | Landing identity strip + what’s-next cards | `Pages/Index.cshtml` |
 
 Auth protocol is unchanged (OpenIddict + HttpOnly BFF cookie). Placeholders on home are not wired to DNACloudDB or Agenda.

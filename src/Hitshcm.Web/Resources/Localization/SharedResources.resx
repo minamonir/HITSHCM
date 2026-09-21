@@ -53,7 +53,19 @@
   <data name="UserMenu" xml:space="preserve"><value>Account menu</value></data>
   <data name="OpenUserMenu" xml:space="preserve"><value>Open account menu</value></data>
   <data name="CultureEnglish" xml:space="preserve"><value>EN</value></data>
+  <data name="CultureFrench" xml:space="preserve"><value>FR</value></data>
   <data name="CultureArabic" xml:space="preserve"><value>العربية</value></data>
+  <data name="LoginUserName" xml:space="preserve"><value>Username:</value></data>
+  <data name="LoginPassword" xml:space="preserve"><value>Password:</value></data>
+  <data name="LoginSubmit" xml:space="preserve"><value>Log In</value></data>
+  <data name="ForgotPassword" xml:space="preserve"><value>Forgot your password?</value></data>
+  <data name="ForgotPasswordBody" xml:space="preserve"><value>Password recovery is coming soon on this host. Use your HITSHCM password to sign in.</value></data>
+  <data name="RegisterReactivate" xml:space="preserve"><value>Register / Re-Activate User</value></data>
+  <data name="RegisterBody" xml:space="preserve"><value>Self-registration is coming soon. Ask an administrator to activate your account.</value></data>
+  <data name="LoginCopyright" xml:space="preserve"><value>© 2026 HITS Solutions. All Rights Reserved.</value></data>
+  <data name="LoginCultureFrench" xml:space="preserve"><value>Français</value></data>
+  <data name="LoginCultureEnglish" xml:space="preserve"><value>English</value></data>
+  <data name="SelectBusinessGroup" xml:space="preserve"><value>Select a business group</value></data>
   <data name="ErrorTitle" xml:space="preserve"><value>Something went wrong</value></data>
   <data name="ErrorLead" xml:space="preserve"><value>An error occurred while processing your request.</value></data>
   <data name="ChangePassword" xml:space="preserve"><value>Change password</value></data>

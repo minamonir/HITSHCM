@@ -92,7 +92,7 @@ Config flags: `EnableAD`, `Enableokta`, `okta:OrgUri`, `PartnerIdP`.
 
 ## Implication for current Razor login PR
 
-Visual CURRENT cues (teal, split, frosted, BG dropdown, IdP buttons) are **necessary but not sufficient**.  
+Visual CURRENT cues (live Agentic split, Username/Password first paint) are **necessary but not sufficient**.  
 Next behavior slice:
 
 1. BG list from real/setup source (or seeded stand-in with same semantics).  

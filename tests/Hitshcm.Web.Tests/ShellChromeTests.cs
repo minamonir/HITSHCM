@@ -17,7 +17,7 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
     }
 
     [Fact]
-    public async Task Login_RendersProductChrome_AndAccessibleAuthCard()
+    public async Task Login_RendersLiveAgenticChrome_WithoutFirstPaintBgOrOkta()
     {
         var client = CreateClient();
         var response = await client.GetAsync("/Account/Login");
@@ -25,25 +25,30 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Contains("class=\"skip-link\"", html, StringComparison.Ordinal);
-        Assert.Contains("class=\"app-header\"", html, StringComparison.Ordinal);
-        Assert.Contains("class=\"brand\"", html, StringComparison.Ordinal);
-        Assert.Contains("culture-switch", html, StringComparison.Ordinal);
-        Assert.Contains("class=\"auth-split\"", html, StringComparison.Ordinal);
-        Assert.Contains("class=\"auth-hero", html, StringComparison.Ordinal);
-        Assert.Contains("class=\"auth-card\"", html, StringComparison.Ordinal);
-        Assert.Contains("Username or email", html, StringComparison.Ordinal);
+        Assert.Contains("class=\"login-split\"", html, StringComparison.Ordinal);
+        Assert.Contains("class=\"login-hero\"", html, StringComparison.Ordinal);
+        Assert.Contains("class=\"login-panel\"", html, StringComparison.Ordinal);
+        Assert.Contains("img/login/hits-logo", html, StringComparison.Ordinal);
+        Assert.Contains("img/login/agentic-hero", html, StringComparison.Ordinal);
+        Assert.Contains("Username:", html, StringComparison.Ordinal);
+        Assert.Contains("Password:", html, StringComparison.Ordinal);
         Assert.Contains("for=\"Input_UserNameOrEmail\"", html, StringComparison.Ordinal);
         Assert.Contains("for=\"Input_Password\"", html, StringComparison.Ordinal);
-        Assert.Contains("for=\"Input_BusinessGroupId\"", html, StringComparison.Ordinal);
-        Assert.Contains("id=\"Input_BusinessGroupId\"", html, StringComparison.Ordinal);
-        Assert.Contains(IdentityDataSeeder.DefaultBusinessGroupId, html, StringComparison.Ordinal);
-        Assert.Contains(SeedBusinessGroupCatalog.HrId, html, StringComparison.Ordinal);
+        Assert.DoesNotContain("for=\"Input_BusinessGroupId\"", html, StringComparison.Ordinal);
+        Assert.DoesNotContain("id=\"Input_BusinessGroupId\"", html, StringComparison.Ordinal);
+        Assert.DoesNotContain(IdentityDataSeeder.DefaultBusinessGroupId, html, StringComparison.Ordinal);
+        Assert.DoesNotContain("OKTA", html, StringComparison.Ordinal);
+        Assert.Contains("Log In", html, StringComparison.Ordinal);
         Assert.Contains("Office 365", html, StringComparison.Ordinal);
-        Assert.Contains("OKTA", html, StringComparison.Ordinal);
-        Assert.Contains("Coming soon", html, StringComparison.Ordinal);
+        Assert.Contains("Forgot your password?", html, StringComparison.Ordinal);
+        Assert.Contains("Français", html, StringComparison.Ordinal);
+        Assert.Contains("العربية", html, StringComparison.Ordinal);
+        Assert.Contains("Register / Re-Activate User", html, StringComparison.Ordinal);
+        Assert.Contains("© 2026 HITS Solutions. All Rights Reserved.", html, StringComparison.Ordinal);
         Assert.Contains("HITS Agentic", html, StringComparison.Ordinal);
         Assert.Contains("css/tokens", html, StringComparison.Ordinal);
         Assert.Contains("css/app", html, StringComparison.Ordinal);
+        Assert.DoesNotContain("class=\"app-header\"", html, StringComparison.Ordinal);
         Assert.DoesNotContain("localStorage", html, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("<table", html, StringComparison.OrdinalIgnoreCase);
     }
@@ -64,6 +69,19 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
     }
 
     [Fact]
+    public async Task AppCss_ContainsLiveLoginSplitAndPanelArt()
+    {
+        var client = CreateClient();
+        var response = await client.GetAsync("/css/app.css");
+        var css = await response.Content.ReadAsStringAsync();
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Contains(".login-split", css, StringComparison.Ordinal);
+        Assert.Contains("img/login/panel-pattern.png", css, StringComparison.Ordinal);
+        Assert.Contains(".btn-login", css, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public async Task ArabicLogin_UsesRtlBootstrap_AndActiveCultureControl()
     {
         var client = CreateClient();
@@ -77,12 +95,13 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
         Assert.Contains("lang=\"ar\"", html, StringComparison.Ordinal);
         Assert.Contains("bootstrap.rtl", html, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("تسجيل الدخول", html, StringComparison.Ordinal);
-        Assert.Contains("مجموعة الأعمال", html, StringComparison.Ordinal);
+        Assert.Contains("اسم المستخدم:", html, StringComparison.Ordinal);
+        Assert.Contains("كلمة المرور:", html, StringComparison.Ordinal);
+        Assert.DoesNotContain("مجموعة الأعمال", html, StringComparison.Ordinal);
         Assert.Contains("Office 365", html, StringComparison.Ordinal);
-        Assert.Contains("OKTA", html, StringComparison.Ordinal);
-        Assert.Contains("culture-switch__opt is-active", html, StringComparison.Ordinal);
-        Assert.Contains("hreflang=\"ar\"", html, StringComparison.Ordinal);
-        Assert.Contains("aria-current=\"true\"", html, StringComparison.Ordinal);
+        Assert.DoesNotContain("OKTA", html, StringComparison.Ordinal);
+        Assert.Contains("hreflang=\"fr\"", html, StringComparison.Ordinal);
+        Assert.Contains("Français", html, StringComparison.Ordinal);
     }
 
     [Fact]

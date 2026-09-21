@@ -54,7 +54,7 @@ Every D-004 slice ships **both**: working capability **and** TARGET UX standards
 ## Workstreams (UI/UX track)
 
 ### UX-0 — Foundations (before / with first slice)
-- [x] TARGET layout(s) + login chrome — AUTH-1 `_Layout` + CURRENT-cue login (split hero, frosted panel)
+- [x] TARGET layout(s) + login chrome — AUTH-1 `_Layout` + live Agentic logon split (not the PR #3 frosted card)
 - [x] Design tokens (color, type, spacing, density) documented — `wwwroot/css/tokens.css` + [`docs/UX.md`](../UX.md)
 - [x] Base stylesheet wired into Razor — `wwwroot/css/app.css` (Bootstrap 5 themed via tokens)
 - [x] RTL smoke (Arabic culture) — `dir` + `bootstrap.rtl` + EN/العربية control

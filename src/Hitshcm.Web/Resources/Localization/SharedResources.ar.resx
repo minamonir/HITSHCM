@@ -53,7 +53,19 @@
   <data name="UserMenu" xml:space="preserve"><value>قائمة الحساب</value></data>
   <data name="OpenUserMenu" xml:space="preserve"><value>فتح قائمة الحساب</value></data>
   <data name="CultureEnglish" xml:space="preserve"><value>EN</value></data>
+  <data name="CultureFrench" xml:space="preserve"><value>FR</value></data>
   <data name="CultureArabic" xml:space="preserve"><value>العربية</value></data>
+  <data name="LoginUserName" xml:space="preserve"><value>اسم المستخدم:</value></data>
+  <data name="LoginPassword" xml:space="preserve"><value>كلمة المرور:</value></data>
+  <data name="LoginSubmit" xml:space="preserve"><value>تسجيل الدخول</value></data>
+  <data name="ForgotPassword" xml:space="preserve"><value>نسيت كلمة المرور؟</value></data>
+  <data name="ForgotPasswordBody" xml:space="preserve"><value>استعادة كلمة المرور قريباً على هذا المضيف. استخدم كلمة مرور HITSHCM لتسجيل الدخول.</value></data>
+  <data name="RegisterReactivate" xml:space="preserve"><value>تسجيل / إعادة تفعيل مستخدم</value></data>
+  <data name="RegisterBody" xml:space="preserve"><value>التسجيل الذاتي قريباً. اطلب من المسؤول تفعيل حسابك.</value></data>
+  <data name="LoginCopyright" xml:space="preserve"><value>© 2026 HITS Solutions. All Rights Reserved.</value></data>
+  <data name="LoginCultureFrench" xml:space="preserve"><value>Français</value></data>
+  <data name="LoginCultureEnglish" xml:space="preserve"><value>English</value></data>
+  <data name="SelectBusinessGroup" xml:space="preserve"><value>اختر مجموعة الأعمال</value></data>
   <data name="ErrorTitle" xml:space="preserve"><value>حدث خطأ</value></data>
   <data name="ErrorLead" xml:space="preserve"><value>حدث خطأ أثناء معالجة طلبك.</value></data>
   <data name="ChangePassword" xml:space="preserve"><value>تغيير كلمة المرور</value></data>

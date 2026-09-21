@@ -9,6 +9,7 @@
     var lang = culture.TwoLetterISOLanguageName;
     var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
     var isAuthShell = string.Equals(ViewData["Shell"] as string, "auth", StringComparison.OrdinalIgnoreCase);
+    var isLoginShell = string.Equals(ViewData["Shell"] as string, "login", StringComparison.OrdinalIgnoreCase);
     var userName = User.Identity?.Name ?? string.Empty;
     var userInitial = string.IsNullOrWhiteSpace(userName)
         ? "?"
@@ -19,7 +20,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] · @L["AppName"]</title>
+    <title>@(isLoginShell ? ViewData["Title"] : $"{ViewData["Title"]} · {L["AppName"]}")</title>
     @if (isRtl)
     {
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" />
@@ -31,51 +32,57 @@
     <link rel="stylesheet" href="~/css/tokens.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
 </head>
-<body class="app-shell@(isAuthShell ? " shell-auth" : string.Empty)">
+<body class="app-shell@(isAuthShell ? " shell-auth" : string.Empty)@(isLoginShell ? " shell-login" : string.Empty)">
     <a class="skip-link" href="#main">@L["SkipToContent"]</a>
-    <header class="app-header">
-        <div class="app-header-inner">
-            <partial name="_Brand" />
-            <div class="app-header-actions">
-                <partial name="_CultureSwitch" model="returnUrl" />
-                @if (User.Identity?.IsAuthenticated == true)
-                {
-                    <details class="user-menu">
-                        <summary aria-label="@L["OpenUserMenu"]">
-                            <span class="avatar" aria-hidden="true">@userInitial</span>
-                            <span class="user-menu-label">@userName</span>
-                            <svg class="user-menu-caret" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                                <path fill="currentColor" d="M3.2 5.8 8 10.5l4.8-4.7 1.2 1.2L8 12.8 2 7z" />
-                            </svg>
-                        </summary>
-                        <div class="user-menu-panel" aria-label="@L["UserMenu"]">
-                            <p class="user-menu-kicker">@L["SignedInAs"]</p>
-                            <p class="user-menu-email">@userName</p>
-                            <div class="user-menu-meta">
-                                <span class="chip">
-                                    <span class="chip-label">@L["TenantOrg"]</span>
-                                    <span class="chip-value">@(Tenant.OrgId ?? "—")</span>
-                                </span>
-                                <span class="chip">
-                                    <span class="chip-label">@L["TenantBg"]</span>
-                                    <span class="chip-value">@(Tenant.BusinessGroupId ?? "—")</span>
-                                </span>
+    @if (!isLoginShell)
+    {
+        <header class="app-header">
+            <div class="app-header-inner">
+                <partial name="_Brand" />
+                <div class="app-header-actions">
+                    <partial name="_CultureSwitch" model="returnUrl" />
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <details class="user-menu">
+                            <summary aria-label="@L["OpenUserMenu"]">
+                                <span class="avatar" aria-hidden="true">@userInitial</span>
+                                <span class="user-menu-label">@userName</span>
+                                <svg class="user-menu-caret" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                    <path fill="currentColor" d="M3.2 5.8 8 10.5l4.8-4.7 1.2 1.2L8 12.8 2 7z" />
+                                </svg>
+                            </summary>
+                            <div class="user-menu-panel" aria-label="@L["UserMenu"]">
+                                <p class="user-menu-kicker">@L["SignedInAs"]</p>
+                                <p class="user-menu-email">@userName</p>
+                                <div class="user-menu-meta">
+                                    <span class="chip">
+                                        <span class="chip-label">@L["TenantOrg"]</span>
+                                        <span class="chip-value">@(Tenant.OrgId ?? "—")</span>
+                                    </span>
+                                    <span class="chip">
+                                        <span class="chip-label">@L["TenantBg"]</span>
+                                        <span class="chip-value">@(Tenant.BusinessGroupId ?? "—")</span>
+                                    </span>
+                                </div>
+                                <form asp-page="/Account/Logout" method="post" class="logout-form">
+                                    <button type="submit" class="btn btn-ghost">@L["Logout"]</button>
+                                </form>
                             </div>
-                            <form asp-page="/Account/Logout" method="post" class="logout-form">
-                                <button type="submit" class="btn btn-ghost">@L["Logout"]</button>
-                            </form>
-                        </div>
-                    </details>
-                }
+                        </details>
+                    }
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
+    }
     <main id="main" class="app-main" role="main">
         @RenderBody()
     </main>
-    <footer class="app-footer">
-        <p class="muted">@L["Footer"]</p>
-    </footer>
+    @if (!isLoginShell)
+    {
+        <footer class="app-footer">
+            <p class="muted">@L["Footer"]</p>
+        </footer>
+    }
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

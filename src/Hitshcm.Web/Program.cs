@@ -123,7 +123,7 @@ builder.Services.AddSingleton(HtmlEncoder.Create(
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    var supported = new[] { "en", "ar" };
+    var supported = new[] { "en", "fr", "ar" };
     options.SetDefaultCulture("en")
         .AddSupportedCultures(supported)
         .AddSupportedUICultures(supported);
@@ -142,6 +142,8 @@ builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/");
     options.Conventions.AllowAnonymousToPage("/Account/Login");
+    options.Conventions.AllowAnonymousToPage("/Account/ForgotPassword");
+    options.Conventions.AllowAnonymousToPage("/Account/Register");
     options.Conventions.AllowAnonymousToPage("/Account/Logout");
     options.Conventions.AllowAnonymousToPage("/Error");
     options.Conventions.AllowAnonymousToPage("/Culture/Set");
