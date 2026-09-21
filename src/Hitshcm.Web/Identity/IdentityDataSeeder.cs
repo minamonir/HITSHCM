@@ -268,10 +268,11 @@ internal static class SqliteUserSchemaPatch
         {
             if (!await ColumnExistsAsync(context, name, cancellationToken))
             {
-                // ddl is a hardcoded whitelist of column definitions, not user input.
+#pragma warning disable EF1003 // ddl is a hardcoded whitelist of ALTER fragments, not user input.
                 await context.Database.ExecuteSqlRawAsync(
                     "ALTER TABLE AspNetUsers ADD COLUMN " + ddl,
                     cancellationToken);
+#pragma warning restore EF1003
             }
         }
     }
