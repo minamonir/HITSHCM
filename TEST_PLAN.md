@@ -29,9 +29,9 @@ Updated: 2026-09-21
 
 ## Responsive smoke
 
-- [ ] ~375px — header compact (avatar + culture), login card full width, cards stack
-- [ ] ~768px — two-column what’s-next
-- [ ] ~1280px+ — three-column what’s-next, identity strip in a row
+- [x] ~375px — header compact (avatar + culture), login card full width, cards stack (screenshot smoke 2026-09-21)
+- [x] ~768px — two-column what’s-next (screenshot smoke 2026-09-21)
+- [x] ~1280px+ — three-column what’s-next, identity strip in a row (screenshot smoke 2026-09-21)
 
 ## Evidence rule
 

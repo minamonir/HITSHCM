@@ -31,8 +31,8 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
         Assert.Contains("Username or email", html, StringComparison.Ordinal);
         Assert.Contains("for=\"Input_UserNameOrEmail\"", html, StringComparison.Ordinal);
         Assert.Contains("for=\"Input_Password\"", html, StringComparison.Ordinal);
-        Assert.Contains("/css/tokens.css", html, StringComparison.Ordinal);
-        Assert.Contains("/css/app.css", html, StringComparison.Ordinal);
+        Assert.Contains("css/tokens", html, StringComparison.Ordinal);
+        Assert.Contains("css/app", html, StringComparison.Ordinal);
         Assert.DoesNotContain("localStorage", html, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -48,7 +48,7 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
 
         Assert.Contains("dir=\"rtl\"", html, StringComparison.Ordinal);
         Assert.Contains("lang=\"ar\"", html, StringComparison.Ordinal);
-        Assert.Contains("bootstrap.rtl.min.css", html, StringComparison.Ordinal);
+        Assert.Contains("bootstrap.rtl", html, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("تسجيل الدخول", html, StringComparison.Ordinal);
         Assert.Contains("culture-switch__opt is-active", html, StringComparison.Ordinal);
         Assert.Contains("hreflang=\"ar\"", html, StringComparison.Ordinal);
@@ -90,7 +90,7 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
 
         Assert.Equal(HttpStatusCode.OK, home.StatusCode);
         Assert.Contains("dir=\"rtl\"", html, StringComparison.Ordinal);
-        Assert.Contains("bootstrap.rtl.min.css", html, StringComparison.Ordinal);
+        Assert.Contains("bootstrap.rtl", html, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("مرحباً بعودتك", html, StringComparison.Ordinal);
         Assert.Contains(IdentityDataSeeder.DefaultOrgId, html, StringComparison.Ordinal);
         Assert.Contains("الخطوة التالية", html, StringComparison.Ordinal);

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -101,6 +103,16 @@ builder.Services.AddOpenIddict()
     });
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+// Keep EN/AR copy as real Unicode in markup (RTL smoke, a11y, tests) instead of &#xNNNN; entities.
+builder.Services.AddSingleton(HtmlEncoder.Create(
+    UnicodeRanges.BasicLatin,
+    UnicodeRanges.Latin1Supplement,
+    UnicodeRanges.Arabic,
+    UnicodeRanges.ArabicSupplement,
+    UnicodeRanges.ArabicExtendedA,
+    UnicodeRanges.ArabicPresentationFormsA,
+    UnicodeRanges.ArabicPresentationFormsB));
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
