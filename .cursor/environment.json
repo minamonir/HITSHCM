@@ -1,0 +1,17 @@
+{
+  "name": "HITSHCM .NET 10 Razor host",
+  "install": "bash .cursor/install.sh",
+  "terminals": [
+    {
+      "name": "web",
+      "description": "HITSHCM Razor Pages host (OpenIddict local IdP + SQLite identity store) on http://localhost:5080",
+      "command": "cd src/Hitshcm.Web && ASPNETCORE_ENVIRONMENT=Development dotnet run --no-launch-profile --urls http://0.0.0.0:5080"
+    }
+  ],
+  "ports": [
+    {
+      "name": "Hitshcm.Web",
+      "port": 5080
+    }
+  ]
+}
