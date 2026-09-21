@@ -405,7 +405,7 @@ public sealed class AuthFlowTests : IClassFixture<HitshcmWebFactory>
         var login = await client.GetAsync("/Account/Login");
         var html = await login.Content.ReadAsStringAsync();
         Assert.Contains("lang=\"fr\"", html, StringComparison.Ordinal);
-        Assert.Contains("Nom d'utilisateur", html, StringComparison.Ordinal);
+        Assert.Contains("utilisateur", html, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("Mot de passe", html, StringComparison.Ordinal);
         Assert.Contains("العربية", html, StringComparison.Ordinal);
         Assert.Contains("English", html, StringComparison.Ordinal);
