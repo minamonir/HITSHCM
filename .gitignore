@@ -15,3 +15,14 @@ __pycache__/
 .DS_Store
 *.log
 coverage/
+
+# extracted SQL proj dump — do not commit
+docs/inventory/db/_dbo-sqlproj/
+
+
+# heavy DB extracts — keep local only
+docs/inventory/db/_dbo-sqlproj/
+docs/inventory/db/_dbo-filter/
+docs/inventory/db/DNACloudDB-schema/
+docs/inventory/db/*.dacpac
+

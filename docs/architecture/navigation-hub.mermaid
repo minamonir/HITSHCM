@@ -1,0 +1,19 @@
+flowchart TD
+  Browser[Browser]
+  Logon["logon.aspx\nReturnUrl=/Default.aspx"]
+  Auth["Forms auth\n(+ OIDC / Okta / SAML)"]
+  Cookie["Auth cookie\nuser + server + database"]
+  Home["Default.aspx\nMaster: NasWebGeneralMP"]
+  AgEmp["NasAgenda/AgendaPage.aspx\n?value=encrypted"]
+  AgGen["NasAgenda/AgendaPageGeneral.aspx\n?value=encrypted"]
+  Menu["Menu rows\nItemProg / ItemAProg"]
+  QS["HITSEncryptQS\nQueryStringModule decrypt"]
+  Frame["iframe host in Agenda shell"]
+  Feat["Feature pages\nNasSetup / ERec / Batches / ..."]
+
+  Browser --> Logon --> Auth --> Cookie --> Home
+  Home --> AgEmp
+  Home --> AgGen
+  AgEmp --> Menu
+  AgGen --> Menu
+  Menu --> QS --> Frame --> Feat

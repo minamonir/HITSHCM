@@ -1,0 +1,14 @@
+---
+description: TARGET auth is OIDC BFF + server tenant resolve — no fat Session, no conn string in profile
+globs:
+  - "**/*.{cs,cshtml,razor}"
+alwaysApply: false
+---
+
+# TARGET session (D-013 proposed)
+
+- Auth: OpenIddict OIDC + BFF cookie (Entra later) (see `docs/architecture/target-session.md`).
+- Tenant via `ITenantContext` / org claim — never `user - server - db` or client ConnectionString.
+- No `HttpContext.Session` for DataDictionary, rights, or reports; use services + Redis/memory cache with stable keys.
+- Mode A: bridge/exchange cookie with legacy Forms — do not share InProc Session with NasDna.
+

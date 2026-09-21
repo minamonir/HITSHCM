@@ -1,39 +1,46 @@
-﻿# Memory - HITSHCM
+# MEMORY — HITSHCM
 
-Short working memory. Keep truthful. Updated: 2026-09-21
+Last updated: 2026-09-21 (Africa/Cairo)
 
-## Status
+## Current status
 
-Scaffolded. Product and stack not filled yet.
+- **D-009:** CURRENT-state architecture pack written for Cursor (`ARCHITECTURE.md`, `docs/architecture/*`, always-on rule).
+- **D-008:** use full DNACloudDB.dacpac (not dbo-only package).
+- Source of truth **corrected**: `D:\Workspaces\HITSNasDnaFS\HITSNasDna` (not V12.1).
+- Inventory pack exists under `docs/inventory/00–09`; dacpacs under `docs/inventory/db/`.
+- First strangler slice still TBD (D-004).
 
-## Completed
+## SoT facts (verified 2026-09-21)
 
-- Project folder created from vibe skeleton
+- Solution: `HITSNasDna.sln` (10 VB projects; Azure deploy folders on disk but **not** in sln)
+- Web: `NasDna\NasDna.vbproj` — VB.NET Web Forms, **net48**
+- Assembly: HITSDNA 2020.01 (`2020.01.2024.0422`)
+- ~1573 aspx, ~615 ascx, ~8479 files (SoT root); NasDna tree ~7996 files
+- Connection names: LocalSqlServer, DefaultConnection → ASPNETDB; NasDotNetDevConnectionString → DNACloudDB; BGSetupConnectionString → DNACloudDBBG; ViewStateConnectionString → ASPNETDB; StoreConnectionString → hitsstore
+- Auth: Forms (`logon.aspx`); Membership/Profile on DefaultConnection
+- Data path: `NASDataSource` ← `Profile("ConnectionString")` + L2S `NasDB.dbml` (~503 tables)
+- DBs: DNACloudDB, DNACloudDBBG, ASPNETDB present on fz-dv-db01; **hitsstore missing**
+- dacpacs: DNACloudDB (canonical), DNACloudDBBG, aspnetdb
 
-## Works now
+## Architecture doc locations
 
-- (none yet)
+- `ARCHITECTURE.md` — agent entry
+- `docs/architecture/current-state.md` — full CURRENT map
+- `docs/architecture/context.mermaid` — context diagram
+- `.cursor/rules/current-architecture.mdc` — always-on
 
-## Known gaps
+## Next
 
-- PRD empty
-- Architecture empty
-- No TASK-001 defined
+- [ ] Optional: quick diff HITSNasDna vs V12.1
+- [x] Obtain DNACloudDB schema (dacpac) — 2026-09-21
+- [x] Document CURRENT architecture for Cursor — 2026-09-21
+- [ ] Pick first strangler slice (ERec / Time / NasAI / …)
+- [ ] Phase 1 plan against HITSNasDna paths only
+- [ ] Locate hitsstore / Profile tenant connection matrix
 
-## Next focus
+- D-011 TARGET baseline: 3-tier UI→ASP.NET Core API→SQL strangler; DNACloudDB SoR; C#/.NET 10; UI = Razor Pages default (D-005); Blazor optional.rchitecture/target-state.md
 
-1. SETUP.md
-2. Research + PRD
-3. Tech design
-4. TASK-001
+- D-005 (2026-09-21): TARGET UI = **Razor Pages** default; **Blazor** allowed for interactive modules only; API ASP.NET Core .NET 10 unchanged.
 
-## Notes for agents
-
-- Prefer docs over assumptions.
-- Point humans to `docs/prompts/` if stuck at the start.
-
-## Paths
-
-- Project: C:\Users\mina\Projects\HITSHCM
-- Scaffolded from: C:\Users\mina\Projects\vibe-coding-starter
+- D-012 (2026-09-21): UI/UX modernization is a first-class track parallel to capability strangler; see docs/architecture/target-ux.md (UX-0..UX-3).
 

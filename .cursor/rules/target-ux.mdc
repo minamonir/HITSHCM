@@ -1,0 +1,25 @@
+---
+description: UI/UX modernization track for HITSHCM TARGET slices (D-012)
+globs:
+alwaysApply: true
+---
+
+# UI/UX modernization track (D-012)
+
+## Always
+
+- Read `docs/architecture/target-ux.md` when building any TARGET UI.
+- UI/UX is a **first-class track** parallel to API/data strangler — not optional polish.
+- Default UI: **Razor Pages** (.NET 10). **Blazor** only for dense interactive modules (D-005).
+
+## Must
+
+- Use TARGET layout/chrome and shared tokens/patterns.
+- RTL/culture via layout + resources — no new `*_ar` page forks.
+- No new iframes inside modern screens (legacy Agenda may host Mode A bridge).
+- Do not port `App_Themes` / `.skin` as the design system.
+- Do not introduce React/Vue/Next as default.
+
+## Per slice DoD
+
+Layout ✓ · tokens/components ✓ · LTR+RTL ✓ · list/detail pattern ✓ · a11y basics ✓

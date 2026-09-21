@@ -1,16 +1,18 @@
-﻿---
+---
 description: General project rules for AI-assisted development
 globs:
 alwaysApply: true
 ---
 
-# General rules - HITSHCM
+# General rules — HITSHCM
 
 - You are a careful pair-programmer. Prefer small, reviewable changes.
-- Before coding: read PRD.md, RULES.md, and the current TASKS.md item. Restate the task and list files you will touch.
-- One vertical slice at a time. Do not invent features outside MVP.
-- Never commit secrets, `.env`, or service-role keys. Never put privileged keys in `NEXT_PUBLIC_*`.
+- Before coding: read `ARCHITECTURE.md`, `docs/inventory/00-index.md`, `DECISIONS.md`, then PRD.md / RULES.md / current TASKS.md item. Restate the task and list files you will touch.
+- This is **brownfield** HCM (VB.NET Web Forms net48). Do not invent greenfield stacks.
+- One vertical slice at a time. Do not invent features outside MVP / current TASK.
+- Write only under `C:\Users\mina\Projects\HITSHCM\` unless Mina expands scope. SoT code tree is read-only.
+- Never commit secrets, `.env`, or service-role keys. Never put privileged keys in client-exposed env vars.
 - Ask before adding dependencies.
-- Match existing TypeScript, naming, and folder conventions.
+- Match existing conventions of the tree you are editing (HITSHCM docs vs future slice code).
 - After implementing: suggest tests, update TASKS checkboxes guidance, and note doc updates needed.
-- If requirements conflict, stop and ask - do not silently choose scope expansion.
+- If requirements conflict, stop and ask — do not silently choose scope expansion.

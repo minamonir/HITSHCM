@@ -1,0 +1,14 @@
+---
+description: NasDna auth is Forms+Profile+Session — do not conflate identity, tenant, and UI state
+globs:
+  - "**/*.{aspx,ascx,vb,cs,cshtml}"
+alwaysApply: false
+---
+
+# Session & auth (CURRENT → TARGET)
+
+- Forms cookie identity name is `logon - server - database` (see `docs/architecture/session-management.md`).
+- Tenant SQL connection and lang live in **Profile**, not Session.
+- Session holds UI ephemera + warm DataTables (`dc`, rights, reports); InProc by default; Redis provider optional.
+- HitsCache (MemoryCache) may hold fat blobs keyed by SessionID when MemoryCacheKeys bits are set.
+- TARGET: opaque subject + server-side tenant resolve; no raw ConnectionString in browser-facing profile; don't share InProc Session across strangler iframe and new Razor host.

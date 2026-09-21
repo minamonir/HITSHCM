@@ -1,0 +1,42 @@
+%% HITSHCM CURRENT-STATE context — 2026-09-21
+%% Source of truth code: D:\Workspaces\HITSNasDnaFS\HITSNasDna
+%% This diagram describes CURRENT runtime, not target architecture.
+
+flowchart TB
+  subgraph Actors
+    Browser["Browser<br/>HR Admin / ESS"]
+    MobileUser["Mobile users"]
+  end
+
+  subgraph SoT["SoT — HITSNasDna.sln READ ONLY"]
+    NasDna["NasDna Web Forms<br/>VB.NET · net48<br/>HITSDNA 2020.01"]
+    Libs["Libs: ControlLibrary, CulturedControl,<br/>BOInterface, AXInterface,<br/>Providers, EncryptQS, RTFHTML"]
+  end
+
+  subgraph SQL["SQL Server sample fz-dv-db01"]
+    DNA["DNACloudDB<br/>canonical dacpac"]
+    BG["DNACloudDBBG"]
+    ASP["ASPNETDB"]
+    Store["hitsstore MISSING"]
+  end
+
+  subgraph Siblings["HITSNasDnaFS siblings — not SoT"]
+    V12["HITSNasDnaV12.1 compare only"]
+    REST["HITSMobileV12 / HITSAPIs"]
+    AI["HITSAI + NasAI pages"]
+    ERec["HITSDNAErec* forks"]
+    Jobs["DNAServices / TK / LMS"]
+  end
+
+  Browser --> NasDna
+  MobileUser --> REST
+  NasDna --> Libs
+  NasDna -->|"Profile ConnectionString / NasDotNetDev"| DNA
+  NasDna -->|BGSetup| BG
+  NasDna -->|Membership Profile ViewState| ASP
+  NasDna -.-> Store
+  REST --> DNA
+  Jobs --> DNA
+  ERec -.-> DNA
+  AI -.-> NasDna
+  V12 -.->|diff only| NasDna

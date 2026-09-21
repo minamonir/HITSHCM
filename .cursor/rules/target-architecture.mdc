@@ -1,0 +1,50 @@
+---
+description: TARGET modernized architecture for new HITSHCM slices (strangler)
+globs:
+alwaysApply: true
+---
+
+# TARGET architecture rule - HITSHCM
+
+## When this applies
+
+- Building **new** modernized features, APIs, UI slices, strangler work
+- User says "modern", "target arch", "new stack", "strangler slice"
+
+## Mandatory reads
+
+1. `ARCHITECTURE.md` (CURRENT vs TARGET)
+2. `docs/architecture/target-state.md`
+3. `DECISIONS.md` (D-002 strangler, D-011 TARGET baseline, D-008 dacpac)
+4. Still know CURRENT: `docs/architecture/current-state.md` (D-010 2-tier split logic)
+
+## TARGET shape (do not invent alternatives)
+
+- **3-tier for new slices:** Modern UI → **ASP.NET Core API (.NET 10, C#)** → SQL Server
+- **`DNACloudDB` remains system of record** early; wrap legacy procs/views via adapters
+- **Strangler:** legacy Web Forms IIS keeps running; cut over journey-by-journey
+- **New code location:** `C:\Users\mina\Projects\HITSHCM\` (or a repo Mina names) — **not** inside `D:\Workspaces\HITSNasDnaFS\HITSNasDna` unless Mina orders SoT edits
+- **Language:** C# for new; VB only when maintaining legacy SoT
+
+## Hard don'ts
+
+- Do not describe TARGET as today's production architecture
+- Do not assume greenfield rewrite of all 1500+ pages
+- Do not put new domain rules only in T-SQL for *new* features (prefer API layer); wrapping *existing* procs is fine
+- Do not touch EasyDO / HITSDoForC
+
+## CURRENT reminder
+
+Live SoT is still **2-tier** Web Forms + SQL with business logic split across VB and T-SQL (D-010).
+
+## UI (D-005)
+
+- **Default:** ASP.NET Core **Razor Pages** on .NET 10
+- **Optional:** **Blazor** only for dense interactive modules
+- Do **not** make Blazor (or a JS SPA) the default for new slices without a new decision
+
+## UI (D-005)
+
+- **Default:** Razor Pages (.NET 10)
+- **Optional:** Blazor for interactive modules only
+

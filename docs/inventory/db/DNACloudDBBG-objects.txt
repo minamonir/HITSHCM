@@ -1,0 +1,16 @@
+TABLE\tBusinessGroup
+TABLE\tBusinessGroupIPRanges
+TABLE\tBusinessGroupUsers
+TABLE\tBusinessGroupUsersIPRanges
+TABLE\tLang
+TABLE\tLangCaptions
+TABLE\tsysdiagrams
+TABLE\tTemp_BusinessGroupUsers
+PROC\tsp_alterdiagram
+PROC\tsp_creatediagram
+PROC\tsp_dropdiagram
+PROC\tsp_helpdiagramdefinition
+PROC\tsp_helpdiagrams
+PROC\tsp_renamediagram
+PROC\tsp_upgraddiagrams
+PROC\tSync_BusinessGroupUsers

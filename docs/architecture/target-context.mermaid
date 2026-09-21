@@ -1,0 +1,28 @@
+flowchart LR
+  subgraph Clients
+    ModernUI[Modern UI]
+    LegacyUI[Legacy Web Forms IIS]
+    Mobile[Mobile / partners]
+  end
+
+  subgraph NewStack["TARGET - new slices"]
+    API[ASP.NET Core API .NET 10]
+    ACL[Anti-corruption / proc adapters]
+  end
+
+  subgraph Data
+    DNA[(DNACloudDB SoR)]
+    BG[(DNACloudDBBG)]
+    ASP[(aspnetdb)]
+  end
+
+  ModernUI --> API
+  Mobile --> API
+  API --> ACL
+  ACL --> DNA
+  ACL --> BG
+  API -.-> ASP
+  LegacyUI --> DNA
+  LegacyUI --> BG
+  LegacyUI --> ASP
+

@@ -1,0 +1,14 @@
+---
+description: NasDna UI is data-dictionary driven — use TableName+FieldName, not hard-coded strings
+globs:
+  - "**/*.{aspx,ascx,vb,razor,cshtml}"
+alwaysApply: false
+---
+
+# Data dictionary UI (CURRENT → TARGET)
+
+- Legacy markup binds labels/validators via `Tablename` + `Fieldname` → `Session("dc")` from `dbo.DataDictionary` (see `docs/architecture/data-dictionary-controls.md`).
+- Designer English text in ascx is fallback only; dictionary caption is authoritative.
+- Language is selected at `CommonLib.LoadDC` (`GetOrgDataDictionary` / fallback SELECT mapping Caption|ACaption|FCaption into `Caption`).
+- TARGET: do not port HITSCulturedControl / HITSControlLibrary inheritance. Prefer a metadata API + Razor helpers using the same `(TableName, FieldName)` keys.
+- Do not invent parallel EN/AR resource files by hand for a slice — export or call DataDictionary for that module's keys.

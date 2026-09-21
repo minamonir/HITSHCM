@@ -1,0 +1,50 @@
+---
+description: Always-on — CURRENT architecture SoT for HITSHCM brownfield HCM
+globs:
+alwaysApply: true
+---
+
+# Current architecture rule — HITSHCM
+
+## Mandatory reads before coding
+
+1. `ARCHITECTURE.md` (CURRENT state entry)
+2. `docs/inventory/00-index.md`
+3. `DECISIONS.md`
+4. Depth when needed: `docs/architecture/current-state.md`
+
+## Source of truth
+
+- **Application SoT (READ ONLY):** `D:\Workspaces\HITSNasDnaFS\HITSNasDna`
+  - Solution: `HITSNasDna.sln`
+  - Web: `NasDna\NasDna.vbproj` — VB.NET ASP.NET Web Forms, **.NET Framework 4.8**, assembly **HITSDNA 2020.01** (`2020.01.2024.0422`)
+- **Sibling compare only:** `D:\Workspaces\HITSNasDnaFS\HITSNasDnaV12.1` (NOT SoT)
+- **Canonical schema:** `docs/inventory/db/DNACloudDB.dacpac` (D-008)
+- **Write only under:** `C:\Users\mina\Projects\HITSHCM\`
+- **Never touch:** `D:\Workspace\Roadmap\HITSDo\HITSDoForC`, EasyDO
+
+## CURRENT vs TARGET
+
+- Treat `ARCHITECTURE.md` as truth for **CURRENT** runtime, modules, data, auth.
+- **TARGET** is strangler + API-first only — do not invent greenfield stacks, Next.js defaults, or wholesale rewrites.
+- Do not assume EF-only or .NET 8 Web Forms upgrades-in-place.
+
+## Data / auth facts agents must not “fix”
+
+- Dominant HCM path: LINQ-to-SQL `NASDataSource` + **`Profile("ConnectionString")`** + raw ADO.NET / DataSets
+- Catalogs: DNACloudDB, DNACloudDBBG, ASPNETDB; hitsstore named but missing on sample server
+- Auth: Forms + SQL Membership; Okta/SAML/OWIN are additional eras
+
+## When inventory and SoT disagree
+
+Prefer **live SoT verification**, then update HITSHCM docs — never silently change SoT code.
+
+## Tier model
+
+- SoT is **2-tier**: IIS Web Forms + SQL Server (no app middle tier in SoT).
+- Business logic is **split**: heavy T-SQL (procs/funcs/views) **and** substantial VB code-behind — do **not** claim all logic is in SQL.
+
+## TARGET pointer
+
+For **new/modernized** work, also follow docs/architecture/target-state.md and .cursor/rules/target-architecture.mdc (D-011). Never confuse CURRENT 2-tier SoT with TARGET 3-tier slices.
+
