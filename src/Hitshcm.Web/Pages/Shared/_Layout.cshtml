@@ -1,0 +1,58 @@
+﻿@using System.Globalization
+@using Hitshcm.Web.Localization
+@inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResources> L
+@{
+    var culture = CultureInfo.CurrentUICulture;
+    var isRtl = culture.TextInfo.IsRightToLeft;
+    var lang = culture.TwoLetterISOLanguageName;
+    var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+}
+<!DOCTYPE html>
+<html lang="@lang" dir="@(isRtl ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] · HITSHCM</title>
+    @if (isRtl)
+    {
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    }
+    <link rel="stylesheet" href="~/css/tokens.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
+</head>
+<body class="app-shell">
+    <a class="skip-link" href="#main">@L["SkipToContent"]</a>
+    <header class="topbar">
+        <div class="topbar-brand">
+            <a asp-page="/Index" class="brand">HITSHCM</a>
+        </div>
+        <nav class="topbar-nav" aria-label="@L["Language"]">
+            <a asp-page="/Culture/Set" asp-route-culture="en" asp-route-returnUrl="@returnUrl" class="lang-link" hreflang="en">EN</a>
+            <span class="lang-sep" aria-hidden="true">·</span>
+            <a asp-page="/Culture/Set" asp-route-culture="ar" asp-route-returnUrl="@returnUrl" class="lang-link" hreflang="ar">العربية</a>
+        </nav>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <div class="topbar-user">
+                <span class="user-chip">@User.Identity.Name</span>
+                <form asp-page="/Account/Logout" method="post" class="logout-form">
+                    <button type="submit" class="btn-ghost">@L["Logout"]</button>
+                </form>
+            </div>
+        }
+    </header>
+    <main id="main" class="app-main" role="main">
+        @RenderBody()
+    </main>
+    <footer class="app-footer">
+        <p>@L["Footer"]</p>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

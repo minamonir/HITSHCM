@@ -1,0 +1,43 @@
+@page
+@model Hitshcm.Web.Pages.Account.LoginModel
+@using Hitshcm.Web.Localization
+@inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResources> L
+@{
+    ViewData["Title"] = L["SignIn"];
+}
+
+<section class="auth-panel">
+    <div class="auth-card">
+        <p class="eyebrow">HITSHCM</p>
+        <h1>@L["SignIn"]</h1>
+        <p class="lede">@L["SignInSubtitle"]</p>
+
+        <form method="post" novalidate>
+            <div asp-validation-summary="ModelOnly" class="form-alert" role="alert"></div>
+            <input type="hidden" asp-for="ReturnUrl" />
+
+            <div class="field">
+                <label asp-for="Input.UserNameOrEmail">@L["UserNameOrEmail"]</label>
+                <input asp-for="Input.UserNameOrEmail" autocomplete="username" class="form-control" autofocus />
+                <span asp-validation-for="Input.UserNameOrEmail" class="field-error"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Input.Password">@L["Password"]</label>
+                <input asp-for="Input.Password" autocomplete="current-password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="field-error"></span>
+            </div>
+
+            <div class="field field-check">
+                <input asp-for="Input.RememberMe" />
+                <label asp-for="Input.RememberMe">@L["RememberMe"]</label>
+            </div>
+
+            <button type="submit" class="btn-primary">@L["SubmitSignIn"]</button>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,10 +1,57 @@
 ﻿# HITSHCM
 
-Scaffolded with the Vibe Coding starter (workflow upgrade).
+Scaffolded with the Vibe Coding starter (workflow upgrade). Owner: Mina | Created: 2026-09-21
 
-Owner: Mina | Created: 2026-09-21
+Brownfield HCM modernization (strangler + API-first). Architecture docs on `main` stay authoritative for CURRENT vs TARGET. This repo now also hosts the first TARGET Razor slice: **OpenIddict local IdP + cookie BFF**.
 
-## Quick start
+## Run the Razor host (AUTH-1)
+
+Requires **.NET 10 SDK** (LTS).
+
+```bash
+dotnet --list-sdks   # expect 10.x
+dotnet restore Hitshcm.sln
+dotnet build Hitshcm.sln
+dotnet run --project src/Hitshcm.Web
+```
+
+| URL | Who |
+|-----|-----|
+| http://localhost:5080/ | Authenticated landing (anonymous users redirect to login) |
+| http://localhost:5080/Account/Login | Password login |
+| http://localhost:5080/Account/Logout | Clears the HttpOnly cookie |
+| http://localhost:5080/.well-known/openid-configuration | OpenIddict discovery |
+
+**Seeded Development user** (created on first run; change in any shared environment):
+
+| Field | Value |
+|-------|--------|
+| Email / username | `admin@hitshcm.local` |
+| Password | `ChangeMe!123` |
+| Org id | `demo-org` |
+| Business group id | `demo-bg` |
+
+SQLite files land in `src/Hitshcm.Web/App_Data/` (gitignored). This is the **Identity + OpenIddict** store only — **not** DNACloudDB.
+
+```bash
+dotnet test Hitshcm.sln
+```
+
+Language stub: top-bar **EN** / **العربية** sets `Hitshcm.Culture` and `dir="rtl"` for Arabic. Same pages, no `*_ar` forks.
+
+## D-013 mapping (short)
+
+| Lock | What this host does |
+|------|---------------------|
+| **D-013** | OpenIddict local OIDC IdP + BFF cookie `Hitshcm.Auth` (HttpOnly). No JWT in `localStorage`. Entra is **not** wired yet. |
+| **D-013a** | Tenant from `org_id` / `bg_id` claims (`ITenantContext`). Never a connection string in the identity name. |
+| **D-013b** | No InProc Session for business state. Mode A Agenda bridge is out of scope. |
+
+Full flow: [`docs/AUTH.md`](docs/AUTH.md). TARGET session spec: [`docs/architecture/target-session.md`](docs/architecture/target-session.md).
+
+Later API project belongs at `src/Hitshcm.Api` (not created this slice).
+
+## Agent / docs workflow
 
 1. Open this folder in Cursor
 2. Follow `SETUP.md`
@@ -16,9 +63,13 @@ Owner: Mina | Created: 2026-09-21
 
 | Path | Purpose |
 |---|---|
+| `Hitshcm.sln` | TARGET solution (.NET 10) |
+| `src/Hitshcm.Web` | Razor Pages host + local OpenIddict IdP |
+| `tests/Hitshcm.Web.Tests` | Auth flow tests |
 | `AGENTS.md` | Master agent contract |
 | `PRD.md` / `ARCHITECTURE.md` / `DESIGN.md` | Living product + tech docs |
 | `TASKS.md` / `MEMORY.md` / `DECISIONS.md` / `GOTCHAS.md` | Execution memory |
+| `docs/AUTH.md` | AUTH-1 login/cookie/landing |
 | `docs/workflow/` | Idea -> Verify overview |
 | `docs/prompts/` | Interview-style workflow prompts |
 | `docs/playbook/` | Full vibe coding guide |

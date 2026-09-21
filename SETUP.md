@@ -24,9 +24,10 @@ Day-1 checklist. Check items off as you go. Owner: Mina | Started: 2026-09-21
 ## D. Local env
 
 - [ ] Copy `.env.example` to `.env` locally (never commit `.env`)
-- [ ] Install toolchain for the chosen stack
+- [ ] Install **.NET 10 SDK** (`dotnet --list-sdks`)
 - [ ] Optional: copy `.mcp.json.example` to `.mcp.json` only if you need MCP; fill locally, never commit secrets
 - [ ] Confirm ignore rules in `.gitignore`
+- [ ] `dotnet run --project src/Hitshcm.Web` (see root `README.md`)
 
 ## E. First slice
 

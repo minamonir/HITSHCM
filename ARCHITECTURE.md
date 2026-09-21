@@ -85,7 +85,8 @@ UI/UX is a **parallel track** to API/data strangler — not leftover polish.
 - **Diagram:** [`docs/architecture/target-context.mermaid`](docs/architecture/target-context.mermaid)
 - **Decision:** D-011 TARGET baseline
 
-**Shape:** 3-tier for new work — ****Razor Pages** (default) / Blazor (optional) → ASP.NET Core API (.NET 10 / C#) → SQL (`DNACloudDB` SoR)** — strangling the CURRENT 2-tier Web Forms app. Legacy IIS stays up; new code does **not** land in the SoT tree by default.
+- **Shape:** 3-tier for new work — **Razor Pages** (default) / Blazor (optional) → ASP.NET Core API (.NET 10 / C#) → SQL (`DNACloudDB` SoR) — strangling the CURRENT 2-tier Web Forms app. Legacy IIS stays up; new code does **not** land in the SoT tree by default.
+- **First TARGET host (AUTH-1):** `Hitshcm.sln` / `src/Hitshcm.Web` — OpenIddict local IdP + BFF cookie. See [`docs/AUTH.md`](docs/AUTH.md).
 
 | CURRENT | TARGET |
 |---------|--------|

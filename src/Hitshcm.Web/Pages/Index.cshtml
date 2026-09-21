@@ -1,0 +1,30 @@
+﻿@page
+@model Hitshcm.Web.Pages.IndexModel
+@using Hitshcm.Web.Localization
+@inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResources> L
+@{
+    ViewData["Title"] = L["Home"];
+}
+
+<section class="welcome-card">
+    <p class="eyebrow">HITSHCM</p>
+    <h1>@L["WelcomeTitle"]</h1>
+    <p class="lede">@L["WelcomeBody"]</p>
+
+    <dl class="meta-grid">
+        <div>
+            <dt>@L["SignedInAs"]</dt>
+            <dd>@Model.UserDisplay</dd>
+        </div>
+        <div>
+            <dt>@L["TenantOrg"]</dt>
+            <dd>@(Model.Tenant.OrgId ?? "—")</dd>
+        </div>
+        <div>
+            <dt>@L["TenantBg"]</dt>
+            <dd>@(Model.Tenant.BusinessGroupId ?? "—")</dd>
+        </div>
+    </dl>
+
+    <p class="note">@L["AuthNote"]</p>
+</section>

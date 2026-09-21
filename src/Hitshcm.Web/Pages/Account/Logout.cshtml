@@ -1,0 +1,17 @@
+@page
+@model Hitshcm.Web.Pages.Account.LogoutModel
+@using Hitshcm.Web.Localization
+@inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResources> L
+@{
+    ViewData["Title"] = L["Logout"];
+}
+
+<section class="auth-panel">
+    <div class="auth-card">
+        <h1>@L["Logout"]</h1>
+        <p class="lede">@L["LogoutConfirm"]</p>
+        <form method="post">
+            <button type="submit" class="btn-primary">@L["Logout"]</button>
+        </form>
+    </div>
+</section>

@@ -20,7 +20,7 @@
 
 | ID | Task | Status |
 |----|------|--------|
-| UX-0 | Foundations: TARGET layout, tokens, base CSS, RTL smoke, PR checklist | todo |
+| UX-0 | Foundations: TARGET layout, tokens, base CSS, RTL smoke, PR checklist | in progress — AUTH-1 shell/tokens/RTL on login+landing; pattern library still open |
 | UX-1 | Pattern library: list/filter, detail form, modal, picker, empty/loading/error | todo |
 | UX-2 | Enforce UX DoD on each strangler slice | todo |
 | UX-3 | Mode B: replace Default/Agenda hub UX | later |
@@ -38,8 +38,8 @@
 
 ## TARGET auth / session
 - [x] **AUTH-0** Confirm D-013 / D-013a / D-013b (OpenIddict-first)
-- [ ] **AUTH-1** Spike OpenIddict + cookie BFF on HITSHCM host
-- [ ] **AUTH-2** ITenantContext + connection factory (Key Vault later)
+- [x] **AUTH-1** Spike OpenIddict + cookie BFF on HITSHCM host (`src/Hitshcm.Web`, see `docs/AUTH.md`)
+- [ ] **AUTH-2** ITenantContext + connection factory (Key Vault later) — `ITenantContext` claims stub exists; factory/SQL not started
 - [ ] **AUTH-3** Mode A session-exchange spike with legacy logon
 - [ ] **AUTH-4** Rights service wrapper (replace Session UserGroupRights reads)
 

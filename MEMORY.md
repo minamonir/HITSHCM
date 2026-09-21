@@ -4,6 +4,7 @@ Last updated: 2026-09-21 (Africa/Cairo)
 
 ## Current status
 
+- **AUTH-1 (2026-09-21):** `Hitshcm.sln` + `src/Hitshcm.Web` Razor Pages host on .NET 10 with OpenIddict local IdP, ASP.NET Identity, SQLite (dev), HttpOnly BFF cookie, login + landing + logout. Docs: `docs/AUTH.md`. Seed `admin@hitshcm.local` / `ChangeMe!123`. No DNACloudDB, no Entra, no Mode A bridge.
 - **D-009:** CURRENT-state architecture pack written for Cursor (`ARCHITECTURE.md`, `docs/architecture/*`, always-on rule).
 - **D-008:** use full DNACloudDB.dacpac (not dbo-only package).
 - Source of truth **corrected**: `D:\Workspaces\HITSNasDnaFS\HITSNasDna` (not V12.1).
@@ -43,4 +44,6 @@ Last updated: 2026-09-21 (Africa/Cairo)
 - D-005 (2026-09-21): TARGET UI = **Razor Pages** default; **Blazor** allowed for interactive modules only; API ASP.NET Core .NET 10 unchanged.
 
 - D-012 (2026-09-21): UI/UX modernization is a first-class track parallel to capability strangler; see docs/architecture/target-ux.md (UX-0..UX-3).
+
+- AUTH-1 (2026-09-21): first TARGET code in-repo — Razor host + OpenIddict cookie BFF. Next: AUTH-2 tenant connection factory; D-004 first strangler slice still TBD.
 

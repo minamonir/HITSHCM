@@ -15,9 +15,9 @@ Updated: 2026-09-21
 
 | Asset | Threat | Mitigation |
 |---|---|---|
-| User data | | |
-| Auth session | | |
-| Admin actions | | |
+| User data | Unauthenticated access to HCM | Login required on Razor folder; DNACloudDB not connected this slice |
+| Auth session | Token theft / XSS reading JWT | BFF HttpOnly cookie `Hitshcm.Auth`; no localStorage JWT |
+| Admin actions | Seed credentials in shared env | Dev-only seed `admin@hitshcm.local`; change before any shared host |
 
 ## Before deploy
 
