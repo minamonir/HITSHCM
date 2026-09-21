@@ -20,7 +20,7 @@
 
 | ID | Task | Status |
 |----|------|--------|
-| UX-0 | Foundations: TARGET layout, tokens, base CSS, RTL smoke, PR checklist | **done** — AUTH-1 product chrome (login + landing + `_Layout`); see `docs/UX.md` |
+| UX-0 | Foundations: TARGET layout, tokens, base CSS, RTL smoke, PR checklist | **done** — AUTH-1 product chrome; login now uses CURRENT NasDna cues (split/teal/frosted/BG/IdP stubs); see `docs/UX.md` |
 | UX-1 | Pattern library: list/filter, detail form, modal, picker, empty/loading/error | todo |
 | UX-2 | Enforce UX DoD on each strangler slice | todo |
 | UX-3 | Mode B: replace Default/Agenda hub UX | later |
@@ -39,6 +39,7 @@
 ## TARGET auth / session
 - [x] **AUTH-0** Confirm D-013 / D-013a / D-013b (OpenIddict-first)
 - [x] **AUTH-1** Spike OpenIddict + cookie BFF on HITSHCM host (`src/Hitshcm.Web`, see `docs/AUTH.md`)
+- [x] **UX-0 login CURRENT cues** Razor login restyle: teal/cyan tokens, split hero, frosted fields, BG picker claims, Office 365/OKTA stubs — see `docs/architecture/current-login-ux.md`
 - [ ] **AUTH-2** ITenantContext + connection factory (Key Vault later) — `ITenantContext` claims stub exists; factory/SQL not started
 - [ ] **AUTH-3** Mode A session-exchange spike with legacy logon
 - [ ] **AUTH-4** Rights service wrapper (replace Session UserGroupRights reads)

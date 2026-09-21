@@ -24,6 +24,7 @@ if (identityConnection.Contains("App_Data", StringComparison.OrdinalIgnoreCase))
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ITenantContext, HttpTenantContext>();
+builder.Services.AddSingleton<IBusinessGroupCatalog, SeedBusinessGroupCatalog>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

@@ -7,37 +7,56 @@
     ViewData["Shell"] = "auth";
 }
 
-<section class="auth-panel">
-    <div class="auth-card">
-        <p class="kicker">@L["AppName"]</p>
-        <h1 class="page-title">@L["SignIn"]</h1>
-        <p class="lede">@L["SignInSubtitle"]</p>
+<section class="auth-split">
+    <partial name="_AuthHero" />
+    <div class="auth-panel">
+        <div class="auth-card">
+            <p class="kicker">@L["AppName"]</p>
+            <h1 class="page-title">@L["SignIn"]</h1>
+            <p class="lede">@L["SignInSubtitle"]</p>
 
-        <form method="post" novalidate>
-            <div asp-validation-summary="ModelOnly" class="form-alert" role="alert"></div>
-            <input type="hidden" asp-for="ReturnUrl" />
+            <form method="post" novalidate>
+                <div asp-validation-summary="ModelOnly" class="form-alert" role="alert"></div>
+                <input type="hidden" asp-for="ReturnUrl" />
 
-            <div class="field">
-                <label asp-for="Input.UserNameOrEmail">@L["UserNameOrEmail"]</label>
-                <input asp-for="Input.UserNameOrEmail" autocomplete="username" class="form-control" autofocus />
-                <span asp-validation-for="Input.UserNameOrEmail" class="field-error"></span>
+                <div class="field">
+                    <label asp-for="Input.UserNameOrEmail">@L["UserNameOrEmail"]</label>
+                    <input asp-for="Input.UserNameOrEmail" autocomplete="username" class="form-control" autofocus />
+                    <span asp-validation-for="Input.UserNameOrEmail" class="field-error"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Input.Password">@L["Password"]</label>
+                    <input asp-for="Input.Password" autocomplete="current-password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="field-error"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Input.BusinessGroupId">@L["BusinessGroup"]</label>
+                    <select asp-for="Input.BusinessGroupId" asp-items="Model.BusinessGroups" class="form-control">
+                    </select>
+                    <span asp-validation-for="Input.BusinessGroupId" class="field-error"></span>
+                </div>
+
+                <div class="field-check">
+                    <input asp-for="Input.RememberMe" class="form-check-input" />
+                    <label asp-for="Input.RememberMe">@L["RememberMe"]</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">@L["SubmitSignIn"]</button>
+            </form>
+
+            <div class="idp-row" role="group" aria-labelledby="idp-row-label">
+                <p id="idp-row-label" class="idp-row-label">@L["IdpRowLabel"]</p>
+                <div class="idp-row-actions">
+                    <button type="button" class="btn btn-idp" aria-describedby="idp-soon">@L["IdpOffice365"]</button>
+                    <button type="button" class="btn btn-idp" aria-describedby="idp-soon">@L["IdpOkta"]</button>
+                </div>
+                <p id="idp-soon" class="idp-soon">@L["IdpComingSoon"]</p>
             </div>
 
-            <div class="field">
-                <label asp-for="Input.Password">@L["Password"]</label>
-                <input asp-for="Input.Password" autocomplete="current-password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="field-error"></span>
-            </div>
-
-            <div class="field-check">
-                <input asp-for="Input.RememberMe" class="form-check-input" />
-                <label asp-for="Input.RememberMe">@L["RememberMe"]</label>
-            </div>
-
-            <button type="submit" class="btn btn-primary">@L["SubmitSignIn"]</button>
-        </form>
-
-        <p class="footnote auth-footnote">@L["LoginFootnote"]</p>
+            <p class="footnote auth-footnote">@L["LoginFootnote"]</p>
+        </div>
     </div>
 </section>
 

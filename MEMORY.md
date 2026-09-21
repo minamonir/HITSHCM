@@ -4,7 +4,8 @@ Last updated: 2026-09-21 (Africa/Cairo)
 
 ## Current status
 
-- **UX-0 (2026-09-21):** AUTH-1 shell restyled as TARGET product chrome — expanded tokens, `_Layout` brand/user menu/culture switch, centered login card, landing identity chips + what’s-next placeholders, RTL smoke. Docs: `docs/UX.md`. Auth protocol unchanged (OpenIddict + cookie BFF).
+- **UX-0 login cues (2026-09-21):** TARGET `/Account/Login` now reads as HITS CURRENT family — `--brand-deep`/`--brand-accent`, split hero, frosted dark fields, seeded BG picker → `org_id`/`bg_id` claims, Office 365/OKTA stubs. OpenIddict + BFF cookie unchanged. Study: `docs/architecture/current-login-ux.md`.
+- **UX-0 (2026-09-21):** AUTH-1 shell restyled as TARGET product chrome — expanded tokens, `_Layout` brand/user menu/culture switch, landing identity chips + what’s-next placeholders, RTL smoke. Docs: `docs/UX.md`. Auth protocol unchanged (OpenIddict + cookie BFF).
 - **AUTH-1 (2026-09-21):** `Hitshcm.sln` + `src/Hitshcm.Web` Razor Pages host on .NET 10 with OpenIddict local IdP, ASP.NET Identity, SQLite (dev), HttpOnly BFF cookie, login + landing + logout. Docs: `docs/AUTH.md`. Seed `admin@hitshcm.local` / `ChangeMe!123`. No DNACloudDB, no Entra, no Mode A bridge.
 - **D-009:** CURRENT-state architecture pack written for Cursor (`ARCHITECTURE.md`, `docs/architecture/*`, always-on rule).
 - **D-008:** use full DNACloudDB.dacpac (not dbo-only package).
@@ -47,5 +48,5 @@ Last updated: 2026-09-21 (Africa/Cairo)
 - D-012 (2026-09-21): UI/UX modernization is a first-class track parallel to capability strangler; see docs/architecture/target-ux.md (UX-0..UX-3).
 
 - AUTH-1 (2026-09-21): first TARGET code in-repo — Razor host + OpenIddict cookie BFF. Next: AUTH-2 tenant connection factory; D-004 first strangler slice still TBD.
-- UX-0 (2026-09-21): foundations shipped on that host (tokens/chrome/RTL). Next UX: UX-1 pattern library (list/filter/detail), not another login restyle.
+- UX-0 (2026-09-21): foundations shipped on that host (tokens/chrome/RTL). Login later restyled with CURRENT NasDna cues (all five). Next UX: UX-1 pattern library (list/filter/detail).
 

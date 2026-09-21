@@ -28,6 +28,13 @@
   <data name="WelcomeBody" xml:space="preserve"><value>You are signed in to the HITSHCM shell. New journeys will land here as slices ship.</value></data>
   <data name="TenantOrg" xml:space="preserve"><value>Organization</value></data>
   <data name="TenantBg" xml:space="preserve"><value>Business group</value></data>
+  <data name="BusinessGroup" xml:space="preserve"><value>Business group</value></data>
+  <data name="AuthHeroTitle" xml:space="preserve"><value>HITS Agentic</value></data>
+  <data name="AuthHeroBody" xml:space="preserve"><value>People operations for HITS — sign in to the TARGET shell with your business group.</value></data>
+  <data name="IdpRowLabel" xml:space="preserve"><value>Or continue with</value></data>
+  <data name="IdpOffice365" xml:space="preserve"><value>Office 365</value></data>
+  <data name="IdpOkta" xml:space="preserve"><value>OKTA</value></data>
+  <data name="IdpComingSoon" xml:space="preserve"><value>Coming soon — local password stays the sign-in for this host.</value></data>
   <data name="Language" xml:space="preserve"><value>Language</value></data>
   <data name="Home" xml:space="preserve"><value>Home</value></data>
   <data name="SignedInAs" xml:space="preserve"><value>Signed in as</value></data>

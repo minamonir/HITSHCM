@@ -1,0 +1,41 @@
+@using Hitshcm.Web.Localization
+@inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResources> L
+<div class="auth-hero">
+    <div class="auth-hero-copy">
+        <p class="auth-hero-kicker">@L["AppName"]</p>
+        <h2 class="auth-hero-title">@L["AuthHeroTitle"]</h2>
+        <p class="auth-hero-lede">@L["AuthHeroBody"]</p>
+    </div>
+    <svg class="auth-hero-art" viewBox="0 0 640 420" role="img" aria-hidden="true" focusable="false">
+        <defs>
+            <linearGradient id="authHeroGlow" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#2BAAE3" stop-opacity="0.85" />
+                <stop offset="100%" stop-color="#F8FCFD" stop-opacity="0.15" />
+            </linearGradient>
+            <linearGradient id="authHeroWash" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#0c4a64" stop-opacity="0.2" />
+                <stop offset="100%" stop-color="#2BAAE3" stop-opacity="0.08" />
+            </linearGradient>
+        </defs>
+        <rect width="640" height="420" fill="url(#authHeroWash)" />
+        <path fill="none" stroke="url(#authHeroGlow)" stroke-width="2"
+              d="M40 320c48-86 96-128 168-128s112 64 168 64 112-96 176-96 80 48 80 48" />
+        <path fill="none" stroke="#2BAAE3" stroke-opacity="0.35" stroke-width="1.5"
+              d="M24 360c64-72 120-108 200-108s128 72 184 72 136-88 208-88" />
+        <circle cx="208" cy="192" r="10" fill="#2BAAE3" />
+        <circle cx="376" cy="256" r="8" fill="#F8FCFD" fill-opacity="0.9" />
+        <circle cx="544" cy="160" r="12" fill="#2BAAE3" fill-opacity="0.7" />
+        <g fill="none" stroke="#F8FCFD" stroke-opacity="0.55" stroke-width="2">
+            <rect x="86" y="214" width="52" height="110" rx="6" />
+            <rect x="150" y="174" width="64" height="150" rx="6" />
+            <rect x="226" y="198" width="46" height="126" rx="6" />
+        </g>
+        <g fill="#2BAAE3" fill-opacity="0.25">
+            <circle cx="470" cy="248" r="36" />
+            <circle cx="508" cy="268" r="28" />
+            <circle cx="448" cy="276" r="22" />
+        </g>
+        <path fill="#F8FCFD" fill-opacity="0.18"
+              d="M392 300c18-28 46-28 64 0 18-32 50-32 68-4v56H392v-52z" />
+    </svg>
+</div>

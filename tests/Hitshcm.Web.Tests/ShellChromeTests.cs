@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using Hitshcm.Web.Identity;
+using Hitshcm.Web.Tenancy;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Hitshcm.Web.Tests;
@@ -27,13 +28,39 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
         Assert.Contains("class=\"app-header\"", html, StringComparison.Ordinal);
         Assert.Contains("class=\"brand\"", html, StringComparison.Ordinal);
         Assert.Contains("culture-switch", html, StringComparison.Ordinal);
+        Assert.Contains("class=\"auth-split\"", html, StringComparison.Ordinal);
+        Assert.Contains("class=\"auth-hero", html, StringComparison.Ordinal);
         Assert.Contains("class=\"auth-card\"", html, StringComparison.Ordinal);
         Assert.Contains("Username or email", html, StringComparison.Ordinal);
         Assert.Contains("for=\"Input_UserNameOrEmail\"", html, StringComparison.Ordinal);
         Assert.Contains("for=\"Input_Password\"", html, StringComparison.Ordinal);
+        Assert.Contains("for=\"Input_BusinessGroupId\"", html, StringComparison.Ordinal);
+        Assert.Contains("id=\"Input_BusinessGroupId\"", html, StringComparison.Ordinal);
+        Assert.Contains(IdentityDataSeeder.DefaultBusinessGroupId, html, StringComparison.Ordinal);
+        Assert.Contains(SeedBusinessGroupCatalog.HrId, html, StringComparison.Ordinal);
+        Assert.Contains("Office 365", html, StringComparison.Ordinal);
+        Assert.Contains("OKTA", html, StringComparison.Ordinal);
+        Assert.Contains("Coming soon", html, StringComparison.Ordinal);
+        Assert.Contains("HITS Agentic", html, StringComparison.Ordinal);
         Assert.Contains("css/tokens", html, StringComparison.Ordinal);
         Assert.Contains("css/app", html, StringComparison.Ordinal);
         Assert.DoesNotContain("localStorage", html, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("<table", html, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task TokensCss_ContainsHitsTealAndCyan()
+    {
+        var client = CreateClient();
+        var response = await client.GetAsync("/css/tokens.css");
+        var css = await response.Content.ReadAsStringAsync();
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Contains("#105D7E", css, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("#2BAAE3", css, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("--brand-deep", css, StringComparison.Ordinal);
+        Assert.Contains("--brand-accent", css, StringComparison.Ordinal);
+        Assert.Contains("rgba(255, 255, 255, 0.2)", css, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -50,6 +77,9 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
         Assert.Contains("lang=\"ar\"", html, StringComparison.Ordinal);
         Assert.Contains("bootstrap.rtl", html, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("تسجيل الدخول", html, StringComparison.Ordinal);
+        Assert.Contains("مجموعة الأعمال", html, StringComparison.Ordinal);
+        Assert.Contains("Office 365", html, StringComparison.Ordinal);
+        Assert.Contains("OKTA", html, StringComparison.Ordinal);
         Assert.Contains("culture-switch__opt is-active", html, StringComparison.Ordinal);
         Assert.Contains("hreflang=\"ar\"", html, StringComparison.Ordinal);
         Assert.Contains("aria-current=\"true\"", html, StringComparison.Ordinal);
@@ -115,6 +145,7 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
         {
             ["Input.UserNameOrEmail"] = IdentityDataSeeder.DefaultAdminEmail,
             ["Input.Password"] = IdentityDataSeeder.DefaultAdminPassword,
+            ["Input.BusinessGroupId"] = IdentityDataSeeder.DefaultBusinessGroupId,
             ["__RequestVerificationToken"] = token
         }));
         Assert.Equal(HttpStatusCode.Redirect, post.StatusCode);

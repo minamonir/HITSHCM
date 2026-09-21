@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using Hitshcm.Web.Identity;
+using Hitshcm.Web.Tenancy;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Hitshcm.Web.Tests;
@@ -51,6 +52,7 @@ public sealed class AuthFlowTests : IClassFixture<HitshcmWebFactory>
         {
             ["Input.UserNameOrEmail"] = IdentityDataSeeder.DefaultAdminEmail,
             ["Input.Password"] = IdentityDataSeeder.DefaultAdminPassword,
+            ["Input.BusinessGroupId"] = IdentityDataSeeder.DefaultBusinessGroupId,
             ["ReturnUrl"] = "/",
             ["__RequestVerificationToken"] = token
         }));
@@ -82,6 +84,7 @@ public sealed class AuthFlowTests : IClassFixture<HitshcmWebFactory>
         {
             ["Input.UserNameOrEmail"] = IdentityDataSeeder.DefaultAdminEmail,
             ["Input.Password"] = "WrongPassword!1",
+            ["Input.BusinessGroupId"] = IdentityDataSeeder.DefaultBusinessGroupId,
             ["__RequestVerificationToken"] = token
         }));
 
@@ -127,6 +130,64 @@ public sealed class AuthFlowTests : IClassFixture<HitshcmWebFactory>
         var html = await login.Content.ReadAsStringAsync();
         Assert.Contains("dir=\"rtl\"", html, StringComparison.Ordinal);
         Assert.Contains("lang=\"ar\"", html, StringComparison.Ordinal);
+        Assert.Contains("مجموعة الأعمال", html, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task Login_UnknownBusinessGroup_DoesNotIssueCookie()
+    {
+        var client = CreateClient();
+        var loginGet = await client.GetAsync("/Account/Login");
+        var html = await loginGet.Content.ReadAsStringAsync();
+        var token = GetAntiforgeryToken(html);
+
+        var post = await client.PostAsync("/Account/Login", new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["Input.UserNameOrEmail"] = IdentityDataSeeder.DefaultAdminEmail,
+            ["Input.Password"] = IdentityDataSeeder.DefaultAdminPassword,
+            ["Input.BusinessGroupId"] = "not-a-real-bg",
+            ["__RequestVerificationToken"] = token
+        }));
+
+        Assert.Equal(HttpStatusCode.OK, post.StatusCode);
+        var body = await post.Content.ReadAsStringAsync();
+        Assert.Contains("Select a valid business group", body, StringComparison.Ordinal);
+        Assert.DoesNotContain(post.Headers, h =>
+            h.Key.Equals("Set-Cookie", StringComparison.OrdinalIgnoreCase)
+            && h.Value.Any(v => v.Contains("Hitshcm.Auth=", StringComparison.Ordinal)));
+    }
+
+    [Fact]
+    public async Task SeededLogin_SelectedBusinessGroup_SetsOrgAndBgClaims()
+    {
+        var client = CreateClient();
+        var loginGet = await client.GetAsync("/Account/Login");
+        var html = await loginGet.Content.ReadAsStringAsync();
+        var token = GetAntiforgeryToken(html);
+
+        var post = await client.PostAsync("/Account/Login", new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["Input.UserNameOrEmail"] = IdentityDataSeeder.DefaultAdminEmail,
+            ["Input.Password"] = IdentityDataSeeder.DefaultAdminPassword,
+            ["Input.BusinessGroupId"] = SeedBusinessGroupCatalog.EastId,
+            ["ReturnUrl"] = "/",
+            ["__RequestVerificationToken"] = token
+        }));
+
+        Assert.Equal(HttpStatusCode.Redirect, post.StatusCode);
+        Assert.Contains(post.Headers, h =>
+            h.Key.Equals("Set-Cookie", StringComparison.OrdinalIgnoreCase)
+            && h.Value.Any(v => v.Contains("Hitshcm.Auth=", StringComparison.Ordinal)
+                && v.Contains("httponly", StringComparison.OrdinalIgnoreCase)));
+
+        var home = await client.GetAsync("/");
+        var homeHtml = await home.Content.ReadAsStringAsync();
+        Assert.Equal(HttpStatusCode.OK, home.StatusCode);
+        Assert.Contains(SeedBusinessGroupCatalog.EastId, homeHtml, StringComparison.Ordinal);
+        Assert.Contains(SeedBusinessGroupCatalog.EastOrgId, homeHtml, StringComparison.Ordinal);
+        Assert.DoesNotContain("ConnectionString", homeHtml, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Data Source=", homeHtml, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Server=", homeHtml, StringComparison.OrdinalIgnoreCase);
     }
 
     private HttpClient CreateClient()
@@ -148,6 +209,7 @@ public sealed class AuthFlowTests : IClassFixture<HitshcmWebFactory>
         {
             ["Input.UserNameOrEmail"] = IdentityDataSeeder.DefaultAdminEmail,
             ["Input.Password"] = IdentityDataSeeder.DefaultAdminPassword,
+            ["Input.BusinessGroupId"] = IdentityDataSeeder.DefaultBusinessGroupId,
             ["__RequestVerificationToken"] = token
         }));
         Assert.Equal(HttpStatusCode.Redirect, post.StatusCode);

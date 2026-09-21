@@ -10,10 +10,11 @@
 Browser
   GET /  (anonymous)
        → 302 /Account/Login
-  POST /Account/Login  (username/email + password)
+  POST /Account/Login  (username/email + password + business group)
        → ASP.NET Identity validates against SQLite user store
-       → SignInManager issues HttpOnly cookie `Hitshcm.Auth`
-         (BFF session; no JWT in localStorage)
+       → Selected business group maps to `org_id` / `bg_id` claims (D-013a)
+       → Sign-in issues HttpOnly cookie `Hitshcm.Auth`
+         (BFF session; no JWT in localStorage; never a connection string)
        → 302 /
   GET /  (authenticated)
        → landing shell (user, org_id, bg_id from claims)
@@ -38,7 +39,7 @@ Razor Pages do **not** put access tokens in the browser. Interactive UI uses the
 | Decision | This host |
 |----------|-----------|
 | **D-013** OpenIddict local IdP first + BFF cookie | OpenIddict server + validation in-process; Razor signs in with `Hitshcm.Auth` (HttpOnly, SameSite=Lax) |
-| **D-013a** Tenant server-resolved | `org_id` / `bg_id` claims from `ApplicationUser.OrgId` / `BusinessGroupId`. `ITenantContext` reads claims. **Never** a connection string in the identity name or client profile |
+| **D-013a** Tenant server-resolved | Login **Business group** dropdown (`SeedBusinessGroupCatalog`) replaces `org_id` / `bg_id` on the cookie principal. `ITenantContext` reads those claims. **Never** a connection string in the identity name or client profile |
 | **D-013b** No fat InProc Session | `UseSession` is not registered. No `HttpContext.Session` bags. Mode A bridge is **not** implemented |
 
 ## Where Entra plugs in later
@@ -71,6 +72,6 @@ Stub only: see comments in `Program.cs` / `AuthorizationController.cs`.
 
 - Email / username: `admin@hitshcm.local`
 - Password: `ChangeMe!123`
-- Org: `demo-org`
-- Business group: `demo-bg`
+- Org: `demo-org` (also `demo-org-east` via East Region picker)
+- Business groups (login dropdown): `demo-bg` (Demo HITS), `demo-bg-hr` (Demo HR), `demo-bg-east` (East Region)
 - OpenIddict client id: `hitshcm-web` (confidential; local secret in `appsettings.Development.json`)

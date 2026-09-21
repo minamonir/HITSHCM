@@ -1,19 +1,29 @@
 :root {
-  /* Color — product chrome (teal, not App_Themes/Blue) */
-  --color-bg: #f3f5f7;
-  --color-bg-accent: #e7eef0;
+  /* HITS CURRENT product cues (NasDna logon.aspx) — not App_Themes/Blue */
+  --brand-deep: #105D7E;
+  --brand-deep-strong: #0c4a64;
+  --brand-accent: #2BAAE3;
+  --brand-accent-hover: #1e96cc;
+  --brand-accent-text: #F8FCFD;
+  --brand-field-fill: rgba(255, 255, 255, 0.2);
+  --brand-field-radius: 8px;
+  --brand-select-option-bg: rgb(52, 67, 79);
+
+  /* Color — product chrome */
+  --color-bg: #eef5f8;
+  --color-bg-accent: #dceaf1;
   --color-surface: #ffffff;
-  --color-surface-muted: #f7f9fa;
+  --color-surface-muted: #f4f9fb;
   --color-text: #12202b;
   --color-text-secondary: #3d4f5c;
   --color-muted: #5c6a77;
-  --color-primary: #0e6e6b;
-  --color-primary-hover: #0b5754;
-  --color-primary-subtle: #e6f4f3;
-  --color-primary-contrast: #ffffff;
-  --color-topbar: #0a3332;
+  --color-primary: var(--brand-accent);
+  --color-primary-hover: var(--brand-accent-hover);
+  --color-primary-subtle: #e6f6fc;
+  --color-primary-contrast: var(--brand-accent-text);
+  --color-topbar: var(--brand-deep);
   --color-topbar-text: #e8f3f2;
-  --color-topbar-muted: #b7d4d2;
+  --color-topbar-muted: #b7d4e2;
   --color-border: #d5dde5;
   --color-border-strong: #b7c3ce;
   --color-danger: #b42318;
@@ -23,9 +33,9 @@
   --color-success-bg: #ecfdf3;
   --color-warning: #b54708;
   --color-warning-bg: #fffaeb;
-  --color-focus: #1d9a96;
-  --color-chip-bg: #eef4f4;
-  --color-chip-text: #0a3332;
+  --color-focus: var(--brand-accent);
+  --color-chip-bg: #e7f6fc;
+  --color-chip-text: var(--brand-deep);
 
   /* Type scale */
   --font-sans: "Segoe UI", "Noto Naskh Arabic", "Noto Sans Arabic", "Noto Sans", system-ui, sans-serif;
@@ -64,9 +74,9 @@
 
   /* Elevation */
   --elevation-0: none;
-  --elevation-1: 0 1px 2px rgba(18, 32, 43, 0.06), 0 8px 24px rgba(11, 61, 60, 0.06);
-  --elevation-2: 0 12px 32px rgba(11, 61, 60, 0.12);
-  --elevation-3: 0 20px 48px rgba(10, 51, 50, 0.18);
+  --elevation-1: 0 1px 2px rgba(18, 32, 43, 0.06), 0 8px 24px rgba(16, 93, 126, 0.08);
+  --elevation-2: 0 12px 32px rgba(16, 93, 126, 0.14);
+  --elevation-3: 0 20px 48px rgba(12, 74, 100, 0.2);
   --shadow: var(--elevation-1);
 
   /* Density / chrome */
@@ -75,12 +85,12 @@
   --density-tap-min: 2.75rem;
   --topbar-height: 3.75rem;
   --content-max: 72rem;
-  --auth-card-max: 26.5rem;
+  --auth-form-max: 26.5rem;
   --motion: 160ms;
 
   /* Bootstrap 5 themed from the same tokens */
   --bs-primary: var(--color-primary);
-  --bs-primary-rgb: 14, 110, 107;
+  --bs-primary-rgb: 43, 170, 227;
   --bs-secondary: var(--color-muted);
   --bs-danger: var(--color-danger);
   --bs-success: var(--color-success);

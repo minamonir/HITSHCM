@@ -8,6 +8,7 @@ Updated: 2026-09-21
 - [x] AUTH-1: seed login reaches landing; logout clears cookie
 - [x] UX-0: login chrome (skip link, culture switch, labeled auth card)
 - [x] UX-0: landing identity strip + what’s-next cards; Arabic `dir="rtl"`
+- [x] Login CURRENT cues: BG field, Office 365/OKTA stubs, teal/cyan tokens, split hero; selected BG sets claims; cookie still HttpOnly
 - [ ] Empty / loading / error states (beyond login validation) — UX-1
 
 ## Automated (when stack exists)
@@ -22,10 +23,12 @@ Updated: 2026-09-21
 
 1. `dotnet run --project src/Hitshcm.Web`
 2. Open http://localhost:5080/ → login
-3. Sign in `admin@hitshcm.local` / `ChangeMe!123`
+3. Sign in `admin@hitshcm.local` / `ChangeMe!123` with Business group **Demo HITS**
 4. Confirm welcome + identity chips (user / org / bg) and what’s-next cards; DevTools: `Hitshcm.Auth` HttpOnly, no JWT in localStorage
-5. Log out via user menu → back to login; `/` redirects again
-6. Language: العربية → `dir="rtl"`, culture control shows العربية active, nav/chips mirror
+5. Repeat with **East Region** — chips show `demo-org-east` / `demo-bg-east` (never a connection string)
+6. Log out via user menu → back to login; `/` redirects again
+7. Language: العربية → `dir="rtl"`, culture control shows العربية active, nav/chips mirror; login split still usable
+8. Office 365 / OKTA buttons are visible stubs (coming soon; password login still works)
 
 ## Responsive smoke
 

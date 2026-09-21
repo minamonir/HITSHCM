@@ -28,6 +28,13 @@
   <data name="WelcomeBody" xml:space="preserve"><value>تم تسجيل دخولك إلى واجهة HITSHCM. ستظهر الرحلات الجديدة هنا مع كل شريحة.</value></data>
   <data name="TenantOrg" xml:space="preserve"><value>المؤسسة</value></data>
   <data name="TenantBg" xml:space="preserve"><value>مجموعة الأعمال</value></data>
+  <data name="BusinessGroup" xml:space="preserve"><value>مجموعة الأعمال</value></data>
+  <data name="AuthHeroTitle" xml:space="preserve"><value>HITS Agentic</value></data>
+  <data name="AuthHeroBody" xml:space="preserve"><value>عمليات الأفراد في HITS — سجّل الدخول إلى الواجهة المستهدفة مع مجموعة الأعمال.</value></data>
+  <data name="IdpRowLabel" xml:space="preserve"><value>أو تابع عبر</value></data>
+  <data name="IdpOffice365" xml:space="preserve"><value>Office 365</value></data>
+  <data name="IdpOkta" xml:space="preserve"><value>OKTA</value></data>
+  <data name="IdpComingSoon" xml:space="preserve"><value>قريباً — تسجيل الدخول بكلمة المرور المحلية يبقى المعتمد على هذا المضيف.</value></data>
   <data name="Language" xml:space="preserve"><value>اللغة</value></data>
   <data name="Home" xml:space="preserve"><value>الرئيسية</value></data>
   <data name="SignedInAs" xml:space="preserve"><value>مسجّل الدخول باسم</value></data>

@@ -28,8 +28,8 @@ dotnet run --project src/Hitshcm.Web
 |-------|--------|
 | Email / username | `admin@hitshcm.local` |
 | Password | `ChangeMe!123` |
-| Org id | `demo-org` |
-| Business group id | `demo-bg` |
+| Org id | `demo-org` (login picker can also set `demo-org-east`) |
+| Business group id | `demo-bg` (also `demo-bg-hr`, `demo-bg-east` on the login dropdown) |
 
 SQLite files land in `src/Hitshcm.Web/App_Data/` (gitignored). This is the **Identity + OpenIddict** store only — **not** DNACloudDB.
 
