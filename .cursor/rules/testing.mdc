@@ -1,0 +1,18 @@
+﻿---
+description: Testing conventions (Playwright and unit tests)
+globs:
+  - "e2e/**"
+  - "tests/**"
+  - "**/*.spec.ts"
+  - "**/*.test.ts"
+alwaysApply: false
+---
+
+# Testing rules - HITSHCM
+
+- Prefer tests that mirror acceptance criteria in TASKS.md.
+- Playwright: use resilient locators (role/label/text); avoid brittle CSS chains.
+- Do not delete or weaken assertions to get a green run - fix the product or fix the test deliberately.
+- Keep E2E scenarios few and critical (auth + primary happy path first).
+- When fixing a bug, add a regression test when practical.
+- Document manual-only checks in TEST_PLAN.md.

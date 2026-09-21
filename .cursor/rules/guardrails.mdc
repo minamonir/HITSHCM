@@ -1,0 +1,26 @@
+﻿---
+description: Hard guardrails - secrets, scope, evidence before done
+globs:
+alwaysApply: true
+---
+
+# Guardrails - HITSHCM
+
+## Secrets
+
+- Never commit `.env`, `.mcp.json` with real keys, service-role keys, or tokens.
+- Never edit `.env` in-repo; change only `.env.example` names.
+- Never put privileged secrets in `NEXT_PUBLIC_*` (or client-exposed equivalents).
+- Do not paste live secrets into chat.
+
+## Scope
+
+- One TASK at a time. No hitchhiking features.
+- If asked work conflicts with PRD Out / TASKS, stop and ask.
+- Do not add dependencies without explicit approval.
+
+## Evidence before done
+
+- Do not claim done without tests, commands, or explicit manual checks.
+- Prefer `/vibe-verify` or the verifier agent after implementer.
+- Append `GOTCHAS.md` after bugfixes; append `DECISIONS.md` for architecture choices.

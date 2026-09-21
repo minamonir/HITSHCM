@@ -1,0 +1,17 @@
+.env
+.env.local
+.env.*.local
+.mcp.json
+node_modules/
+dist/
+build/
+.next/
+bin/
+obj/
+.vs/
+*.user
+__pycache__/
+.pytest_cache/
+.DS_Store
+*.log
+coverage/

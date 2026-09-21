@@ -1,0 +1,19 @@
+﻿---
+description: Frontend conventions (Next.js App Router, Tailwind)
+globs:
+  - "app/**"
+  - "components/**"
+  - "src/app/**"
+  - "src/components/**"
+alwaysApply: false
+---
+
+# Frontend rules - HITSHCM
+
+- Prefer Next.js App Router patterns already in the repo.
+- Use TypeScript strict styles; avoid `any` unless justified in a comment.
+- Tailwind for styling; reuse existing tokens/patterns before inventing new ones.
+- Keep components focused; extract only when reuse is real.
+- Handle loading, empty, and error states for user-facing flows.
+- Accessibility: semantic HTML, labels on inputs, keyboard-reachable actions.
+- Do not fetch privileged data in client components without an approved pattern.

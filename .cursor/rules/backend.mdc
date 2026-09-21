@@ -1,0 +1,19 @@
+﻿---
+description: Backend / data / auth conventions
+globs:
+  - "app/api/**"
+  - "app/actions/**"
+  - "lib/**"
+  - "src/lib/**"
+  - "supabase/**"
+alwaysApply: false
+---
+
+# Backend rules - HITSHCM
+
+- Validate inputs at the boundary (server actions / route handlers).
+- Enforce auth on sensitive operations; assume deny-by-default.
+- Prefer server-side Supabase client for privileged operations; never expose service-role keys to the client.
+- Keep business rules documented when non-obvious; add ADR if the data model changes.
+- Migrations / schema changes should be explicit and minimal for the current slice.
+- Log safely: no secrets, no full PII dumps.
