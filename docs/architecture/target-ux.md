@@ -54,11 +54,11 @@ Every D-004 slice ships **both**: working capability **and** TARGET UX standards
 ## Workstreams (UI/UX track)
 
 ### UX-0 — Foundations (before / with first slice)
-- [ ] TARGET layout(s) + login chrome
-- [ ] Design tokens (color, type, spacing, density) documented
-- [ ] Base stylesheet wired into Razor
-- [ ] RTL smoke (Arabic culture)
-- [ ] UX checklist for PRs (see below)
+- [x] TARGET layout(s) + login chrome — AUTH-1 `_Layout` (brand, culture switch, user menu) + centered login card
+- [x] Design tokens (color, type, spacing, density) documented — `wwwroot/css/tokens.css` + [`docs/UX.md`](../UX.md)
+- [x] Base stylesheet wired into Razor — `wwwroot/css/app.css` (Bootstrap 5 themed via tokens)
+- [x] RTL smoke (Arabic culture) — `dir` + `bootstrap.rtl` + EN/العربية control
+- [x] UX checklist for PRs (see below)
 
 ### UX-1 — Pattern library
 - [ ] List + filter bar
@@ -86,6 +86,18 @@ Every D-004 slice ships **both**: working capability **and** TARGET UX standards
 - Matches list/detail pattern unless exception recorded
 - Accessible enough: focus order, labels, contrast on primary actions
 - Linked from strangler slice acceptance criteria
+
+## PR UX checklist
+
+Copy into the slice PR (also in [`docs/UX.md`](../UX.md)):
+
+- [ ] `_Layout` (or approved popup/print layout)
+- [ ] Tokens + `app.css` only — no page CSS dump, no `App_Themes` port
+- [ ] LTR + RTL via culture/`dir` (no `*_ar` fork)
+- [ ] Labels + `:focus-visible` + contrast on primary actions
+- [ ] Usable at ~375 / ~768 / ~1280
+- [ ] No new iframe inside the modern surface
+- [ ] List/detail (or recorded exception) once UX-1 patterns exist
 
 ## Cursor / agent rules
 

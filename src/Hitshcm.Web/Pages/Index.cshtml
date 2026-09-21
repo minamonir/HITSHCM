@@ -6,25 +6,46 @@
     ViewData["Title"] = L["Home"];
 }
 
-<section class="welcome-card">
-    <p class="eyebrow">HITSHCM</p>
-    <h1>@L["WelcomeTitle"]</h1>
+<section class="home-hero">
+    <p class="kicker">@L["Home"]</p>
+    <h1 class="page-title">@L["WelcomeGreeting"]</h1>
     <p class="lede">@L["WelcomeBody"]</p>
 
-    <dl class="meta-grid">
-        <div>
-            <dt>@L["SignedInAs"]</dt>
-            <dd>@Model.UserDisplay</dd>
-        </div>
-        <div>
-            <dt>@L["TenantOrg"]</dt>
-            <dd>@(Model.Tenant.OrgId ?? "—")</dd>
-        </div>
-        <div>
-            <dt>@L["TenantBg"]</dt>
-            <dd>@(Model.Tenant.BusinessGroupId ?? "—")</dd>
-        </div>
-    </dl>
+    <ul class="identity-strip" aria-label="@L["SessionSummary"]">
+        <li class="chip">
+            <span class="chip-label">@L["SignedInAs"]</span>
+            <span class="chip-value">@Model.UserDisplay</span>
+        </li>
+        <li class="chip">
+            <span class="chip-label">@L["TenantOrg"]</span>
+            <span class="chip-value">@(Model.Tenant.OrgId ?? "—")</span>
+        </li>
+        <li class="chip">
+            <span class="chip-label">@L["TenantBg"]</span>
+            <span class="chip-value">@(Model.Tenant.BusinessGroupId ?? "—")</span>
+        </li>
+    </ul>
 
-    <p class="note">@L["AuthNote"]</p>
+    <p class="footnote tenant-note">@L["AuthNote"]</p>
+</section>
+
+<section class="home-next" aria-labelledby="whats-next">
+    <h2 id="whats-next" class="section-title">@L["WhatsNext"]</h2>
+    <div class="card-grid">
+        <article class="next-card">
+            <p class="badge-soon">@L["ComingSoon"]</p>
+            <h3>@L["NextAgendaTitle"]</h3>
+            <p>@L["NextAgendaBody"]</p>
+        </article>
+        <article class="next-card">
+            <p class="badge-soon">@L["ComingSoon"]</p>
+            <h3>@L["NextSliceTitle"]</h3>
+            <p>@L["NextSliceBody"]</p>
+        </article>
+        <article class="next-card">
+            <p class="badge-soon">@L["ComingSoon"]</p>
+            <h3>@L["NextAuth2Title"]</h3>
+            <p>@L["NextAuth2Body"]</p>
+        </article>
+    </div>
 </section>

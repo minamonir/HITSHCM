@@ -13,8 +13,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppName" xml:space="preserve"><value>HITSHCM</value></data>
+  <data name="ProductTagline" xml:space="preserve"><value>عمليات الأفراد</value></data>
   <data name="SignIn" xml:space="preserve"><value>تسجيل الدخول</value></data>
-  <data name="SignInSubtitle" xml:space="preserve"><value>استخدم حساب HITSHCM. الجلسة عبارة عن ملف تعريف ارتباط HttpOnly — لا تُحفظ الرموز في المتصفح.</value></data>
+  <data name="SignInSubtitle" xml:space="preserve"><value>أدخل حساب HITSHCM للمتابعة.</value></data>
+  <data name="LoginFootnote" xml:space="preserve"><value>الجلسة عبارة عن ملف تعريف ارتباط HttpOnly. لا تُحفظ الرموز في المتصفح.</value></data>
   <data name="UserNameOrEmail" xml:space="preserve"><value>اسم المستخدم أو البريد</value></data>
   <data name="Password" xml:space="preserve"><value>كلمة المرور</value></data>
   <data name="RememberMe" xml:space="preserve"><value>تذكرني</value></data>
@@ -22,13 +24,29 @@
   <data name="Logout" xml:space="preserve"><value>تسجيل الخروج</value></data>
   <data name="LogoutConfirm" xml:space="preserve"><value>تسجيل الخروج من HITSHCM ومسح ملف تعريف ارتباط المصادقة.</value></data>
   <data name="WelcomeTitle" xml:space="preserve"><value>مرحباً</value></data>
-  <data name="WelcomeBody" xml:space="preserve"><value>تم تسجيل دخولك إلى مضيف HITSHCM. هذه الصفحة هي هيكل AUTH-1 — بدون اتصال DNACloudDB بعد.</value></data>
+  <data name="WelcomeGreeting" xml:space="preserve"><value>مرحباً بعودتك</value></data>
+  <data name="WelcomeBody" xml:space="preserve"><value>تم تسجيل دخولك إلى واجهة HITSHCM. ستظهر الرحلات الجديدة هنا مع كل شريحة.</value></data>
   <data name="TenantOrg" xml:space="preserve"><value>المؤسسة</value></data>
   <data name="TenantBg" xml:space="preserve"><value>مجموعة الأعمال</value></data>
   <data name="Language" xml:space="preserve"><value>اللغة</value></data>
   <data name="Home" xml:space="preserve"><value>الرئيسية</value></data>
   <data name="SignedInAs" xml:space="preserve"><value>مسجّل الدخول باسم</value></data>
-  <data name="AuthNote" xml:space="preserve"><value>المستأجر يُحدَّد على الخادم من معرّف المؤسسة / مجموعة الأعمال. لا تُخزَّن سلاسل الاتصال في اسم الهوية أو هذا الملف.</value></data>
+  <data name="AuthNote" xml:space="preserve"><value>المستأجر يُحدَّد على الخادم من معرّف المؤسسة ومجموعة الأعمال. لا تُخزَّن سلاسل الاتصال في هذا الملف.</value></data>
   <data name="Footer" xml:space="preserve"><value>HITSHCM · مضيف Razor المستهدف · OpenIddict محلي</value></data>
   <data name="SkipToContent" xml:space="preserve"><value>تخطي إلى المحتوى</value></data>
+  <data name="WhatsNext" xml:space="preserve"><value>الخطوة التالية</value></data>
+  <data name="ComingSoon" xml:space="preserve"><value>قريباً</value></data>
+  <data name="NextAgendaTitle" xml:space="preserve"><value>جسر الأجندة</value></data>
+  <data name="NextAgendaBody" xml:space="preserve"><value>الوضع A سيفتح هذه الواجهة من الأجندة الحالية دون إطار داخلي جديد هنا.</value></data>
+  <data name="NextSliceTitle" xml:space="preserve"><value>الشريحة الأولى</value></data>
+  <data name="NextSliceBody" xml:space="preserve"><value>ستظهر رحلة الخنق الأولى هنا كمسار مستقل — وليست جزء ويب موروثاً.</value></data>
+  <data name="NextAuth2Title" xml:space="preserve"><value>مصنع المستأجر</value></data>
+  <data name="NextAuth2Body" xml:space="preserve"><value>AUTH-2 سيربط مطالبات المؤسسة / مجموعة الأعمال باتصال SQL من إعداد آمن.</value></data>
+  <data name="SessionSummary" xml:space="preserve"><value>الجلسة</value></data>
+  <data name="UserMenu" xml:space="preserve"><value>قائمة الحساب</value></data>
+  <data name="OpenUserMenu" xml:space="preserve"><value>فتح قائمة الحساب</value></data>
+  <data name="CultureEnglish" xml:space="preserve"><value>EN</value></data>
+  <data name="CultureArabic" xml:space="preserve"><value>العربية</value></data>
+  <data name="ErrorTitle" xml:space="preserve"><value>حدث خطأ</value></data>
+  <data name="ErrorLead" xml:space="preserve"><value>حدث خطأ أثناء معالجة طلبك.</value></data>
 </root>

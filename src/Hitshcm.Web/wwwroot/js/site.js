@@ -1,4 +1,20 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿(() => {
+  const closeMenus = (except) => {
+    document.querySelectorAll("details.user-menu[open]").forEach((menu) => {
+      if (menu !== except) {
+        menu.removeAttribute("open");
+      }
+    });
+  };
 
-// Write your JavaScript code.
+  document.addEventListener("click", (event) => {
+    const openMenu = event.target.closest("details.user-menu");
+    closeMenus(openMenu);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenus();
+    }
+  });
+})();

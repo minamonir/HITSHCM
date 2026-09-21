@@ -4,14 +4,16 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResources> L
 @{
     ViewData["Title"] = L["Logout"];
+    ViewData["Shell"] = "auth";
 }
 
 <section class="auth-panel">
     <div class="auth-card">
-        <h1>@L["Logout"]</h1>
+        <p class="kicker">@L["AppName"]</p>
+        <h1 class="page-title">@L["Logout"]</h1>
         <p class="lede">@L["LogoutConfirm"]</p>
         <form method="post">
-            <button type="submit" class="btn-primary">@L["Logout"]</button>
+            <button type="submit" class="btn btn-primary">@L["Logout"]</button>
         </form>
     </div>
 </section>

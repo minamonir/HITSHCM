@@ -93,6 +93,8 @@
 
 **Rejected:** Treating UX as “optional polish after backend”; porting `App_Themes`/.skin wholesale; redesigning all legacy aspx in place.
 
+**UX-0 landed (2026-09-21):** Foundations shipped on the AUTH-1 Razor host (tokens, `_Layout` chrome, login card, landing chips/cards, RTL). Practical token/run notes: `docs/UX.md`. No stack change — still Razor + Bootstrap 5 themed via CSS variables.
+
 ## D-013 — TARGET session & auth (locked 2026-09-21)
 - **D-013:** **OpenIddict (local OIDC IdP) first** + BFF cookie for Razor; no fat server Session for business state. Entra/external IdP added later on the same gateway.
 - **D-013a:** Tenant server-resolved from org/BG id; never connection string in identity or client profile.

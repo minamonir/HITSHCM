@@ -37,7 +37,9 @@ SQLite files land in `src/Hitshcm.Web/App_Data/` (gitignored). This is the **Ide
 dotnet test Hitshcm.sln
 ```
 
-Language stub: top-bar **EN** / **العربية** sets `Hitshcm.Culture` and `dir="rtl"` for Arabic. Same pages, no `*_ar` forks.
+Language: top-bar **EN** / **العربية** segmented control sets `Hitshcm.Culture` and `dir="rtl"` for Arabic. Same pages, no `*_ar` forks.
+
+**UX-0 chrome:** design tokens in `src/Hitshcm.Web/wwwroot/css/tokens.css`, shared styles in `app.css`. Run book + token table: [`docs/UX.md`](docs/UX.md). Track spec: [`docs/architecture/target-ux.md`](docs/architecture/target-ux.md).
 
 ## D-013 mapping (short)
 
@@ -70,6 +72,7 @@ Later API project belongs at `src/Hitshcm.Api` (not created this slice).
 | `PRD.md` / `ARCHITECTURE.md` / `DESIGN.md` | Living product + tech docs |
 | `TASKS.md` / `MEMORY.md` / `DECISIONS.md` / `GOTCHAS.md` | Execution memory |
 | `docs/AUTH.md` | AUTH-1 login/cookie/landing |
+| `docs/UX.md` | UX-0 tokens, chrome, how to run |
 | `docs/workflow/` | Idea -> Verify overview |
 | `docs/prompts/` | Interview-style workflow prompts |
 | `docs/playbook/` | Full vibe coding guide |

@@ -1,30 +1,99 @@
 :root {
+  /* Color — product chrome (teal, not App_Themes/Blue) */
   --color-bg: #f3f5f7;
+  --color-bg-accent: #e7eef0;
   --color-surface: #ffffff;
-  --color-text: #17202a;
+  --color-surface-muted: #f7f9fa;
+  --color-text: #12202b;
+  --color-text-secondary: #3d4f5c;
   --color-muted: #5c6a77;
-  --color-primary: #0f6e6b;
-  --color-primary-hover: #0c5856;
+  --color-primary: #0e6e6b;
+  --color-primary-hover: #0b5754;
+  --color-primary-subtle: #e6f4f3;
   --color-primary-contrast: #ffffff;
-  --color-topbar: #0b3d3c;
+  --color-topbar: #0a3332;
   --color-topbar-text: #e8f3f2;
+  --color-topbar-muted: #b7d4d2;
   --color-border: #d5dde5;
+  --color-border-strong: #b7c3ce;
   --color-danger: #b42318;
   --color-danger-bg: #fef3f2;
+  --color-danger-border: #f5c2c0;
+  --color-success: #067647;
+  --color-success-bg: #ecfdf3;
+  --color-warning: #b54708;
+  --color-warning-bg: #fffaeb;
   --color-focus: #1d9a96;
-  --radius: 14px;
-  --shadow: 0 12px 32px rgba(11, 61, 60, 0.08);
+  --color-chip-bg: #eef4f4;
+  --color-chip-text: #0a3332;
+
+  /* Type scale */
+  --font-sans: "Segoe UI", "Noto Naskh Arabic", "Noto Sans Arabic", "Noto Sans", system-ui, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-body: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.375rem;
+  --font-size-xl: 1.75rem;
+  --font-size-display: 2rem;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.25;
+  --line-height-body: 1.5;
+  --letter-kicker: 0.08em;
+
+  /* Spacing (4px base) */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
   --space-4: 1rem;
   --space-5: 1.5rem;
   --space-6: 2rem;
-  --font-sans: "Segoe UI", "Noto Naskh Arabic", "Noto Sans Arabic", "Noto Sans", system-ui, sans-serif;
-  --font-size-body: 1rem;
-  --font-size-title: 1.75rem;
-  --topbar-height: 3.5rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-pill: 999px;
+  --radius: var(--radius-lg);
+
+  /* Elevation */
+  --elevation-0: none;
+  --elevation-1: 0 1px 2px rgba(18, 32, 43, 0.06), 0 8px 24px rgba(11, 61, 60, 0.06);
+  --elevation-2: 0 12px 32px rgba(11, 61, 60, 0.12);
+  --elevation-3: 0 20px 48px rgba(10, 51, 50, 0.18);
+  --shadow: var(--elevation-1);
+
+  /* Density / chrome */
+  --density-control-height: 2.75rem;
+  --density-control-height-compact: 2.25rem;
+  --density-tap-min: 2.75rem;
+  --topbar-height: 3.75rem;
   --content-max: 72rem;
+  --auth-card-max: 26.5rem;
+  --motion: 160ms;
+
+  /* Bootstrap 5 themed from the same tokens */
+  --bs-primary: var(--color-primary);
+  --bs-primary-rgb: 14, 110, 107;
+  --bs-secondary: var(--color-muted);
+  --bs-danger: var(--color-danger);
+  --bs-success: var(--color-success);
+  --bs-warning: var(--color-warning);
+  --bs-body-font-family: var(--font-sans);
+  --bs-body-color: var(--color-text);
+  --bs-body-bg: var(--color-bg);
+  --bs-border-color: var(--color-border);
+  --bs-border-radius: var(--radius-md);
+  --bs-border-radius-lg: var(--radius-lg);
+  --bs-link-color: var(--color-primary);
+  --bs-link-hover-color: var(--color-primary-hover);
+  --bs-focus-ring-color: color-mix(in srgb, var(--color-focus) 35%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

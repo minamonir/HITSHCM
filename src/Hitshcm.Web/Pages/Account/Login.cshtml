@@ -4,12 +4,13 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResources> L
 @{
     ViewData["Title"] = L["SignIn"];
+    ViewData["Shell"] = "auth";
 }
 
 <section class="auth-panel">
     <div class="auth-card">
-        <p class="eyebrow">HITSHCM</p>
-        <h1>@L["SignIn"]</h1>
+        <p class="kicker">@L["AppName"]</p>
+        <h1 class="page-title">@L["SignIn"]</h1>
         <p class="lede">@L["SignInSubtitle"]</p>
 
         <form method="post" novalidate>
@@ -28,13 +29,15 @@
                 <span asp-validation-for="Input.Password" class="field-error"></span>
             </div>
 
-            <div class="field field-check">
-                <input asp-for="Input.RememberMe" />
+            <div class="field-check">
+                <input asp-for="Input.RememberMe" class="form-check-input" />
                 <label asp-for="Input.RememberMe">@L["RememberMe"]</label>
             </div>
 
-            <button type="submit" class="btn-primary">@L["SubmitSignIn"]</button>
+            <button type="submit" class="btn btn-primary">@L["SubmitSignIn"]</button>
         </form>
+
+        <p class="footnote auth-footnote">@L["LoginFootnote"]</p>
     </div>
 </section>
 

@@ -20,7 +20,7 @@
 
 | ID | Task | Status |
 |----|------|--------|
-| UX-0 | Foundations: TARGET layout, tokens, base CSS, RTL smoke, PR checklist | in progress — AUTH-1 shell/tokens/RTL on login+landing; pattern library still open |
+| UX-0 | Foundations: TARGET layout, tokens, base CSS, RTL smoke, PR checklist | **done** — AUTH-1 product chrome (login + landing + `_Layout`); see `docs/UX.md` |
 | UX-1 | Pattern library: list/filter, detail form, modal, picker, empty/loading/error | todo |
 | UX-2 | Enforce UX DoD on each strangler slice | todo |
 | UX-3 | Mode B: replace Default/Agenda hub UX | later |

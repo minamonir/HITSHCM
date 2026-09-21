@@ -1,0 +1,25 @@
+@using System.Globalization
+@using Hitshcm.Web.Localization
+@model string
+@inject Microsoft.Extensions.Localization.IStringLocalizer<SharedResources> L
+@{
+    var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    var isEn = string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase);
+    var isAr = string.Equals(lang, "ar", StringComparison.OrdinalIgnoreCase);
+}
+<div class="culture-switch" role="group" aria-label="@L["Language"]">
+    <a asp-page="/Culture/Set"
+       asp-route-culture="en"
+       asp-route-returnUrl="@Model"
+       class="culture-switch__opt@(isEn ? " is-active" : string.Empty)"
+       hreflang="en"
+       lang="en"
+       aria-current="@(isEn ? "true" : null)">@L["CultureEnglish"]</a>
+    <a asp-page="/Culture/Set"
+       asp-route-culture="ar"
+       asp-route-returnUrl="@Model"
+       class="culture-switch__opt@(isAr ? " is-active" : string.Empty)"
+       hreflang="ar"
+       lang="ar"
+       aria-current="@(isAr ? "true" : null)">@L["CultureArabic"]</a>
+</div>

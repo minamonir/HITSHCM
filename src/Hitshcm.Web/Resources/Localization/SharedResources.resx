@@ -13,8 +13,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppName" xml:space="preserve"><value>HITSHCM</value></data>
+  <data name="ProductTagline" xml:space="preserve"><value>People operations</value></data>
   <data name="SignIn" xml:space="preserve"><value>Sign in</value></data>
-  <data name="SignInSubtitle" xml:space="preserve"><value>Use your HITSHCM account. Session is an HttpOnly cookie — tokens stay off the browser.</value></data>
+  <data name="SignInSubtitle" xml:space="preserve"><value>Enter your HITSHCM account to continue.</value></data>
+  <data name="LoginFootnote" xml:space="preserve"><value>Your session is an HttpOnly cookie. Tokens stay off the browser.</value></data>
   <data name="UserNameOrEmail" xml:space="preserve"><value>Username or email</value></data>
   <data name="Password" xml:space="preserve"><value>Password</value></data>
   <data name="RememberMe" xml:space="preserve"><value>Remember me</value></data>
@@ -22,13 +24,29 @@
   <data name="Logout" xml:space="preserve"><value>Log out</value></data>
   <data name="LogoutConfirm" xml:space="preserve"><value>Sign out of HITSHCM and clear the authentication cookie.</value></data>
   <data name="WelcomeTitle" xml:space="preserve"><value>Welcome</value></data>
-  <data name="WelcomeBody" xml:space="preserve"><value>You are signed in to the HITSHCM host. This landing page is the AUTH-1 shell — no DNACloudDB connection yet.</value></data>
+  <data name="WelcomeGreeting" xml:space="preserve"><value>Welcome back</value></data>
+  <data name="WelcomeBody" xml:space="preserve"><value>You are signed in to the HITSHCM shell. New journeys will land here as slices ship.</value></data>
   <data name="TenantOrg" xml:space="preserve"><value>Organization</value></data>
   <data name="TenantBg" xml:space="preserve"><value>Business group</value></data>
   <data name="Language" xml:space="preserve"><value>Language</value></data>
   <data name="Home" xml:space="preserve"><value>Home</value></data>
   <data name="SignedInAs" xml:space="preserve"><value>Signed in as</value></data>
-  <data name="AuthNote" xml:space="preserve"><value>Tenant is server-resolved from org / business-group ids. Connection strings are never stored in the identity name or this cookie.</value></data>
+  <data name="AuthNote" xml:space="preserve"><value>Tenant is server-resolved from organization and business-group ids. Connection strings never live in this cookie.</value></data>
   <data name="Footer" xml:space="preserve"><value>HITSHCM · TARGET Razor host · OpenIddict local IdP</value></data>
   <data name="SkipToContent" xml:space="preserve"><value>Skip to content</value></data>
+  <data name="WhatsNext" xml:space="preserve"><value>What’s next</value></data>
+  <data name="ComingSoon" xml:space="preserve"><value>Coming next</value></data>
+  <data name="NextAgendaTitle" xml:space="preserve"><value>Agenda bridge</value></data>
+  <data name="NextAgendaBody" xml:space="preserve"><value>Mode A will open this shell from legacy Agenda. No new iframe inside this UI.</value></data>
+  <data name="NextSliceTitle" xml:space="preserve"><value>First slice</value></data>
+  <data name="NextSliceBody" xml:space="preserve"><value>The first strangler journey will appear here as a first-class route — not a web-part dump.</value></data>
+  <data name="NextAuth2Title" xml:space="preserve"><value>Tenant factory</value></data>
+  <data name="NextAuth2Body" xml:space="preserve"><value>AUTH-2 will map org / business-group claims to a SQL connection from secure config.</value></data>
+  <data name="SessionSummary" xml:space="preserve"><value>Session</value></data>
+  <data name="UserMenu" xml:space="preserve"><value>Account menu</value></data>
+  <data name="OpenUserMenu" xml:space="preserve"><value>Open account menu</value></data>
+  <data name="CultureEnglish" xml:space="preserve"><value>EN</value></data>
+  <data name="CultureArabic" xml:space="preserve"><value>العربية</value></data>
+  <data name="ErrorTitle" xml:space="preserve"><value>Something went wrong</value></data>
+  <data name="ErrorLead" xml:space="preserve"><value>An error occurred while processing your request.</value></data>
 </root>
