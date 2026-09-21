@@ -22,7 +22,7 @@ public sealed class AuthFlowTests : IClassFixture<HitshcmWebFactory>
         var response = await client.GetAsync("/");
 
         Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
-        Assert.Equal("/Account/Login", response.Headers.Location?.AbsolutePath);
+        Assert.Equal("/Account/Login", GetLocationPath(response));
     }
 
     [Fact]
@@ -56,7 +56,7 @@ public sealed class AuthFlowTests : IClassFixture<HitshcmWebFactory>
         }));
 
         Assert.Equal(HttpStatusCode.Redirect, post.StatusCode);
-        Assert.Equal("/", post.Headers.Location?.OriginalString);
+        Assert.Equal("/", GetLocationPath(post));
         Assert.Contains(post.Headers, h =>
             h.Key.Equals("Set-Cookie", StringComparison.OrdinalIgnoreCase)
             && h.Value.Any(v => v.Contains("Hitshcm.Auth=", StringComparison.Ordinal)
@@ -109,11 +109,11 @@ public sealed class AuthFlowTests : IClassFixture<HitshcmWebFactory>
         }));
 
         Assert.Equal(HttpStatusCode.Redirect, logout.StatusCode);
-        Assert.Equal("/Account/Login", logout.Headers.Location?.AbsolutePath);
+        Assert.Equal("/Account/Login", GetLocationPath(logout));
 
         var after = await client.GetAsync("/");
         Assert.Equal(HttpStatusCode.Redirect, after.StatusCode);
-        Assert.Equal("/Account/Login", after.Headers.Location?.AbsolutePath);
+        Assert.Equal("/Account/Login", GetLocationPath(after));
     }
 
     [Fact]
@@ -151,6 +151,14 @@ public sealed class AuthFlowTests : IClassFixture<HitshcmWebFactory>
             ["__RequestVerificationToken"] = token
         }));
         Assert.Equal(HttpStatusCode.Redirect, post.StatusCode);
+    }
+
+    private static string GetLocationPath(HttpResponseMessage response)
+    {
+        var location = response.Headers.Location;
+        Assert.NotNull(location);
+        var path = location.IsAbsoluteUri ? location.AbsolutePath : location.OriginalString.Split('?')[0];
+        return path;
     }
 
     private static string GetAntiforgeryToken(string html)
