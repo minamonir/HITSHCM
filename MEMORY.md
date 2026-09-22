@@ -12,6 +12,7 @@ Last updated: 2026-09-21 (Africa/Cairo)
 - **D-008:** use full DNACloudDB.dacpac (not dbo-only package).
 - Source of truth **corrected**: `D:\Workspaces\HITSNasDnaFS\HITSNasDna` (not V12.1).
 - Inventory pack exists under `docs/inventory/00–09`; dacpacs under `docs/inventory/db/`.
+- **D-014 (2026-09-21):** Whole-system migration plan — 18-wave strangler, Mode A then Mode B. Doc: `docs/architecture/migration-plan.md`. Wave 0 done. Next: Wave 1 (AUTH-2 live SQL). First capability slice still **D-004** (plan default: vacation).
 - First strangler slice still TBD (D-004).
 
 ## SoT facts (verified 2026-09-21)
@@ -38,8 +39,8 @@ Last updated: 2026-09-21 (Africa/Cairo)
 - [ ] Optional: quick diff HITSNasDna vs V12.1
 - [x] Obtain DNACloudDB schema (dacpac) — 2026-09-21
 - [x] Document CURRENT architecture for Cursor — 2026-09-21
-- [ ] Pick first strangler slice (ERec / Time / NasAI / …)
-- [ ] Phase 1 plan against HITSNasDna paths only
+- [ ] Pick first strangler slice (D-004; plan default vacation, alternate ERec)
+- [x] Whole-system migration plan (D-014) — 2026-09-21
 - [ ] Locate hitsstore / Profile tenant connection matrix
 
 - D-011 TARGET baseline: 3-tier UI→ASP.NET Core API→SQL strangler; DNACloudDB SoR; C#/.NET 10; UI = Razor Pages default (D-005); Blazor optional.rchitecture/target-state.md

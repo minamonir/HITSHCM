@@ -12,8 +12,9 @@ Before planning or coding, read in this order:
 3. **`docs/inventory/00-index.md`** — Phase 0 inventory pack
 4. **`DECISIONS.md`** — D-001… especially D-007 SoT, D-008 dacpac, D-009 arch pack
 5. `docs/architecture/current-state.md` — depth behind ARCHITECTURE.md
-6. `TASKS.md` / `MEMORY.md` for active work
-7. Skim when relevant: `PRD.md`, `DESIGN.md`, `RULES.md`, `GOTCHAS.md`, `SECURITY.md`
+6. `docs/architecture/migration-plan.md` — whole-system strangler waves (D-014)
+7. `TASKS.md` / `MEMORY.md` for active work
+8. Skim when relevant: `PRD.md`, `DESIGN.md`, `RULES.md`, `GOTCHAS.md`, `SECURITY.md`
 
 **Do not invent a greenfield stack.** This is brownfield strangler + API-first.
 

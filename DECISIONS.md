@@ -108,3 +108,13 @@
 
 **AUTH-1b (2026-09-21):** App login is a shared `ILoginOrchestrator` (person → BG → `ITenantConnectionFactory` → CheckURules-shaped policy → claims cookie). IdP callbacks must resume through the same orchestrator. Fail-closed on policy errors (unlike CURRENT `CheckURules`). No `user-server-db` cookie name (D-013a).
 
+## D-014 — Whole-system migration = multi-wave strangler (2026-09-21)
+
+**Decision:** Migrate HITSDNA as an **18-wave strangler program**, not a folder-by-folder or all-aspx rewrite. Journeys cut over while NasDna IIS stays up (Mode A), TARGET becomes the hub late (Mode B / UX-3), `DNACloudDB` remains SoR until a slice takes data ownership.
+
+**Doc:** [`docs/architecture/migration-plan.md`](docs/architecture/migration-plan.md)
+
+**Wave 0 done.** Wave 1 (tenant factory, rights, Mode A spike, UX-1, characterization) is next. AUTH-1b is a Wave 1 stub (orchestrator + named-options factory), not live DNA SQL. First *capability* slice **proposed** as vacation (wave 2); **D-004 still open** if Mina prefers ERec-first to freeze client forks.
+
+**Rejected:** NasSetup-first, in-place Web Forms upgrade, big-bang UI rewrite, sharing InProc Session with Core.
+

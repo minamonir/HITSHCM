@@ -10,11 +10,25 @@
 - [x] INV-006 Rank candidate strangler modules (risk vs value)
 - [x] INV-007 Write inventory report + recommend strategy
 
-## Phase 1 - TBD after inventory
+## Phase 1 — Platform (Wave 1)
 
-- [ ] Choose strategy (likely strangler + API-first on first slice)
-- [ ] Characterization tests for critical paths
-- [ ] First slice implementation plan
+Program plan: [`docs/architecture/migration-plan.md`](docs/architecture/migration-plan.md) (D-014). Do not start a DNA journey UI until AUTH-2 opens tenant SQL.
+
+- [x] Choose strategy — strangler + API-first (D-002 / D-011)
+- [x] Whole-system wave map (D-014)
+- [x] AUTH-1b login orchestrator + policy stand-in + named-options factory stub
+- [ ] **D-004** Confirm first capability slice (plan default: vacation; alternate: ERec)
+- [ ] Characterization harness: login → employee master → one payroll inquiry
+- [ ] **AUTH-2** Live DNACloudDB via `ITenantConnectionFactory` (Key Vault later)
+- [ ] **UX-1** Pattern library (list/filter, detail, modal, picker, empty/loading/error)
+- [ ] **AUTH-4** Rights service wrapper
+- [ ] INV-SESS-002 / tenant connection matrix
+- [ ] **AUTH-3** Mode A session-exchange spike
+- [ ] INV-DD-003 TableName export for the chosen first slice
+
+## Later waves (do not pull forward)
+
+See migration-plan.md §6. Short names only: 2 vacation · 3 ESS reads · 4 time · 5 requests · 6 ERec/forks · 7 training · 8 NasAI · 9 talent · 10 WF platform · 11 payroll (batches last) · 12 integrations · 13 IoT optional · 14 reports · 15 NasSetup · 16 Mode B hub · 17 drain · 18 decommission.
 
 ## UI/UX modernization track (D-012)
 

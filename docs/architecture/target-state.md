@@ -115,7 +115,7 @@ Both UI styles call the same **ASP.NET Core Web API** and DB adapters.
 Better **edges** first (lower tangle): ERec, Time, NasAI, ETraining, IoT.  
 Harder core: NasSetup / NasBatches / NasForms / WorkFlow / payroll — wrap, don’t boil the ocean.
 
-First slice still **TBD (D-004)**.
+First slice still **TBD (D-004)**. Whole-system sequence (waves 0-18, vacation proposed first): [`migration-plan.md`](migration-plan.md) (D-014).
 
 ## What Cursor must do when asked to “build modern” / “new arch”
 
