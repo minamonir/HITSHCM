@@ -6,7 +6,19 @@ Brownfield HCM modernization (strangler + API-first). Architecture docs on `main
 
 ## Run the Razor host (AUTH-1)
 
-Requires **.NET 10 SDK** (LTS).
+Requires **.NET 10 SDK** (LTS). A cloud agent `localhost` is **not** your PC — run the host on the machine whose Chrome you are using.
+
+**Windows PC** (opens https://localhost:3000/Account/Login):
+
+```powershell
+cd C:\Users\mina\Projects\HITSHCM
+git fetch origin
+git checkout cursor/auth-2-build-connection-string-f0e2
+git pull
+powershell -File .\scripts\run-local.ps1
+```
+
+Or: `dotnet dev-certs https --trust` then `dotnet run --project src/Hitshcm.Web --launch-profile https`.
 
 ```bash
 dotnet --list-sdks   # expect 10.x
