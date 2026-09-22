@@ -38,7 +38,9 @@
   <data name="Language" xml:space="preserve"><value>Language</value></data>
   <data name="Home" xml:space="preserve"><value>Home</value></data>
   <data name="SignedInAs" xml:space="preserve"><value>Signed in as</value></data>
-  <data name="AuthNote" xml:space="preserve"><value>Tenant is server-resolved from organization and business-group ids. Connection strings never live in this cookie.</value></data>
+  <data name="TenantDataSource" xml:space="preserve"><value>SQL server</value></data>
+  <data name="TenantCatalog" xml:space="preserve"><value>Database</value></data>
+  <data name="AuthNote" xml:space="preserve"><value>Tenant SQL is built on the server from organization and business-group ids (CURRENT CommonLib builder). The cookie never holds the SQL bind or password.</value></data>
   <data name="Footer" xml:space="preserve"><value>HITSHCM · TARGET Razor host · OpenIddict local IdP</value></data>
   <data name="SkipToContent" xml:space="preserve"><value>Skip to content</value></data>
   <data name="WhatsNext" xml:space="preserve"><value>What’s next</value></data>
@@ -48,7 +50,7 @@
   <data name="NextSliceTitle" xml:space="preserve"><value>First slice</value></data>
   <data name="NextSliceBody" xml:space="preserve"><value>The first strangler journey will appear here as a first-class route — not a web-part dump.</value></data>
   <data name="NextAuth2Title" xml:space="preserve"><value>Tenant factory</value></data>
-  <data name="NextAuth2Body" xml:space="preserve"><value>AUTH-2 will map org / business-group claims to a SQL connection from secure config.</value></data>
+  <data name="NextAuth2Body" xml:space="preserve"><value>AUTH-2 builds the SQL string server-side. Next: open DNACloudDB from Key Vault / live config — still never from this cookie.</value></data>
   <data name="SessionSummary" xml:space="preserve"><value>Session</value></data>
   <data name="UserMenu" xml:space="preserve"><value>Account menu</value></data>
   <data name="OpenUserMenu" xml:space="preserve"><value>Open account menu</value></data>

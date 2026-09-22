@@ -8,3 +8,4 @@ Append after real bugfixes. Keep rows factual.
 | 2026-09-21 | Agents edit V12.1 as SoT | Early inventory hypothesis (D-006) | SoT is HITSNasDna (D-007); V12.1 = diff only |
 | 2026-09-21 | Assume Web.config catalog is the only DB | Profile("ConnectionString") routes L2S | Always account for Profile-driven tenant DBs |
 | 2026-09-21 | Arabic UI strings show as `&#xNNNN;` in HTML | ASP.NET Core `HtmlEncoder` encodes non-Latin by default | Register `HtmlEncoder` with Arabic Unicode ranges in `Program.cs` |
+| 2026-09-22 | Landing leak test failed on `ConnectionString` | Footer copy said `build_connectionString` | Do not put that identifier in user-facing strings; say “CommonLib builder” |

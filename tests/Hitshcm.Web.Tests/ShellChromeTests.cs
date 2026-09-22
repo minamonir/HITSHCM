@@ -118,6 +118,10 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
         Assert.Contains(IdentityDataSeeder.DefaultAdminEmail, html, StringComparison.OrdinalIgnoreCase);
         Assert.Contains(IdentityDataSeeder.DefaultOrgId, html, StringComparison.Ordinal);
         Assert.Contains(IdentityDataSeeder.DefaultBusinessGroupId, html, StringComparison.Ordinal);
+        Assert.Contains("fz-dv-db01", html, StringComparison.Ordinal);
+        Assert.Contains("DNACloudDB", html, StringComparison.Ordinal);
+        Assert.DoesNotContain("password=", html, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("data source=", html, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("class=\"next-card\"", html, StringComparison.Ordinal);
         Assert.Contains("Agenda bridge", html, StringComparison.Ordinal);
         Assert.Contains("First slice", html, StringComparison.Ordinal);
@@ -142,6 +146,8 @@ public sealed class ShellChromeTests : IClassFixture<HitshcmWebFactory>
         Assert.Contains("bootstrap.rtl", html, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("مرحباً بعودتك", html, StringComparison.Ordinal);
         Assert.Contains(IdentityDataSeeder.DefaultOrgId, html, StringComparison.Ordinal);
+        Assert.Contains("قاعدة البيانات", html, StringComparison.Ordinal);
+        Assert.Contains("DNACloudDB", html, StringComparison.Ordinal);
         Assert.Contains("الخطوة التالية", html, StringComparison.Ordinal);
     }
 

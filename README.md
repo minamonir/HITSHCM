@@ -48,7 +48,7 @@ Language: top-bar **EN** / **العربية** segmented control sets `Hitshcm.Cu
 | Lock | What this host does |
 |------|---------------------|
 | **D-013** | OpenIddict local OIDC IdP + BFF cookie `Hitshcm.Auth` (HttpOnly). No JWT in `localStorage`. Entra is **not** wired yet. |
-| **D-013a** | Tenant from `org_id` / `bg_id` claims (`ITenantContext`). `ITenantConnectionFactory` returns a named-options descriptor. Never a connection string in the identity name. |
+| **D-013a** | Tenant from `org_id` / `bg_id` claims (`ITenantContext`). `ITenantConnectionFactory` builds CURRENT `build_connectionString` server-side. Never a connection string in the identity name. |
 | **D-013b** | No InProc Session for business state. Mode A Agenda bridge is out of scope. |
 
 Full flow: [`docs/AUTH.md`](docs/AUTH.md). CURRENT logon study: [`docs/architecture/current-login-flow.md`](docs/architecture/current-login-flow.md). TARGET session spec: [`docs/architecture/target-session.md`](docs/architecture/target-session.md).

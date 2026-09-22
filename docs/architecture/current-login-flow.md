@@ -306,7 +306,7 @@ If `Session("LoginValid")` contains **`003`**, page runs in forced-change mode. 
 
 | CURRENT | TARGET |
 |---------|--------|
-| TripleDES BG SQL pwd + user pwd | Vault for tenant SQL; Identity password hasher + legacy verifier |
+| TripleDES BG SQL pwd + user pwd | Vault / config plaintext for tenant SQL (AUTH-2 factory does not decrypt TripleDES); Identity password hasher + legacy verifier |
 | `DateControl=0000000003` | Explicit `must_change_password` claim / flag |
 | Forgot fan-out all BGs | Same multi-tenant reset policy or single-BG with explicit picker |
 | App Name in conn string | OpenTelemetry / SQL `Application Name` = user+tenant+request |

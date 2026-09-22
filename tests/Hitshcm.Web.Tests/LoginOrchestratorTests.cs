@@ -250,18 +250,22 @@ public sealed class LoginOrchestratorTests : IClassFixture<HitshcmWebFactory>
     }
 
     [Fact]
-    public async Task ConnectionFactory_ReturnsNamedOptions_NotASecret()
+    public async Task ConnectionFactory_BuildsCurrentShapedString_NotForClaims()
     {
         using var scope = _factory.Services.CreateScope();
         var factory = scope.ServiceProvider.GetRequiredService<ITenantConnectionFactory>();
 
         var descriptor = factory.Resolve(IdentityDataSeeder.DefaultOrgId, IdentityDataSeeder.DefaultBusinessGroupId);
 
-        Assert.Equal("sqlite", descriptor.Provider);
-        Assert.Equal("Identity", descriptor.OptionsName);
+        Assert.Equal("sqlserver", descriptor.Provider);
+        Assert.Equal("fz-dv-db01", descriptor.DataSource);
+        Assert.Equal("DNACloudDB", descriptor.InitialCatalog);
         Assert.Equal($"HITSHCM-{IdentityDataSeeder.DefaultOrgId}-{IdentityDataSeeder.DefaultBusinessGroupId}", descriptor.ApplicationName);
+        Assert.Equal(
+            "data source=fz-dv-db01;initial catalog=DNACloudDB;integrated security=SSPI;persist security info=False;Application Name=HITSHCM-demo-org-demo-bg;Connection Lifetime=0;packet size=8000;",
+            descriptor.ConnectionString);
+        Assert.DoesNotContain("password=", descriptor.ToString(), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Data Source", descriptor.OptionsName, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("Password", descriptor.ApplicationName, StringComparison.OrdinalIgnoreCase);
     }
 
     private static string Claim(ClaimsPrincipal principal, string type) =>

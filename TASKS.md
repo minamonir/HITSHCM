@@ -41,7 +41,7 @@
 - [x] **AUTH-1** Spike OpenIddict + cookie BFF on HITSHCM host (`src/Hitshcm.Web`, see `docs/AUTH.md`)
 - [x] **UX-0 login CURRENT cues** Razor login restyle: live Agentic split (teal hero + patterned form, Username/Password first paint, Log In + Office 365). BG picker is a second step after password when memberships > 1. See `docs/architecture/current-login-ux.md`
 - [x] **AUTH-1b** Shared login orchestrator (`ILoginOrchestrator`): Identity password → BG resolve → CheckURules-shaped policy (002/003/004 fail-closed) → `org_id`/`bg_id` claims; must-change + first-logon stubs; `ITenantConnectionFactory` named-options descriptor (no secrets in cookie). CURRENT map: `docs/architecture/current-login-flow.md`
-- [ ] **AUTH-2** ITenantContext + connection factory (Key Vault / DNA SQL) — claim stub + **dev** named-options factory exist; live DNACloudDB not started
+- [x] **AUTH-2** `ITenantConnectionFactory` ports CURRENT `build_connectionString` (config/Key Vault bind per BG; SSPI or SQL auth). Landing shows server + catalog only. Cookie still `org_id`/`bg_id`. Live DNACloudDB open deferred.
 - [ ] **AUTH-3** Mode A session-exchange spike with legacy logon
 - [ ] **AUTH-4** Rights service wrapper (replace Session UserGroupRights reads)
 

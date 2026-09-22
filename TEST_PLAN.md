@@ -10,6 +10,7 @@ Updated: 2026-09-21
 - [x] UX-0: landing identity strip + what’s-next cards; Arabic `dir="rtl"`
 - [x] Login CURRENT chrome: live Agentic split (Username/Password first paint, Log In + Office 365); BG second step; teal/cyan tokens; cookie still HttpOnly
 - [x] AUTH-1b: policy 002/003/004, BG claims on success, must-change redirect, login page uses orchestrator
+- [x] AUTH-2: landing shows SQL server + catalog from `build_connectionString`; cookie/HTML never include `password=` / `data source=`
 - [ ] Empty / loading / error states (beyond login validation) — UX-1
 
 ## Automated (when stack exists)
