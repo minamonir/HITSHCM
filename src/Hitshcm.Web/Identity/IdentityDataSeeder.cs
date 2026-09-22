@@ -128,11 +128,11 @@ public static class IdentityDataSeeder
                 DisplayName = "HITSHCM Razor BFF",
                 RedirectUris =
                 {
-                    new Uri("http://localhost:5080/callback/login")
+                    new Uri("http://localhost:3000/callback/login")
                 },
                 PostLogoutRedirectUris =
                 {
-                    new Uri("http://localhost:5080/callback/logout")
+                    new Uri("http://localhost:3000/callback/logout")
                 },
                 Permissions =
                 {

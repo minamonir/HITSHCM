@@ -17,12 +17,12 @@ dotnet run --project src/Hitshcm.Web
 
 | URL | Who |
 |-----|-----|
-| http://localhost:5080/ | Authenticated landing (anonymous users redirect to login) |
-| http://localhost:5080/Account/Login | Password login (orchestrator) |
-| http://localhost:5080/Account/ChangePassword | Forced after CheckURules-shaped `003` |
-| http://localhost:5080/Account/FirstLogon | First-logon ack placeholder |
-| http://localhost:5080/Account/Logout | Clears the HttpOnly cookie |
-| http://localhost:5080/.well-known/openid-configuration | OpenIddict discovery |
+| http://localhost:3000/ | Authenticated landing (anonymous users redirect to login) |
+| http://localhost:3000/Account/Login | Password login (orchestrator) |
+| http://localhost:3000/Account/ChangePassword | Forced after CheckURules-shaped `003` |
+| http://localhost:3000/Account/FirstLogon | First-logon ack placeholder |
+| http://localhost:3000/Account/Logout | Clears the HttpOnly cookie |
+| http://localhost:3000/.well-known/openid-configuration | OpenIddict discovery |
 
 **Seeded Development user** (created on first run; change in any shared environment):
 
