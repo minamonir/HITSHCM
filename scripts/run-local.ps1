@@ -1,5 +1,4 @@
-# Run HITSHCM Razor host on THIS Windows PC over HTTPS.
-# Usage (from repo root or by double-clicking run-local.cmd):
+# Run HITSHCM on THIS Windows PC the same way as a local `dotnet run`.
 #   powershell -File .\scripts\run-local.ps1
 
 $ErrorActionPreference = "Stop"
@@ -16,11 +15,8 @@ if ($sdks -notmatch "^10\.") {
     throw ".NET 10 SDK is required. Installed:`n$sdks"
 }
 
-Write-Host "Trusting the ASP.NET HTTPS development certificate (localhost)..."
-dotnet dev-certs https --trust | Out-Host
-
-Write-Host "Starting https://localhost:3000/Account/Login ..."
+Write-Host "Starting http://localhost:3000/Account/Login ..."
 $env:ASPNETCORE_URLS = $null
 Remove-Item Env:ASPNETCORE_URLS -ErrorAction SilentlyContinue
 
-dotnet run --project src/Hitshcm.Web --launch-profile https
+dotnet run --project src/Hitshcm.Web --launch-profile http

@@ -10,4 +10,4 @@ Append after real bugfixes. Keep rows factual.
 | 2026-09-21 | Arabic UI strings show as `&#xNNNN;` in HTML | ASP.NET Core `HtmlEncoder` encodes non-Latin by default | Register `HtmlEncoder` with Arabic Unicode ranges in `Program.cs` |
 | 2026-09-22 | Landing leak test failed on `ConnectionString` | Footer copy said `build_connectionString` | Do not put that identifier in user-facing strings; say “CommonLib builder” |
 | 2026-09-22 | Browser blank / HTTPS-only Chrome on localhost:3000 | Host bound `http://0.0.0.0:3000` (`--urls http://...` overrides launchSettings) | Serve Kestrel HTTPS on 3000 (dev cert); HTTP fallback 3001; OpenIddict callbacks `https://localhost:3000/callback/*` |
-| 2026-09-22 | Chrome on the laptop cannot open agent login | Cloud VM `localhost` is not the PC | Run `scripts/run-local.ps1` (or `dotnet run --launch-profile https`) on the PC; `dotnet dev-certs https --trust` |
+| 2026-09-22 | Chrome on the laptop cannot open agent login | Cloud VM `localhost` is not the PC | Run `dotnet run --project src/Hitshcm.Web` on the PC; open `http://localhost:3000/Account/Login` |

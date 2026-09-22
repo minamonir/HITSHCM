@@ -8,12 +8,10 @@ Requires **.NET 10 SDK**. Same profile Mina uses locally:
 
 ```bash
 dotnet restore Hitshcm.sln
-dotnet run --project src/Hitshcm.Web --launch-profile https
+dotnet run --project src/Hitshcm.Web
 ```
 
-On a Windows PC (this machine, not a cloud agent): `powershell -File .\scripts\run-local.ps1`.
-
-Open https://localhost:3000/Account/Login. Seed: `admin@hitshcm.local` / `ChangeMe!123`. First time on Windows: `dotnet dev-certs https --trust`.
+Open http://localhost:3000/Account/Login. Seed: `admin@hitshcm.local` / `ChangeMe!123`.
 
 Culture: top-bar **EN** / **العربية** writes `Hitshcm.Culture` and sets `dir` + Bootstrap LTR/RTL stylesheet. Same pages, no `*_ar` forks.
 

@@ -155,15 +155,6 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
 
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddHttpsRedirection(options =>
-    {
-        options.HttpsPort = 3000;
-        options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-    });
-}
-
 var app = builder.Build();
 
 await IdentityDataSeeder.SeedAsync(app.Services);
@@ -174,11 +165,6 @@ if (!app.Environment.IsDevelopment() && !app.Environment.IsEnvironment("Testing"
 }
 
 app.UseForwardedHeaders();
-if (app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
-}
-
 app.UseStaticFiles();
 app.UseRequestLocalization();
 app.UseRouting();
