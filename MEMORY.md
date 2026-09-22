@@ -4,6 +4,7 @@ Last updated: 2026-09-21 (Africa/Cairo)
 
 ## Current status
 
+- **Local HTTPS (2026-09-22):** Razor host default is `https://localhost:3000` (HTTP fallback `http://localhost:3001`). Chrome HTTPS-only needs TLS on 3000; do not start with `--urls http://...`.
 - **AUTH-2 (2026-09-22):** `TenantConnectionStringBuilder` + `TenantConnectionFactory` port CURRENT `build_connectionString` from `TenantSql` config (sample `fz-dv-db01` / `DNACloudDB`, SSPI). Landing chips show server + catalog. Full string stays server-side. DNACloudDB is not opened yet.
 - **AUTH-1b (2026-09-21):** Shared `ILoginOrchestrator` on the Razor host — Identity password (SSO resume stub), `ITenantCatalog` BG memberships, CheckURules-shaped `ILoginPolicyEvaluator` (002/003/004, fail-closed), `ITenantConnectionFactory`, `org_id`/`bg_id`/`profile_id`/`emp_id` claims (never conn strings). Must-change → `/Account/ChangePassword`; first-logon ack placeholder. CURRENT map: `docs/architecture/current-login-flow.md`.
 - **UX-0 login chrome (2026-09-21):** `/Account/Login` matches live HITS Agentic logon (hitshcmcloud.org) — full-height teal/patterned split, Username+Password first paint, Log In + Office 365, BG picker only as a second step. Older five-cue frosted card superseded. Study: `docs/architecture/current-login-ux.md`.

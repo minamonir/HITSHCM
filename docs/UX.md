@@ -8,10 +8,10 @@ Requires **.NET 10 SDK**. Same profile Mina uses locally:
 
 ```bash
 dotnet restore Hitshcm.sln
-dotnet run --project src/Hitshcm.Web
+dotnet run --project src/Hitshcm.Web --launch-profile https
 ```
 
-Open http://localhost:3000/ — anonymous users land on `/Account/Login`. Seed: `admin@hitshcm.local` / `ChangeMe!123`.
+Open https://localhost:3000/ — anonymous users land on `/Account/Login`. Seed: `admin@hitshcm.local` / `ChangeMe!123`. Accept the local HTTPS development certificate if the browser warns.
 
 Culture: top-bar **EN** / **العربية** writes `Hitshcm.Culture` and sets `dir` + Bootstrap LTR/RTL stylesheet. Same pages, no `*_ar` forks.
 

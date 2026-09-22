@@ -23,8 +23,8 @@ Updated: 2026-09-21
 
 ## AUTH-1 manual
 
-1. `dotnet run --project src/Hitshcm.Web`
-2. Open http://localhost:3000/ → login
+1. `dotnet run --project src/Hitshcm.Web --launch-profile https`
+2. Open https://localhost:3000/ → login (accept the local HTTPS development certificate if prompted)
 3. Sign in `admin@hitshcm.local` / `ChangeMe!123` — first paint is Username + Password only; after password, pick Business group **Demo HITS**
 4. Confirm welcome + identity chips (user / org / bg) and what’s-next cards; DevTools: `Hitshcm.Auth` HttpOnly, no JWT in localStorage
 5. Repeat with **East Region** — chips show `demo-org-east` / `demo-bg-east` (never a connection string)

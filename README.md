@@ -12,17 +12,19 @@ Requires **.NET 10 SDK** (LTS).
 dotnet --list-sdks   # expect 10.x
 dotnet restore Hitshcm.sln
 dotnet build Hitshcm.sln
-dotnet run --project src/Hitshcm.Web
+dotnet run --project src/Hitshcm.Web --launch-profile https
 ```
 
 | URL | Who |
 |-----|-----|
-| http://localhost:3000/ | Authenticated landing (anonymous users redirect to login) |
-| http://localhost:3000/Account/Login | Password login (orchestrator) |
-| http://localhost:3000/Account/ChangePassword | Forced after CheckURules-shaped `003` |
-| http://localhost:3000/Account/FirstLogon | First-logon ack placeholder |
-| http://localhost:3000/Account/Logout | Clears the HttpOnly cookie |
-| http://localhost:3000/.well-known/openid-configuration | OpenIddict discovery |
+| https://localhost:3000/ | Authenticated landing (anonymous users redirect to login) |
+| https://localhost:3000/Account/Login | Password login (orchestrator) |
+| https://localhost:3000/Account/ChangePassword | Forced after CheckURules-shaped `003` |
+| https://localhost:3000/Account/FirstLogon | First-logon ack placeholder |
+| https://localhost:3000/Account/Logout | Clears the HttpOnly cookie |
+| https://localhost:3000/.well-known/openid-configuration | OpenIddict discovery |
+
+The default launch profile is **HTTPS on port 3000** (HTTP fallback on 3001). First visit may show a browser warning for the ASP.NET HTTPS development certificate — continue to localhost. Do not pass `--urls http://...` or Chrome HTTPS-only mode will refuse the page.
 
 **Seeded Development user** (created on first run; change in any shared environment):
 
