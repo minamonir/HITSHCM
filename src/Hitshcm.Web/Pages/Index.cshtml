@@ -24,6 +24,14 @@
             <span class="chip-label">@L["TenantBg"]</span>
             <span class="chip-value">@(Model.Tenant.BusinessGroupId ?? "—")</span>
         </li>
+        <li class="chip">
+            <span class="chip-label">@L["TenantDataSource"]</span>
+            <span class="chip-value">@(Model.Tenant.DataSource ?? "—")</span>
+        </li>
+        <li class="chip">
+            <span class="chip-label">@L["TenantCatalog"]</span>
+            <span class="chip-value">@(Model.Tenant.InitialCatalog ?? "—")</span>
+        </li>
     </ul>
 
     <p class="footnote tenant-note">@L["AuthNote"]</p>

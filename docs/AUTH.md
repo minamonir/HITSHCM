@@ -70,7 +70,7 @@ IdP: **Office 365** on `/Account/Login` is a stub (same first-paint as live clou
 | Auth mode 3 `DoPassword` vs `NasUsers` | ASP.NET Identity password hasher (SQLite stand-in; no TripleDES) |
 | `ADBtn_Click` / `OKTABtn_Click` + Page_Load SSO resume | Stub buttons; `ILoginOrchestrator.ResumeExternalAsync` is the resume seam |
 | BG DDL from `[businessgroup]` + `BusinessGroupUsers` | `ITenantCatalog` / `SeedBusinessGroupCatalog` (demo-org/demo-bg + HR + East) |
-| `CommonLib.build_connectionString` → `Profile.ConnectionString` | `ITenantConnectionFactory` → `TenantConnectionDescriptor` (named options; **not** in claims) |
+| `CommonLib.build_connectionString` → `Profile.ConnectionString` | `TenantConnectionStringBuilder` + `ITenantConnectionFactory` → server-only `TenantConnectionDescriptor` (**not** in claims) |
 | `FormsAuthentication.RedirectFromLoginPage(user-server-db)` | Cookie BFF; identity name = username/email only (D-013 / D-013a) |
 | `checkuserpolicy` → `[CheckURules]` | `ILoginPolicyEvaluator` / `LoginPolicyEvaluator` |
 | CheckURules `001` | Continue; land on `/` |
@@ -87,7 +87,7 @@ IdP: **Office 365** on `/Account/Login` is a stub (same first-paint as live clou
 | Decision | This host |
 |----------|-----------|
 | **D-013** OpenIddict local IdP first + BFF cookie | OpenIddict server + validation in-process; Razor signs in with `Hitshcm.Auth` (HttpOnly, SameSite=Lax) |
-| **D-013a** Tenant server-resolved | Login first paint is Username + Password. Multi-BG users get a **second-step** picker (`ITenantCatalog` memberships) which sets `org_id` / `bg_id` on the cookie principal. `ITenantConnectionFactory` resolves a **named** SQLite/dev handle. **Never** a connection string in the identity name or client profile |
+| **D-013a** Tenant server-resolved | Login first paint is Username + Password. Multi-BG users get a **second-step** picker (`ITenantCatalog` memberships) which sets `org_id` / `bg_id` on the cookie principal. `ITenantConnectionFactory` builds CURRENT `build_connectionString` from `TenantSql` config. **Never** a connection string in the identity name or client profile |
 | **D-013b** No fat InProc Session | `UseSession` is not registered. Continuation uses claims (`must_change_password`, `first_logon_ack`), not Session bags. Mode A bridge is **not** implemented |
 
 The same host also publishes a **local OpenID Connect provider** (OpenIddict):
@@ -126,7 +126,7 @@ This host must **not**:
 
 ## Tenant factory (AUTH-1b stub / AUTH-2 next)
 
-`ITenantContext` is claim-backed. `ITenantConnectionFactory` now returns a **descriptor** (`Provider=sqlite`, `OptionsName=Identity`, audit `ApplicationName=HITSHCM-{org}-{bg}`). Development does **not** open DNACloudDB. Next AUTH-2 work: map those ids to SQL from Key Vault / config.
+`ITenantContext` is claim-backed. `ITenantConnectionFactory` now ports CURRENT **`build_connectionString`**: look up `TenantSql:Groups:{bg}` (server, catalog, `securityinfo`, optional SQL login) and build an ADO.NET string with `Application Name=HITSHCM-{org}-{bg}`. Landing shows **data source + catalog** only. The cookie still has `org_id` / `bg_id` — never the string or password. TripleDES decrypt of CURRENT BG passwords is **not** ported (config/Key Vault holds plaintext). Development does **not** open DNACloudDB yet.
 
 ## Seed (Development)
 

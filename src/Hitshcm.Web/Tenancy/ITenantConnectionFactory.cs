@@ -1,8 +1,8 @@
 namespace Hitshcm.Web.Tenancy;
 
 /// <summary>
-/// Resolves org/BG → connection descriptor from config/Key Vault later.
-/// Development returns a SQLite named-options handle. Secrets never go on the cookie.
+/// Resolves org/BG → CURRENT <c>build_connectionString</c> descriptor from config / Key Vault.
+/// Secrets never go on the cookie (D-013a).
 /// </summary>
 public interface ITenantConnectionFactory
 {

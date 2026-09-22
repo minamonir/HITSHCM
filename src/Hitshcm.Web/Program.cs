@@ -28,7 +28,8 @@ builder.Services.AddScoped<ITenantContext, HttpTenantContext>();
 builder.Services.AddSingleton<SeedBusinessGroupCatalog>();
 builder.Services.AddSingleton<IBusinessGroupCatalog>(sp => sp.GetRequiredService<SeedBusinessGroupCatalog>());
 builder.Services.AddSingleton<ITenantCatalog>(sp => sp.GetRequiredService<SeedBusinessGroupCatalog>());
-builder.Services.AddSingleton<ITenantConnectionFactory, DevelopmentTenantConnectionFactory>();
+builder.Services.Configure<TenantSqlOptions>(builder.Configuration.GetSection(TenantSqlOptions.SectionName));
+builder.Services.AddSingleton<ITenantConnectionFactory, TenantConnectionFactory>();
 builder.Services.AddSingleton<ILoginPolicyEvaluator, LoginPolicyEvaluator>();
 builder.Services.AddScoped<ILoginOrchestrator, LoginOrchestrator>();
 

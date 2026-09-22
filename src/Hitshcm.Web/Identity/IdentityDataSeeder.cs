@@ -116,8 +116,13 @@ public static class IdentityDataSeeder
         var applicationManager = provider.GetRequiredService<IOpenIddictApplicationManager>();
         var clientId = config["OpenIddict:ClientId"] ?? DefaultClientId;
         var clientSecret = config["OpenIddict:ClientSecret"] ?? "dev-only-hitshcm-web-secret";
+        var loginHttps = new Uri("https://localhost:3000/callback/login");
+        var logoutHttps = new Uri("https://localhost:3000/callback/logout");
+        var loginHttp = new Uri("http://localhost:3000/callback/login");
+        var logoutHttp = new Uri("http://localhost:3000/callback/logout");
 
-        if (await applicationManager.FindByClientIdAsync(clientId, cancellationToken) is null)
+        var application = await applicationManager.FindByClientIdAsync(clientId, cancellationToken);
+        if (application is null)
         {
             await applicationManager.CreateAsync(new OpenIddictApplicationDescriptor
             {
@@ -126,14 +131,8 @@ public static class IdentityDataSeeder
                 ClientType = ClientTypes.Confidential,
                 ConsentType = ConsentTypes.Implicit,
                 DisplayName = "HITSHCM Razor BFF",
-                RedirectUris =
-                {
-                    new Uri("http://localhost:5080/callback/login")
-                },
-                PostLogoutRedirectUris =
-                {
-                    new Uri("http://localhost:5080/callback/logout")
-                },
+                RedirectUris = { loginHttp, loginHttps },
+                PostLogoutRedirectUris = { logoutHttp, logoutHttps },
                 Permissions =
                 {
                     Permissions.Endpoints.Authorization,
@@ -155,7 +154,27 @@ public static class IdentityDataSeeder
             }, cancellationToken);
 
             logger.LogInformation("Seeded OpenIddict client {ClientId}.", clientId);
+            return;
         }
+
+        var descriptor = new OpenIddictApplicationDescriptor();
+        await applicationManager.PopulateAsync(descriptor, application, cancellationToken);
+        if (descriptor.RedirectUris.Contains(loginHttp)
+            && descriptor.RedirectUris.Contains(loginHttps)
+            && descriptor.PostLogoutRedirectUris.Contains(logoutHttp)
+            && descriptor.PostLogoutRedirectUris.Contains(logoutHttps))
+        {
+            return;
+        }
+
+        descriptor.RedirectUris.Clear();
+        descriptor.RedirectUris.Add(loginHttp);
+        descriptor.RedirectUris.Add(loginHttps);
+        descriptor.PostLogoutRedirectUris.Clear();
+        descriptor.PostLogoutRedirectUris.Add(logoutHttp);
+        descriptor.PostLogoutRedirectUris.Add(logoutHttps);
+        await applicationManager.UpdateAsync(application, descriptor, cancellationToken);
+        logger.LogInformation("Updated OpenIddict client {ClientId} redirect URIs for HTTP and HTTPS localhost.", clientId);
     }
 
     private static async Task EnsureUserAsync(

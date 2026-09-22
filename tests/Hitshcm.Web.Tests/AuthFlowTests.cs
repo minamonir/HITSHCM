@@ -70,6 +70,10 @@ public sealed class AuthFlowTests : IClassFixture<HitshcmWebFactory>
         Assert.Equal(HttpStatusCode.OK, home.StatusCode);
         Assert.Contains(IdentityDataSeeder.DefaultAdminEmail, homeHtml, StringComparison.OrdinalIgnoreCase);
         Assert.Contains(IdentityDataSeeder.DefaultOrgId, homeHtml, StringComparison.Ordinal);
+        Assert.Contains("fz-dv-db01", homeHtml, StringComparison.Ordinal);
+        Assert.Contains("DNACloudDB", homeHtml, StringComparison.Ordinal);
+        Assert.DoesNotContain("password=", homeHtml, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("data source=", homeHtml, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("localStorage", homeHtml, StringComparison.OrdinalIgnoreCase);
     }
 

@@ -38,7 +38,9 @@
   <data name="Language" xml:space="preserve"><value>اللغة</value></data>
   <data name="Home" xml:space="preserve"><value>الرئيسية</value></data>
   <data name="SignedInAs" xml:space="preserve"><value>مسجّل الدخول باسم</value></data>
-  <data name="AuthNote" xml:space="preserve"><value>المستأجر يُحدَّد على الخادم من معرّف المؤسسة ومجموعة الأعمال. لا تُخزَّن سلاسل الاتصال في هذا الملف.</value></data>
+  <data name="TenantDataSource" xml:space="preserve"><value>خادم SQL</value></data>
+  <data name="TenantCatalog" xml:space="preserve"><value>قاعدة البيانات</value></data>
+  <data name="AuthNote" xml:space="preserve"><value>يُبنى اتصال SQL على الخادم من معرّف المؤسسة ومجموعة الأعمال. لا تُخزَّن سلسلة الاتصال أو كلمة المرور في ملف تعريف الارتباط.</value></data>
   <data name="Footer" xml:space="preserve"><value>HITSHCM · مضيف Razor المستهدف · OpenIddict محلي</value></data>
   <data name="SkipToContent" xml:space="preserve"><value>تخطي إلى المحتوى</value></data>
   <data name="WhatsNext" xml:space="preserve"><value>الخطوة التالية</value></data>
@@ -48,7 +50,7 @@
   <data name="NextSliceTitle" xml:space="preserve"><value>الشريحة الأولى</value></data>
   <data name="NextSliceBody" xml:space="preserve"><value>ستظهر رحلة الخنق الأولى هنا كمسار مستقل — وليست جزء ويب موروثاً.</value></data>
   <data name="NextAuth2Title" xml:space="preserve"><value>مصنع المستأجر</value></data>
-  <data name="NextAuth2Body" xml:space="preserve"><value>AUTH-2 سيربط مطالبات المؤسسة / مجموعة الأعمال باتصال SQL من إعداد آمن.</value></data>
+  <data name="NextAuth2Body" xml:space="preserve"><value>AUTH-2 يبني سلسلة SQL على الخادم. التالي: فتح DNACloudDB من الإعداد الآمن — دون وضعها في ملف تعريف الارتباط.</value></data>
   <data name="SessionSummary" xml:space="preserve"><value>الجلسة</value></data>
   <data name="UserMenu" xml:space="preserve"><value>قائمة الحساب</value></data>
   <data name="OpenUserMenu" xml:space="preserve"><value>فتح قائمة الحساب</value></data>

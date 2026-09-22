@@ -108,3 +108,5 @@
 
 **AUTH-1b (2026-09-21):** App login is a shared `ILoginOrchestrator` (person → BG → `ITenantConnectionFactory` → CheckURules-shaped policy → claims cookie). IdP callbacks must resume through the same orchestrator. Fail-closed on policy errors (unlike CURRENT `CheckURules`). No `user-server-db` cookie name (D-013a).
 
+**AUTH-2 (2026-09-22):** Tenant SQL bind uses CURRENT `CommonLib.build_connectionString` shape (`data source` / `initial catalog` / SSPI or `user id`+`password` / `Application Name` / `Connection Lifetime` / `packet size`). Inputs come from `TenantSql` config (Key Vault later). Passwords are already-decrypted at rest in config — do not port TripleDES into the factory. The built string is server-only; claims and HTML expose server + catalog at most.
+

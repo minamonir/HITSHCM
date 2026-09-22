@@ -4,7 +4,7 @@ namespace Hitshcm.Web.Tenancy;
 
 /// <summary>
 /// Business-group catalog + memberships for login (CURRENT setup DB <c>[businessgroup]</c> /
-/// <c>BusinessGroupUsers</c> stand-in). Seeded demo data until AUTH-2 talks to DNACloudDBBG.
+/// <c>BusinessGroupUsers</c> stand-in). Seeded demo data; SQL bind is <c>TenantSql</c> config.
 /// </summary>
 public interface ITenantCatalog : IBusinessGroupCatalog
 {

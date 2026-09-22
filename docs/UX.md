@@ -11,7 +11,7 @@ dotnet restore Hitshcm.sln
 dotnet run --project src/Hitshcm.Web
 ```
 
-Open http://localhost:5080/ — anonymous users land on `/Account/Login`. Seed: `admin@hitshcm.local` / `ChangeMe!123`.
+Open http://localhost:3000/Account/Login. Seed: `admin@hitshcm.local` / `ChangeMe!123`.
 
 Culture: top-bar **EN** / **العربية** writes `Hitshcm.Culture` and sets `dir` + Bootstrap LTR/RTL stylesheet. Same pages, no `*_ar` forks.
 

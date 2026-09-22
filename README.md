@@ -8,6 +8,15 @@ Brownfield HCM modernization (strangler + API-first). Architecture docs on `main
 
 Requires **.NET 10 SDK** (LTS).
 
+On your Windows PC:
+
+```powershell
+cd C:\Users\mina\Projects\HITSHCM
+dotnet run --project src/Hitshcm.Web
+```
+
+Chrome opens **http://localhost:3000/Account/Login**. Same as yesterday — no worker, no HTTPS cert.
+
 ```bash
 dotnet --list-sdks   # expect 10.x
 dotnet restore Hitshcm.sln
@@ -17,12 +26,14 @@ dotnet run --project src/Hitshcm.Web
 
 | URL | Who |
 |-----|-----|
-| http://localhost:5080/ | Authenticated landing (anonymous users redirect to login) |
-| http://localhost:5080/Account/Login | Password login (orchestrator) |
-| http://localhost:5080/Account/ChangePassword | Forced after CheckURules-shaped `003` |
-| http://localhost:5080/Account/FirstLogon | First-logon ack placeholder |
-| http://localhost:5080/Account/Logout | Clears the HttpOnly cookie |
-| http://localhost:5080/.well-known/openid-configuration | OpenIddict discovery |
+| http://localhost:3000/ | Authenticated landing (anonymous users redirect to login) |
+| http://localhost:3000/Account/Login | Password login (orchestrator) |
+| http://localhost:3000/Account/ChangePassword | Forced after CheckURules-shaped `003` |
+| http://localhost:3000/Account/FirstLogon | First-logon ack placeholder |
+| http://localhost:3000/Account/Logout | Clears the HttpOnly cookie |
+| http://localhost:3000/.well-known/openid-configuration | OpenIddict discovery |
+
+Optional HTTPS: `dotnet run --project src/Hitshcm.Web --launch-profile https`.
 
 **Seeded Development user** (created on first run; change in any shared environment):
 
@@ -48,7 +59,7 @@ Language: top-bar **EN** / **العربية** segmented control sets `Hitshcm.Cu
 | Lock | What this host does |
 |------|---------------------|
 | **D-013** | OpenIddict local OIDC IdP + BFF cookie `Hitshcm.Auth` (HttpOnly). No JWT in `localStorage`. Entra is **not** wired yet. |
-| **D-013a** | Tenant from `org_id` / `bg_id` claims (`ITenantContext`). `ITenantConnectionFactory` returns a named-options descriptor. Never a connection string in the identity name. |
+| **D-013a** | Tenant from `org_id` / `bg_id` claims (`ITenantContext`). `ITenantConnectionFactory` builds CURRENT `build_connectionString` server-side. Never a connection string in the identity name. |
 | **D-013b** | No InProc Session for business state. Mode A Agenda bridge is out of scope. |
 
 Full flow: [`docs/AUTH.md`](docs/AUTH.md). CURRENT logon study: [`docs/architecture/current-login-flow.md`](docs/architecture/current-login-flow.md). TARGET session spec: [`docs/architecture/target-session.md`](docs/architecture/target-session.md).

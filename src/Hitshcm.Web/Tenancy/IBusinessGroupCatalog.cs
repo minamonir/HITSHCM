@@ -1,6 +1,6 @@
 namespace Hitshcm.Web.Tenancy;
 
-/// <summary>Login picker source for org/BG claims. AUTH-2 will replace the seed list with a SQL/Key Vault map.</summary>
+/// <summary>Login picker source for org/BG claims. Seed list until DNACloudDBBG is wired; SQL bind is <c>TenantSql</c> config.</summary>
 public interface IBusinessGroupCatalog
 {
     IReadOnlyList<BusinessGroupInfo> List();
